@@ -9,6 +9,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { Toaster } from '@/components/ui/sonner'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { StructuredData } from '@/components/structured-data'
 import { cn } from '@/lib/utils'
 import { metadata as siteMetadata } from './metadata'
 import './globals.css'
@@ -33,6 +34,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className='w-full'>
+        <StructuredData />
         <ViewTransitions>
           <ThemeProvider
             attribute='class'
@@ -42,7 +44,9 @@ export default function RootLayout({
             <TooltipProvider>
               <Header />
               <ClientLayout>
-                {children}
+                <main id="main-content">
+                  {children}
+                </main>
                 <Footer />
               </ClientLayout>
             </TooltipProvider>

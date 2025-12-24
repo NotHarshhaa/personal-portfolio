@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
 import { ModeToggle } from './mode-toggle'
+import { SocialShare } from './social-share'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { navLinks } from '@/constants'
@@ -86,8 +87,17 @@ export function Header() {
             </nav>
           </div>
 
-          {/* Right: Theme Toggle */}
-          <div className="ml-auto">
+          {/* Right: Theme Toggle & Share */}
+          <div className="ml-auto flex items-center gap-2">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <SocialShare
+                title="Harshhaa Vardhan Reddy - DevOps Engineer Portfolio"
+                description="DevOps Engineer focused on automation, scalability, and cloud infrastructure. Check out my projects and experience!"
+              />
+            </motion.div>
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
