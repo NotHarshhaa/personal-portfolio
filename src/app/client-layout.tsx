@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { ScrollToTop } from '@/components/scroll-to-top'
-import { KeyboardShortcuts } from '@/components/keyboard-shortcuts'
 import { SkipToContent } from '@/components/skip-to-content'
 import { ReadingProgress } from '@/components/reading-progress'
 
@@ -21,7 +20,6 @@ export function ClientLayout({ children }: { children: ReactNode }) {
     <>
       <SkipToContent />
       <ReadingProgress />
-      <KeyboardShortcuts />
       <AnimatePresence mode='wait'>
         {mounted && (
           <motion.div
