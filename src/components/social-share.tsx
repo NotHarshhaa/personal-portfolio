@@ -6,10 +6,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from './ui/dropdown-menu'
 import { toast } from 'sonner'
-import { CopyToClipboard } from './copy-to-clipboard'
+import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 interface SocialShareProps {
   title?: string
@@ -18,6 +20,14 @@ interface SocialShareProps {
 }
 
 export function SocialShare({ title, description, url }: SocialShareProps) {
+  const [hasNativeShare, setHasNativeShare] = useState(false)
+  
+  useEffect(() => {
+    setHasNativeShare(
+      typeof navigator !== 'undefined' && 'share' in navigator
+    )
+  }, [])
+
   const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '')
   const shareTitle = title || 'Check out this portfolio!'
   const shareDescription = description || 'Amazing DevOps portfolio'
@@ -69,32 +79,89 @@ export function SocialShare({ title, description, url }: SocialShareProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" aria-label="Share">
-          <Share2 className="h-4 w-4" />
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Share portfolio"
+          className="size-9 hover:bg-primary/10 hover:text-primary transition-all duration-300"
+        >
+          <Share2 className="h-[1.5rem] w-[1.5rem] stroke-[1.5]" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        {navigator.share && (
-          <DropdownMenuItem onClick={handleNativeShare}>
-            <Share2 className="mr-2 h-4 w-4" />
-            Share via...
-          </DropdownMenuItem>
+      <DropdownMenuContent
+        align="end"
+        className={cn(
+          'w-56 rounded-xl border border-border/50',
+          'bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl',
+          'shadow-lg p-2',
+          'animate-in fade-in-0 zoom-in-95'
         )}
-        <DropdownMenuItem onClick={shareToTwitter}>
-          <Twitter className="mr-2 h-4 w-4" />
-          Share on Twitter
+      >
+        {hasNativeShare && (
+          <>
+            <DropdownMenuItem
+              onClick={handleNativeShare}
+              className={cn(
+                'rounded-lg px-3 py-2.5 cursor-pointer',
+                'hover:bg-primary/10 hover:text-primary',
+                'transition-colors duration-200',
+                'focus:bg-primary/10 focus:text-primary'
+              )}
+            >
+              <Share2 className="mr-3 h-4 w-4" />
+              <span className="font-medium">Share via...</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator className="my-2 bg-border/50" />
+          </>
+        )}
+        <DropdownMenuItem
+          onClick={shareToTwitter}
+          className={cn(
+            'rounded-lg px-3 py-2.5 cursor-pointer',
+            'hover:bg-primary/10 hover:text-primary',
+            'transition-colors duration-200',
+            'focus:bg-primary/10 focus:text-primary'
+          )}
+        >
+          <Twitter className="mr-3 h-4 w-4" />
+          <span className="font-medium">Share on Twitter</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={shareToLinkedIn}>
-          <Linkedin className="mr-2 h-4 w-4" />
-          Share on LinkedIn
+        <DropdownMenuItem
+          onClick={shareToLinkedIn}
+          className={cn(
+            'rounded-lg px-3 py-2.5 cursor-pointer',
+            'hover:bg-primary/10 hover:text-primary',
+            'transition-colors duration-200',
+            'focus:bg-primary/10 focus:text-primary'
+          )}
+        >
+          <Linkedin className="mr-3 h-4 w-4" />
+          <span className="font-medium">Share on LinkedIn</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={shareViaEmail}>
-          <Mail className="mr-2 h-4 w-4" />
-          Share via Email
+        <DropdownMenuItem
+          onClick={shareViaEmail}
+          className={cn(
+            'rounded-lg px-3 py-2.5 cursor-pointer',
+            'hover:bg-primary/10 hover:text-primary',
+            'transition-colors duration-200',
+            'focus:bg-primary/10 focus:text-primary'
+          )}
+        >
+          <Mail className="mr-3 h-4 w-4" />
+          <span className="font-medium">Share via Email</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleCopy}>
-          <LinkIcon className="mr-2 h-4 w-4" />
-          Copy Link
+        <DropdownMenuSeparator className="my-2 bg-border/50" />
+        <DropdownMenuItem
+          onClick={handleCopy}
+          className={cn(
+            'rounded-lg px-3 py-2.5 cursor-pointer',
+            'hover:bg-primary/10 hover:text-primary',
+            'transition-colors duration-200',
+            'focus:bg-primary/10 focus:text-primary'
+          )}
+        >
+          <LinkIcon className="mr-3 h-4 w-4" />
+          <span className="font-medium">Copy Link</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
