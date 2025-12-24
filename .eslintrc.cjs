@@ -2,11 +2,9 @@ module.exports = {
   root: true,
   env: { browser: true, es2021: true, node: true },
   extends: [
-    'standard-with-typescript',
     'next/core-web-vitals',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended-type-checked',
-    'plugin:@typescript-eslint/stylistic-type-checked',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime'
@@ -16,7 +14,8 @@ module.exports = {
     '.eslintrc.cjs',
     'next-env.d.ts',
     'tsconfig.json',
-    'next.config.mjs'
+    'next.config.mjs',
+    'node_modules'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -27,10 +26,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/indent': 'off',
     '@next/next/no-head-element': 'off',
-    'multiline-ternary': 'off',
-    '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/strict-boolean-expressions': 'off',
     'react-refresh/only-export-components': 'off',
     'react/prop-types': 'off',
     'react/jsx-no-target-blank': [2, { allowReferrer: false }]

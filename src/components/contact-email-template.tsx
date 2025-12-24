@@ -11,7 +11,7 @@ export function ContactEmailTemplate({
       <header className='bg-neutral-100 dark:bg-neutral-800 px-6 py-4 flex items-center justify-between'>
         <div className='flex items-center gap-2'>
           <span className='text-lg font-semibold'>
-            Portfolio | Emanuel Peire
+            Portfolio | HARSHHAA
           </span>
         </div>
       </header>

@@ -4,44 +4,83 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Loader2 } from 'lucide-react'
+import { getFormSchema, type FormValues } from '@/lib/validation'
 
 export function ContactForm() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormValues>({
     firstName: '',
     lastName: '',
     email: '',
     message: '',
+    honeypot: ''
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [showErrors, setShowErrors] = useState(false)
+  const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({})
+
+  const schema = getFormSchema()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-    setShowErrors(false)
+    const { name, value } = e.target
+    setForm({ ...form, [name]: value })
+    // Clear error for this field when user starts typing
+    if (errors[name as keyof FormValues]) {
+      setErrors({ ...errors, [name]: undefined })
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const { firstName, email, message } = form
+    // Honeypot check
+    if (form.honeypot) {
+      toast.error('Spam detected.')
+      return
+    }
 
-    if (!firstName || !email || !message) {
-      setShowErrors(true)
-      toast.error('Please fill in all required fields.')
+    // Validate form
+    const result = schema.safeParse(form)
+    
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof FormValues, string>> = {}
+      result.error.errors.forEach((error) => {
+        if (error.path[0]) {
+          fieldErrors[error.path[0] as keyof FormValues] = error.message
+        }
+      })
+      setErrors(fieldErrors)
+      toast.error('Please fix the errors in the form.')
       return
     }
 
     try {
       setIsSubmitting(true)
+      setErrors({})
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          message: form.message,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send message')
+      }
 
       toast.success('Message sent successfully!')
-      setForm({ firstName: '', lastName: '', email: '', message: '' })
+      setForm({ firstName: '', lastName: '', email: '', message: '', honeypot: '' })
     } catch (error) {
-      toast.error('Something went wrong. Please try again later.')
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again later.'
+      toast.error(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
@@ -94,17 +133,21 @@ export function ContactForm() {
               value={form.firstName}
               onChange={handleChange}
               placeholder="Your first name"
-              className={inputStyles}
+              className={`${inputStyles} ${errors.firstName ? 'border-red-500 focus:ring-red-500' : ''}`}
+              aria-invalid={!!errors.firstName}
+              aria-describedby={errors.firstName ? 'firstName-error' : undefined}
             />
             <AnimatePresence>
-              {showErrors && !form.firstName && (
+              {errors.firstName && (
                 <motion.p
+                  id="firstName-error"
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
                   className="text-sm text-red-500 mt-1.5"
+                  role="alert"
                 >
-                  First name is required
+                  {errors.firstName}
                 </motion.p>
               )}
             </AnimatePresence>
@@ -143,17 +186,21 @@ export function ContactForm() {
             value={form.email}
             onChange={handleChange}
             placeholder="you@example.com"
-            className={inputStyles}
+            className={`${inputStyles} ${errors.email ? 'border-red-500 focus:ring-red-500' : ''}`}
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? 'email-error' : undefined}
           />
           <AnimatePresence>
-            {showErrors && !form.email && (
+            {errors.email && (
               <motion.p
+                id="email-error"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 className="text-sm text-red-500 mt-1.5"
+                role="alert"
               >
-                Email is required
+                {errors.email}
               </motion.p>
             )}
           </AnimatePresence>
@@ -173,21 +220,37 @@ export function ContactForm() {
             onChange={handleChange}
             placeholder="Enter your message here..."
             rows={4}
-            className={inputStyles}
+            className={`${inputStyles} ${errors.message ? 'border-red-500 focus:ring-red-500' : ''}`}
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? 'message-error' : undefined}
           />
           <AnimatePresence>
-            {showErrors && !form.message && (
+            {errors.message && (
               <motion.p
+                id="message-error"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
                 className="text-sm text-red-500 mt-1.5"
+                role="alert"
               >
-                Message is required
+                {errors.message}
               </motion.p>
             )}
           </AnimatePresence>
         </motion.div>
+
+        {/* Honeypot field - hidden from users */}
+        <input
+          type="text"
+          name="honeypot"
+          value={form.honeypot}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+          style={{ position: 'absolute', left: '-9999px' }}
+          aria-hidden="true"
+        />
 
         <motion.button
           type="submit"
@@ -202,13 +265,13 @@ export function ContactForm() {
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Sending...
+              <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+              <span>Sending...</span>
             </>
           ) : (
             <>
-              <Send className="w-5 h-5" />
-              Send Message
+              <Send className="w-5 h-5" aria-hidden="true" />
+              <span>Send Message</span>
             </>
           )}
         </motion.button>

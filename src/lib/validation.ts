@@ -11,9 +11,13 @@ export const getFormSchema = () =>
       .regex(nameRegex, 'First name must contain only letters.'),
     lastName: z
       .string()
-      .min(2, 'Last name must be at least 2 characters.')
-      .max(50, 'Last name must be less than 50 characters.')
-      .regex(nameRegex, 'Last name must contain only letters.'),
+      .optional()
+      .refine(
+        (val) => !val || (val.length >= 2 && val.length <= 50 && nameRegex.test(val)),
+        {
+          message: 'Last name must be 2-50 characters and contain only letters.'
+        }
+      ),
     email: z
       .string()
       .email('Email must be a valid email address.')
