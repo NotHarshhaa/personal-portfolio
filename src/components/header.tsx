@@ -5,21 +5,32 @@ import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
 import { ModeToggle } from './mode-toggle'
 import { SocialShare } from './social-share'
+import { KeyboardShortcutsModal } from './keyboard-shortcuts-modal'
+import { KeyboardShortcuts } from './keyboard-shortcuts'
+import { Keyboard as KeyboardIcon } from 'lucide-react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { navLinks } from '@/constants'
 import { motion } from 'framer-motion'
+import { useState, useCallback } from 'react'
 
 export function Header() {
   const pathname = usePathname()
+  const [showShortcuts, setShowShortcuts] = useState(false)
+
+  const handleShowShortcuts = useCallback(() => {
+    setShowShortcuts(true)
+  }, [])
 
   return (
-    <motion.header 
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="fixed top-4 left-0 right-0 z-50 px-6 md:px-8"
-    >
+    <>
+      <KeyboardShortcuts onShowModal={handleShowShortcuts} />
+      <motion.header 
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="fixed top-4 left-0 right-0 z-50 px-6 md:px-8"
+      >
       <div className="mx-auto w-full max-w-7xl rounded-2xl bg-white/80 dark:bg-black/40 backdrop-blur-xl shadow-lg border border-border/50 px-6 py-4 transition-all duration-300 hover:shadow-xl hover:bg-white/90 dark:hover:bg-black/50">
         <div className="flex items-center justify-between">
           {/* Left: Logo + Nav */}
@@ -93,6 +104,21 @@ export function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowShortcuts(true)}
+                className="size-9 hover:bg-primary/10 hover:text-primary transition-all duration-300"
+                aria-label="Show keyboard shortcuts"
+                title="Keyboard shortcuts (?)"
+              >
+                <KeyboardIcon className="h-[1.5rem] w-[1.5rem] stroke-[1.5]" />
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <SocialShare
                 title="Harshhaa Vardhan Reddy - DevOps Engineer Portfolio"
                 description="DevOps Engineer focused on automation, scalability, and cloud infrastructure. Check out my projects and experience!"
@@ -156,5 +182,7 @@ export function Header() {
         </motion.nav>
       </div>
     </motion.header>
+    <KeyboardShortcutsModal isOpen={showShortcuts} onOpenChange={setShowShortcuts} />
+    </>
   )
 }

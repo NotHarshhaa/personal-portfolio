@@ -1,21 +1,23 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { toast } from 'sonner'
 
-interface Shortcut {
-  key: string
-  description: string
-  action: () => void
+interface KeyboardShortcutsProps {
+  onShowModal: () => void
 }
 
-export function KeyboardShortcuts() {
+export function KeyboardShortcuts({ onShowModal }: KeyboardShortcutsProps) {
   const router = useRouter()
   const pathname = usePathname()
+  const keysRef = useRef<string[]>([])
 
   useEffect(() => {
-    const shortcuts: Shortcut[] = [
+    const shortcuts: Array<{
+      key: string
+      description: string
+      action: () => void
+    }> = [
       {
         key: 'g h',
         description: 'Go to Home',
@@ -51,16 +53,9 @@ export function KeyboardShortcuts() {
       {
         key: '?',
         description: 'Show keyboard shortcuts',
-        action: () => {
-          toast.info('Keyboard Shortcuts', {
-            description: 'g+h: Home | g+p: Projects | g+c: Career | g+t: Contact | /: Search',
-            duration: 5000
-          })
-        }
+        action: () => onShowModal()
       }
     ]
-
-    let keys: string[] = []
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignore if user is typing in an input, textarea, or contenteditable
@@ -75,7 +70,7 @@ export function KeyboardShortcuts() {
 
       // Handle Escape key to clear
       if (e.key === 'Escape') {
-        keys = []
+        keysRef.current = []
         return
       }
 
@@ -90,12 +85,12 @@ export function KeyboardShortcuts() {
       }
 
       // Handle multi-key shortcuts (g + h, g + p, etc.)
-      if (e.key === 'g' && keys.length === 0) {
-        keys.push('g')
+      if (e.key === 'g' && keysRef.current.length === 0) {
+        keysRef.current.push('g')
         return
       }
 
-      if (keys.length === 1 && keys[0] === 'g') {
+      if (keysRef.current.length === 1 && keysRef.current[0] === 'g') {
         const secondKey = e.key.toLowerCase()
         const shortcutKey = `g ${secondKey}`
         const shortcut = shortcuts.find((s) => s.key === shortcutKey)
@@ -103,14 +98,14 @@ export function KeyboardShortcuts() {
         if (shortcut) {
           e.preventDefault()
           shortcut.action()
-          keys = []
+          keysRef.current = []
         } else {
-          keys = []
+          keysRef.current = []
         }
         return
       }
 
-      keys = []
+      keysRef.current = []
     }
 
     window.addEventListener('keydown', handleKeyDown)
@@ -118,7 +113,7 @@ export function KeyboardShortcuts() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [router, pathname])
+  }, [router, pathname, onShowModal])
 
   return null
 }
