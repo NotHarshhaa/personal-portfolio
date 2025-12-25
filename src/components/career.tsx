@@ -1,7 +1,7 @@
 'use client'
 
 import { CareerItem } from './career-item'
-import { FileTextIcon } from 'lucide-react'
+import { Briefcase } from 'lucide-react'
 import { data } from '@/constants'
 import { motion } from 'framer-motion'
 import { TypeAnimation } from 'react-type-animation'
@@ -14,38 +14,42 @@ export function Career() {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
-      className='relative w-full py-12 px-2 md:px-0 space-y-12 overflow-hidden'
+      className='relative w-full py-6 sm:py-12 px-2 sm:px-4 md:px-0 space-y-8 sm:space-y-12 overflow-hidden'
     >
-
-      {/* Header animation with typing effect */}
+      {/* Header - Compact and Modern */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className='flex gap-x-4 items-center justify-center md:justify-start mb-6'
+        className='flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center sm:justify-start'
       >
-        <FileTextIcon className='size-7 animate-pulse stroke-[1.5] text-primary' />
-        <TypeAnimation
-          sequence={['Career & Works', 5000, '']}
-          speed={50}
-          repeat={Infinity}
-          cursor={true}
-          wrapper='h2'
-          className='text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent drop-shadow'
-        />
+        <div className='flex items-center gap-3'>
+          <div className='p-2 sm:p-2.5 rounded-xl bg-primary/10 border border-primary/20'>
+            <Briefcase className='size-5 sm:size-6 stroke-[1.5] text-primary' />
+          </div>
+          <TypeAnimation
+            sequence={['Career & Experience', 5000, '']}
+            speed={50}
+            repeat={Infinity}
+            cursor={true}
+            wrapper='h2'
+            className='text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent'
+          />
+        </div>
       </motion.div>
 
-      <ol className='ml-[11.5px] flex flex-col gap-y-12'>
+      {/* Timeline */}
+      <ol className='ml-0 sm:ml-[11.5px] flex flex-col gap-y-6 sm:gap-y-10'>
         {career.map((item, index) => (
           <motion.li
             key={index}
-            className='ms-[30px]'
+            className='sm:ms-[30px] relative'
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true, amount: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
           >
-            <CareerItem {...item} />
+            <CareerItem {...item} index={index} />
           </motion.li>
         ))}
       </ol>
