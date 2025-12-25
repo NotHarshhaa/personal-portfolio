@@ -16,7 +16,7 @@ import { motion } from 'framer-motion'
 
 export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
   return (
-    <div className='flex flex-col gap-8'>
+    <div className='grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 max-w-7xl mx-auto'>
       {projects.map(({ title, description, tags, image, video, link }, idx) => (
         <motion.div
           key={title}
@@ -24,9 +24,9 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 * idx, duration: 0.6, ease: 'easeOut' }}
         >
-          <Card className='group flex flex-col border border-border/60 shadow-lg w-full max-w-4xl mx-auto rounded-2xl bg-white/80 dark:bg-neutral-950/80 backdrop-blur-xl hover:shadow-2xl hover:-translate-y-1 hover:border-primary/40 transition-all duration-300'>
-            <CardHeader className='flex flex-col space-y-2 p-6 pb-2'>
-              <CardTitle className='text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent flex items-center gap-2'>
+          <Card className='group flex flex-col h-full border border-border/50 w-full rounded-xl sm:rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl hover:-translate-y-1 hover:border-primary/40 transition-all duration-300'>
+            <CardHeader className='flex flex-col space-y-2 p-4 sm:p-6 pb-3'>
+              <CardTitle className='text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent flex items-center gap-2'>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     {link.preview ? (
@@ -34,10 +34,10 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
                         href={link.preview}
                         target='_blank'
                         rel='noreferrer'
-                        className='inline-flex items-center group gap-2 transition-all duration-300 hover:scale-[1.03] hover:underline underline-offset-4'
+                        className='inline-flex items-center group gap-1.5 sm:gap-2 transition-all duration-300 hover:scale-[1.02] hover:underline underline-offset-4'
                       >
-                        <span className="group-hover:text-primary dark:group-hover:text-primary transition-colors">{title}</span>
-                        <ArrowUpRightIcon className='size-5 text-primary/70 group-hover:text-primary' />
+                        <span className="group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-1">{title}</span>
+                        <ArrowUpRightIcon className='size-4 sm:size-5 text-primary/70 group-hover:text-primary flex-shrink-0' />
                       </a>
                     ) : (
                       link.github && (
@@ -45,10 +45,10 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
                           href={link.github}
                           target='_blank'
                           rel='noreferrer'
-                          className='inline-flex items-center group gap-2 hover:underline underline-offset-4'
+                          className='inline-flex items-center group gap-1.5 sm:gap-2 hover:underline underline-offset-4'
                         >
-                          <span className="group-hover:text-primary dark:group-hover:text-primary transition-colors">{title}</span>
-                          <ArrowUpRightIcon className='size-5 text-primary/70 group-hover:text-primary' />
+                          <span className="group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-1">{title}</span>
+                          <ArrowUpRightIcon className='size-4 sm:size-5 text-primary/70 group-hover:text-primary flex-shrink-0' />
                         </a>
                       )
                     )}
@@ -84,59 +84,59 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
                 </Tooltip>
               </CardTitle>
 
-              <CardDescription className='font-mono dark:text-neutral-400 text-neutral-700 text-base mt-1'>
+              <CardDescription className='text-xs sm:text-sm dark:text-neutral-400 text-neutral-700 leading-relaxed line-clamp-2'>
                 {description}
               </CardDescription>
             </CardHeader>
 
-            <CardContent className='flex flex-col space-y-6 p-6 pt-0'>
-              <div className='flex flex-wrap gap-2'>
+            <CardContent className='flex flex-col space-y-4 sm:space-y-5 p-4 sm:p-6 pt-0 mt-auto'>
+              <div className='flex flex-wrap gap-1.5 sm:gap-2'>
                 {tags.map((tag) => (
                   <Badge
-                    className='px-3 py-1 gap-1 rounded-full shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md dark:hover:bg-primary/10 hover:bg-primary/10 cursor-pointer border border-primary/20 bg-white/80 dark:bg-neutral-900/60 text-primary font-semibold text-xs'
+                    className='px-2 sm:px-3 py-1 gap-1 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-primary/15 cursor-pointer border border-primary/20 bg-primary/5 text-primary font-medium text-xs'
                     variant='secondary'
                     key={tag.name}
                   >
-                    <tag.icon className='size-4' />
+                    <tag.icon className='size-3 sm:size-3.5' />
                     <span>{tag.name}</span>
                   </Badge>
                 ))}
               </div>
 
-              <div className='flex gap-x-3'>
+              <div className='flex gap-2 sm:gap-3'>
                 {link.preview && (
                   <Button
-                    variant='default'
-                    size={null}
-                    className='px-4 py-2 rounded-lg shadow-md transition-all duration-300 bg-primary text-white dark:text-black hover:scale-105 hover:shadow-lg hover:bg-primary/90 dark:hover:bg-primary/80 font-semibold flex items-center gap-2'
+                    variant='outline'
+                    size='sm'
+                    className='flex-1 sm:flex-none h-9 px-3 sm:px-4 rounded-lg transition-all duration-300 bg-primary/5 border-primary/20 hover:bg-primary/10 hover:border-primary/40 font-medium'
                     asChild
                   >
                     <a
                       href={link.preview}
                       target='_blank'
                       rel='noreferrer'
-                      className='flex items-center gap-2'
+                      className='flex items-center gap-1.5 sm:gap-2'
                     >
-                      <LinkIcon className='size-4' />
-                      <span>Preview</span>
+                      <LinkIcon className='size-3.5 sm:size-4 text-primary' />
+                      <span className='text-primary text-xs sm:text-sm'>Preview</span>
                     </a>
                   </Button>
                 )}
                 {link.github && (
                   <Button
-                    variant='default'
-                    size={null}
-                    className='px-4 py-2 rounded-lg shadow-md transition-all duration-300 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-black hover:scale-105 hover:shadow-lg hover:bg-neutral-800 dark:hover:bg-neutral-200 font-semibold flex items-center gap-2'
+                    variant='outline'
+                    size='sm'
+                    className='flex-1 sm:flex-none h-9 px-3 sm:px-4 rounded-lg transition-all duration-300 bg-neutral-900/5 dark:bg-neutral-100/5 border-neutral-900/20 dark:border-neutral-100/20 hover:bg-neutral-900/10 dark:hover:bg-neutral-100/10 hover:border-neutral-900/40 dark:hover:border-neutral-100/40 font-medium'
                     asChild
                   >
                     <a
                       href={link.github}
                       target='_blank'
                       rel='noreferrer'
-                      className='flex items-center gap-2'
+                      className='flex items-center gap-1.5 sm:gap-2'
                     >
-                      <GitHubIcon className='size-4' />
-                      <span>GitHub</span>
+                      <GitHubIcon className='size-3.5 sm:size-4' />
+                      <span className='text-xs sm:text-sm'>GitHub</span>
                     </a>
                   </Button>
                 )}
