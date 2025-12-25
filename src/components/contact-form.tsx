@@ -86,8 +86,8 @@ export function ContactForm() {
     }
   }
 
-  const inputStyles = `w-full px-4 py-3 border border-neutral-200 dark:border-neutral-800 
-    rounded-xl bg-white/50 dark:bg-neutral-900/50 text-black dark:text-white 
+  const inputStyles = `w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base border border-neutral-200 dark:border-neutral-800 
+    rounded-lg bg-white/50 dark:bg-neutral-900/50 text-black dark:text-white 
     placeholder:text-neutral-400 dark:placeholder:text-neutral-500 
     transition-all duration-300 ease-in-out
     focus:ring-2 focus:ring-primary/50 focus:border-primary
@@ -103,28 +103,28 @@ export function ContactForm() {
     >
       <motion.form
         onSubmit={handleSubmit}
-        className="bg-white/80 dark:bg-black/40 backdrop-blur-xl border border-border/50 rounded-2xl shadow-lg p-8 space-y-6 transition-all duration-300 hover:shadow-xl"
+        className="bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl border border-border/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 transition-all duration-300"
       >
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-2">
+          <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-1.5 sm:mb-2">
             Get in Touch
           </h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
             Please fill out the form below and I'll get back to you as soon as possible.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <label className="block text-sm font-medium mb-2 text-neutral-700 dark:text-neutral-300">
+            <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 text-neutral-700 dark:text-neutral-300">
               First Name<span className="text-red-500 ml-1">*</span>
             </label>
             <input
@@ -158,7 +158,7 @@ export function ContactForm() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <label className="block text-sm font-medium mb-2 text-neutral-700 dark:text-neutral-300">
+            <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 text-neutral-700 dark:text-neutral-300">
               Last Name
             </label>
             <input
@@ -177,7 +177,7 @@ export function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <label className="block text-sm font-medium mb-2 text-neutral-700 dark:text-neutral-300">
+          <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 text-neutral-700 dark:text-neutral-300">
             Email<span className="text-red-500 ml-1">*</span>
           </label>
           <input
@@ -211,7 +211,7 @@ export function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <label className="block text-sm font-medium mb-2 text-neutral-700 dark:text-neutral-300">
+          <label className="block text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 text-neutral-700 dark:text-neutral-300">
             Message<span className="text-red-500 ml-1">*</span>
           </label>
           <textarea
@@ -257,20 +257,20 @@ export function ContactForm() {
           disabled={isSubmitting}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className={`w-full py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2
+          className={`w-full py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 flex items-center justify-center gap-2
             ${isSubmitting
               ? 'bg-neutral-200 dark:bg-neutral-800 cursor-not-allowed text-neutral-500 dark:text-neutral-400'
-              : 'bg-primary text-white dark:text-black hover:bg-primary/90 shadow-lg hover:shadow-primary/25 dark:hover:bg-primary/80'
+              : 'bg-primary text-white dark:text-black hover:bg-primary/90 dark:hover:bg-primary/80'
             }`}
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" />
+              <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" aria-hidden="true" />
               <span>Sending...</span>
             </>
           ) : (
             <>
-              <Send className="w-5 h-5" aria-hidden="true" />
+              <Send className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               <span>Send Message</span>
             </>
           )}
