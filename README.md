@@ -1,6 +1,6 @@
 # ✨ Personal Portfolio — Modern DevOps Engineer Portfolio
 
-![Portfolio Banner](https://imgur.com/J4YkCks.png)
+![Portfolio Banner](https://imgur.com/dOMs87v.png)
 
 A modern, performant, and beautifully designed personal portfolio showcasing my journey, skills, and projects in DevOps, cloud computing, and tech content creation. Built with cutting-edge web technologies and optimized for an exceptional user experience across all devices.
 
