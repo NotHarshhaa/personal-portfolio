@@ -110,7 +110,7 @@ export function Hero() {
 
               {/* Name and Status */}
               <div className="text-center space-y-3">
-                <div className="h-16 flex items-center justify-center">
+                <div className="h-10 sm:h-16 flex items-center justify-center">
                   <TypingText
                     text="Harshhaa Vardhan Reddy"
                     className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100"
