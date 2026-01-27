@@ -24,9 +24,28 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 * idx, duration: 0.6, ease: 'easeOut' }}
         >
-          <Card className='group flex flex-col h-full border border-border/50 w-full rounded-xl sm:rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-xl hover:-translate-y-1 hover:border-primary/40 transition-all duration-300'>
-            <CardHeader className='flex flex-col space-y-2 p-4 sm:p-6 pb-3'>
-              <CardTitle className='text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent flex items-center gap-2'>
+          <Card className='group flex flex-col h-full border-0 w-full rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative'>
+            {/* Card accent line */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-500 group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300" />
+            <CardHeader className='flex flex-col space-y-3 p-6 pb-4'>
+              {/* Project number indicator */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <span className="text-xs font-bold text-primary">{idx + 1}</span>
+                  </div>
+                  <div className="h-px flex-1 bg-gradient-to-r from-primary/20 to-transparent" />
+                </div>
+                <div className="flex items-center gap-1">
+                  {link.preview && (
+                    <div className="w-2 h-2 rounded-full bg-green-500" />
+                  )}
+                  {link.github && (
+                    <div className="w-2 h-2 rounded-full bg-blue-500" />
+                  )}
+                </div>
+              </div>
+              <CardTitle className='text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100 flex items-center gap-3 leading-tight'>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     {link.preview ? (
@@ -34,10 +53,10 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
                         href={link.preview}
                         target='_blank'
                         rel='noreferrer'
-                        className='inline-flex items-center group gap-1.5 sm:gap-2 transition-all duration-300 hover:scale-[1.02] hover:underline underline-offset-4'
+                        className='inline-flex items-center group gap-2 transition-all duration-300 hover:scale-105'
                       >
-                        <span className="group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-1">{title}</span>
-                        <ArrowUpRightIcon className='size-4 sm:size-5 text-primary/70 group-hover:text-primary flex-shrink-0' />
+                        <span className="text-neutral-700 dark:text-neutral-300 group-hover:text-primary transition-colors line-clamp-1 font-medium">{title}</span>
+                        <ArrowUpRightIcon className='size-5 text-neutral-400 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300' />
                       </a>
                     ) : (
                       link.github && (
@@ -45,10 +64,10 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
                           href={link.github}
                           target='_blank'
                           rel='noreferrer'
-                          className='inline-flex items-center group gap-1.5 sm:gap-2 hover:underline underline-offset-4'
+                          className='inline-flex items-center group gap-2 transition-all duration-300 hover:scale-105'
                         >
-                          <span className="group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-1">{title}</span>
-                          <ArrowUpRightIcon className='size-4 sm:size-5 text-primary/70 group-hover:text-primary flex-shrink-0' />
+                          <span className="text-neutral-700 dark:text-neutral-300 group-hover:text-primary transition-colors line-clamp-1 font-medium">{title}</span>
+                          <ArrowUpRightIcon className='size-5 text-neutral-400 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300' />
                         </a>
                       )
                     )}
@@ -84,61 +103,80 @@ export function ProjectCard({ projects }: { projects: ProjectProps[] }) {
                 </Tooltip>
               </CardTitle>
 
-              <CardDescription className='text-xs sm:text-sm dark:text-neutral-400 text-neutral-700 leading-relaxed line-clamp-2'>
+              <CardDescription className='text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed line-clamp-3 mt-2'>
                 {description}
               </CardDescription>
             </CardHeader>
 
-            <CardContent className='flex flex-col space-y-4 sm:space-y-5 p-4 sm:p-6 pt-0 mt-auto'>
-              <div className='flex flex-wrap gap-1.5 sm:gap-2'>
-                {tags.map((tag) => (
-                  <Badge
-                    className='px-2 sm:px-3 py-1 gap-1 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-primary/15 cursor-pointer border border-primary/20 bg-primary/5 text-primary font-medium text-xs'
-                    variant='secondary'
+            <CardContent className='flex flex-col space-y-5 p-6 pt-0 mt-auto'>
+              <div className='flex flex-wrap gap-2'>
+                {tags.map((tag, tagIndex) => (
+                  <motion.div
                     key={tag.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 * idx + tagIndex * 0.05, duration: 0.2 }}
+                    whileHover={{ scale: 1.05 }}
                   >
-                    <tag.icon className='size-3 sm:size-3.5' />
-                    <span>{tag.name}</span>
-                  </Badge>
+                    <Badge
+                      className='px-3 py-1.5 gap-2 rounded-full transition-all duration-200 border border-primary/20 bg-primary/5 hover:bg-primary/10 text-primary font-medium text-xs shadow-sm hover:shadow-md'
+                      variant='secondary'
+                    >
+                      <tag.icon className='size-3' />
+                      <span>{tag.name}</span>
+                    </Badge>
+                  </motion.div>
                 ))}
               </div>
 
-              <div className='flex gap-2 sm:gap-3'>
+              <div className='flex gap-3 pt-2 border-t border-neutral-100 dark:border-neutral-800'>
                 {link.preview && (
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='flex-1 sm:flex-none h-9 px-3 sm:px-4 rounded-lg transition-all duration-300 bg-primary/5 border-primary/20 hover:bg-primary/10 hover:border-primary/40 font-medium'
-                    asChild
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className='flex-1'
                   >
-                    <a
-                      href={link.preview}
-                      target='_blank'
-                      rel='noreferrer'
-                      className='flex items-center gap-1.5 sm:gap-2'
+                    <Button
+                      variant='default'
+                      size='sm'
+                      className='w-full h-10 rounded-xl bg-primary text-white hover:bg-primary/90 shadow-md hover:shadow-lg transition-all duration-200'
+                      asChild
                     >
-                      <LinkIcon className='size-3.5 sm:size-4 text-primary' />
-                      <span className='text-primary text-xs sm:text-sm'>Preview</span>
-                    </a>
-                  </Button>
+                      <a
+                        href={link.preview}
+                        target='_blank'
+                        rel='noreferrer'
+                        className='flex items-center justify-center gap-2'
+                      >
+                        <LinkIcon className='size-4' />
+                        <span className='font-medium'>Live Demo</span>
+                      </a>
+                    </Button>
+                  </motion.div>
                 )}
                 {link.github && (
-                  <Button
-                    variant='outline'
-                    size='sm'
-                    className='flex-1 sm:flex-none h-9 px-3 sm:px-4 rounded-lg transition-all duration-300 bg-neutral-900/5 dark:bg-neutral-100/5 border-neutral-900/20 dark:border-neutral-100/20 hover:bg-neutral-900/10 dark:hover:bg-neutral-100/10 hover:border-neutral-900/40 dark:hover:border-neutral-100/40 font-medium'
-                    asChild
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className='flex-1'
                   >
-                    <a
-                      href={link.github}
-                      target='_blank'
-                      rel='noreferrer'
-                      className='flex items-center gap-1.5 sm:gap-2'
+                    <Button
+                      variant='outline'
+                      size='sm'
+                      className='w-full h-10 rounded-xl border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700 shadow-sm hover:shadow-md transition-all duration-200'
+                      asChild
                     >
-                      <GitHubIcon className='size-3.5 sm:size-4' />
-                      <span className='text-xs sm:text-sm'>GitHub</span>
-                    </a>
-                  </Button>
+                      <a
+                        href={link.github}
+                        target='_blank'
+                        rel='noreferrer'
+                        className='flex items-center justify-center gap-2'
+                      >
+                        <GitHubIcon className='size-4' />
+                        <span className='font-medium'>Source Code</span>
+                      </a>
+                    </Button>
+                  </motion.div>
                 )}
               </div>
             </CardContent>

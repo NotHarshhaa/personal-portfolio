@@ -110,7 +110,7 @@ export function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent mb-1.5 sm:mb-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-primary mb-1.5 sm:mb-2">
             Get in Touch
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
@@ -257,7 +257,7 @@ export function ContactForm() {
           disabled={isSubmitting}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className={`w-full py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 flex items-center justify-center gap-2
+          className={`w-full py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 flex items-center justify-center gap-2
             ${isSubmitting
               ? 'bg-neutral-200 dark:bg-neutral-800 cursor-not-allowed text-neutral-500 dark:text-neutral-400'
               : 'bg-primary text-white dark:text-black hover:bg-primary/90 dark:hover:bg-primary/80'

@@ -116,7 +116,7 @@ export function Hero() {
               <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center">
                 <TypingText
                   text="Harshhaa Vardhan Reddy"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary text-center"
                 />
                 <Button
                   variant='default'
@@ -143,8 +143,8 @@ export function Hero() {
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="flex justify-center"
               >
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 backdrop-blur-sm">
-                  <span className="text-sm font-semibold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+                  <span className="text-sm font-semibold text-primary">
                     {about.title}
                   </span>
                 </div>
@@ -158,14 +158,10 @@ export function Hero() {
               transition={{ delay: 0.5, duration: 0.7 }}
               className="relative"
             >
-              <div className="relative backdrop-blur-xl bg-white/60 dark:bg-neutral-900/60 border border-white/20 dark:border-neutral-800/30 rounded-2xl p-6 sm:p-8 transition-all duration-300 overflow-hidden">
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-                <div className="relative z-10">
-                  <p className="text-base sm:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 font-medium">
-                    {cleanParagraph}
-                  </p>
-                </div>
+              <div className="relative bg-white/80 dark:bg-neutral-900/80 border border-border/50 rounded-xl p-6 sm:p-8 transition-all duration-200">
+                <p className="text-base sm:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300 font-medium">
+                  {cleanParagraph}
+                </p>
               </div>
             </motion.div>
 
@@ -186,7 +182,7 @@ export function Hero() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.65 + index * 0.05, duration: 0.3 }}
-                    className="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-primary/10 hover:bg-primary/20 border border-primary/20 text-primary backdrop-blur-sm transition-all duration-200 hover:scale-105 cursor-default"
+                    className="px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg bg-primary/10 border border-primary/20 text-primary transition-all duration-200 hover:bg-primary/20"
                   >
                     {skill}
                   </motion.span>
@@ -213,7 +209,7 @@ export function Hero() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="group relative overflow-hidden px-5 py-2.5 h-auto rounded-xl border border-primary/20 bg-white/70 dark:bg-neutral-900/60 backdrop-blur-sm hover:bg-primary/10 hover:border-primary/40 hover:scale-105 transition-all duration-300"
+                        className="group relative overflow-hidden px-5 py-2.5 h-auto rounded-xl border border-primary/20 bg-white/70 dark:bg-neutral-900/60 transition-all duration-300"
                         asChild
                       >
                         <a

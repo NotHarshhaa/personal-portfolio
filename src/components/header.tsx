@@ -52,6 +52,7 @@ export function Header() {
               <motion.div
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
+                className="flex items-center"
               >
                 <Image
                   src="/logo.svg"
@@ -61,13 +62,13 @@ export function Header() {
                   className="sm:w-9 sm:h-9 md:w-[36px] md:h-[36px] rounded-lg sm:rounded-xl shadow-md group-hover:shadow-lg transition-all duration-300"
                 />
               </motion.div>
-              <span className="font-bold text-base sm:text-lg md:text-xl bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">HARSHHAA</span>
+              <span className="font-bold text-base sm:text-lg md:text-xl text-primary leading-none">HARSHHAA</span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-1 lg:gap-2">
               {navLinks.map((link) => (
-                <div key={link.label} className="relative">
+                <div key={link.label} className="relative flex items-center">
                   {link.external ? (
                     <a
                       href={link.url}
@@ -77,7 +78,7 @@ export function Header() {
                       className="px-3 lg:px-4 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:text-primary relative group"
                     >
                       {link.title}
-                      <span className="absolute bottom-1.5 left-3 lg:left-4 right-3 lg:right-4 h-0.5 bg-primary transform origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                      <span className="absolute bottom-1.5 left-3 lg:left-4 right-3 lg:right-4 h-0.5 bg-primary transform origin-left scale-x-0 transition-transform duration-200 ease-out group-hover:scale-x-100" />
                     </a>
                   ) : (
                     <Link
@@ -94,7 +95,7 @@ export function Header() {
                       {link.title}
                       <span 
                         className={clsx(
-                          'absolute bottom-1.5 left-3 lg:left-4 right-3 lg:right-4 h-0.5 bg-primary transform origin-left transition-transform duration-300 ease-out',
+                          'absolute bottom-1.5 left-3 lg:left-4 right-3 lg:right-4 h-0.5 bg-primary transform origin-left transition-transform duration-200 ease-out',
                           {
                             'scale-x-100': pathname === link.url,
                             'scale-x-0 group-hover:scale-x-100': pathname !== link.url
@@ -112,7 +113,7 @@ export function Header() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="hidden sm:block"
+                className="hidden sm:block flex items-center"
               >
                 <Button
                   variant="ghost"
@@ -128,7 +129,7 @@ export function Header() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="hidden sm:block"
+                className="hidden sm:block flex items-center"
               >
                 <SocialShare
                   title="Harshhaa Vardhan Reddy - DevOps Engineer Portfolio"
@@ -138,6 +139,7 @@ export function Header() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="flex items-center"
               >
                 <ModeToggle />
               </motion.div>
