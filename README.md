@@ -72,128 +72,9 @@ A modern, performant, and beautifully designed personal portfolio showcasing my 
 - **Form Validation**: Client-side validation with Zod schema
 - **Toast Notifications**: User feedback for actions (Sonner)
 
-## 🛠️ Tech Stack
+---
 
-### Core
-- **[Next.js 14](https://nextjs.org/)** - React framework with App Router
-- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
-- **[React 18](https://react.dev/)** - UI library with latest features
-
-### Styling
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[Tailwind Merge](https://github.com/dcastil/tailwind-merge)** - Merge Tailwind classes
-- **[CVA](https://cva.style/)** - Class Variance Authority for component variants
-- **[Geist Font](https://vercel.com/font)** - Modern font family by Vercel
-
-### UI Components
-- **[Radix UI](https://www.radix-ui.com/)** - Unstyled, accessible components
-  - Avatar, Dropdown Menu, Label, Slot, Toast, Tooltip
-- **[shadcn/ui](https://ui.shadcn.com/)** - Beautiful component library
-- **[Lucide React](https://lucide.dev/)** - Beautiful icon library
-
-### Animation
-- **[Framer Motion](https://www.framer.com/motion/)** - Production-ready animation library
-- **[Typed.js](https://github.com/mattboldt/typed.js/)** - Typing animation
-- **[React Type Animation](https://github.com/maxeth/react-type-animation)** - Type animation component
-
-### Forms & Validation
-- **[React Hook Form](https://react-hook-form.com/)** - Performant form management
-- **[Zod](https://zod.dev/)** - TypeScript-first schema validation
-- **[@hookform/resolvers](https://github.com/react-hook-form/resolvers)** - Validation resolvers
-
-### Theming
-- **[next-themes](https://github.com/pacocoursey/next-themes)** - Theme management
-- **[next-view-transitions](https://github.com/shuding/next-view-transitions)** - View transitions API
-
-### Backend & API
-- **[Resend](https://resend.com/)** - Email API for contact form
-
-### Notifications
-- **[Sonner](https://sonner.emilkowal.ski/)** - Beautiful toast notifications
-
-### Analytics & Monitoring
-- **[Vercel Analytics](https://vercel.com/analytics)** - Web analytics
-- **[Vercel Speed Insights](https://vercel.com/docs/speed-insights)** - Performance monitoring
-
-### Development Tools
-- **[ESLint](https://eslint.org/)** - Code linting
-- **[Prettier](https://prettier.io/)** - Code formatting (via config)
-- **[@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)** - Bundle analysis
-- **[Autoprefixer](https://github.com/postcss/autoprefixer)** - CSS vendor prefixing
-- **[PostCSS](https://postcss.org/)** - CSS processing
-
-## 📦 Available Scripts
-
-```bash
-# Development
-npm run dev              # Start development server at localhost:3000
-
-# Production
-npm run build            # Build optimized production bundle
-npm run start            # Start production server
-
-# Code Quality
-npm run lint             # Run ESLint
-npm run lint:fix         # Fix ESLint issues automatically
-npm run type-check       # TypeScript type checking
-
-# Analysis & Formatting
-npm run analyze          # Analyze bundle size with visualization
-npm run format           # Format code with Prettier
-npm run format:check     # Check code formatting
-```
-
-## 🚀 Performance Optimizations
-
-### Core Web Vitals
-- **LCP (Largest Contentful Paint)**: Optimized with priority image loading
-- **FID (First Input Delay)**: Minimal JavaScript execution on initial load
-- **CLS (Cumulative Layout Shift)**: Reserved space for images and content
-
-### Bundle Optimization
-- **Tree Shaking**: Removes unused code
-- **Code Splitting**: Dynamic imports for route-based splitting
-- **Component Lazy Loading**: Suspense boundaries for heavy components
-- **Bundle Analysis**: Monitor and optimize bundle size
-
-### Image Optimization
-- **Next.js Image**: Automatic optimization and lazy loading
-- **Modern Formats**: AVIF and WebP with fallbacks
-- **Responsive Images**: Multiple sizes for different viewports
-- **Priority Loading**: Above-the-fold images load first
-
-### SEO & Metadata
-- **Structured Data**: JSON-LD for rich search results
-- **Open Graph**: Social media preview cards
-- **Sitemap**: Auto-generated XML sitemap
-- **Robots.txt**: Search engine crawler instructions
-- **Meta Tags**: Comprehensive meta information
-
-### Accessibility
-- **ARIA Labels**: Semantic HTML and ARIA attributes
-- **Keyboard Navigation**: Full keyboard support
-- **Focus Management**: Visible focus indicators
-- **Screen Reader Support**: Descriptive labels and alt text
-- **Color Contrast**: WCAG AA compliance
-
-### Performance Monitoring
-- **Real-time Analytics**: Track user interactions
-- **Core Web Vitals Tracking**: Monitor performance metrics
-- **Error Tracking**: Error boundaries and monitoring
-- **Speed Insights**: Performance bottleneck identification
-
-## 🎨 Design Features
-
-- **Glassmorphism**: Modern frosted glass aesthetic
-- **Gradient Text**: Eye-catching gradient effects on headings
-- **Micro-interactions**: Hover effects, scale transforms, and transitions
-- **Responsive Grid**: Adaptive layouts for all screen sizes
-- **Card Design**: Consistent card components with hover states
-- **Typography**: Geist font family for modern, readable text
-- **Color System**: Primary color theming with dark/light modes
-- **Spacing System**: Consistent spacing scale throughout
-
-## 🚦 Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm/yarn/pnpm
@@ -224,31 +105,7 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## 📁 Project Structure
-
-```
-├── src/
-│   ├── app/              # Next.js App Router pages
-│   │   ├── career/       # Career page
-│   │   ├── contact/      # Contact page
-│   │   ├── projects/     # Projects page
-│   │   └── layout.tsx    # Root layout
-│   ├── components/       # React components
-│   │   ├── ui/          # shadcn/ui components
-│   │   ├── header.tsx   # Navigation header
-│   │   ├── hero.tsx     # Hero/About section
-│   │   ├── career.tsx   # Career timeline
-│   │   ├── projects.tsx # Projects grid
-│   │   └── contact.tsx  # Contact form
-│   ├── constants/        # App constants and data
-│   ├── data/            # Static data (career, projects, etc.)
-│   ├── hook/            # Custom React hooks
-│   ├── lib/             # Utility functions
-│   ├── types/           # TypeScript types
-│   └── styles/          # Global styles
-├── public/              # Static assets
-└── package.json         # Dependencies and scripts
-```
+---
 
 ## 🔧 Configuration
 
@@ -256,6 +113,7 @@ npm run dev
 Create a `.env.local` file with:
 ```env
 RESEND_API_KEY=your_resend_api_key
+GITHUB_TOKEN=your_github_token
 ```
 
 ### Customization
