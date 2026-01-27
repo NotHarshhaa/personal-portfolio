@@ -88,7 +88,7 @@ export async function POST(request: Request) {
 
     // Send email
     const fullName = lastName ? `${firstName} ${lastName}` : firstName
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: 'Harshhaa Portfolio <noreply@notharshhaa.site>',
       to: 'harshhaa03@gmail.com',
       subject: `New message from ${fullName}`,

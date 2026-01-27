@@ -1,14 +1,15 @@
 'use client'
 
-import { useEffect, useState, useMemo, useCallback } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { Button } from './ui/button'
 import { data } from '../constants'
+import { type LinksProps } from '@/types'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 
-// Optimized Typing text effect with useCallback
+// Optimized Typing text effect
 type TypingTextProps = {
   text: string
   speed?: number
@@ -50,7 +51,7 @@ const TypingText = ({ text, speed = 80, className = '' }: TypingTextProps) => {
 }
 
 // Memoized social link component
-const SocialLink = ({ link, index }: { link: any; index: number }) => (
+const SocialLink = ({ link, index }: { link: LinksProps; index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}

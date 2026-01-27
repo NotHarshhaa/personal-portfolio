@@ -114,7 +114,7 @@ export function ContactForm() {
             Get in Touch
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-            Please fill out the form below and I'll get back to you as soon as possible.
+            Please fill out the form below and I&apos;ll get back to you as soon as possible.
           </p>
         </motion.div>
 

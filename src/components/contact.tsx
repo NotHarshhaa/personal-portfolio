@@ -80,7 +80,7 @@ export function Contact() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="flex items-center justify-center gap-2 text-xs sm:text-sm text-neutral-500 dark:text-neutral-400"
         >
-          <span>Let's create something amazing together</span>
+          <span>Let&apos;s create something amazing together</span>
           <ArrowRight className="size-3.5 sm:size-4" />
         </motion.div>
       </motion.div>

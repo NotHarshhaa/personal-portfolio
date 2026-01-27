@@ -24,7 +24,7 @@ export const performanceUtils = {
       new PerformanceObserver((entryList) => {
         let clsValue = 0
         for (const entry of entryList.getEntries()) {
-          const clsEntry = entry as any
+          const clsEntry = entry as PerformanceEntry & { value: number; hadRecentInput: boolean }
           if (!clsEntry.hadRecentInput) {
             clsValue += clsEntry.value
           }

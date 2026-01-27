@@ -49,7 +49,7 @@ export function Career() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <CareerItem {...item} index={index} />
+            <CareerItem {...item} />
           </motion.li>
         ))}
       </ol>

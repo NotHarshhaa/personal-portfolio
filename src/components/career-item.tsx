@@ -8,10 +8,9 @@ import { TypeAnimation } from 'react-type-animation'
 import { type CareerProps } from '@/types'
 
 interface CareerItemPropsWithIndex extends CareerProps {
-  index: number
 }
 
-export function CareerItem({ link, company, jobs, badges, index }: CareerItemPropsWithIndex) {
+export function CareerItem({ link, company, jobs, badges }: CareerItemPropsWithIndex) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}

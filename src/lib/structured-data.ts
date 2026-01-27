@@ -1,8 +1,6 @@
-import type { Metadata } from 'next'
-
 interface StructuredDataProps {
   type: 'Person' | 'WebSite' | 'Organization'
-  data: Record<string, any>
+  data: Record<string, unknown>
 }
 
 export function generateStructuredData({ type, data }: StructuredDataProps) {
