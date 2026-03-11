@@ -87,12 +87,9 @@ export function Hero() {
             <CardContent className="p-6 space-y-6">
               {/* Avatar */}
               <div className="flex justify-center">
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                  className="relative"
-                >
-                  <Avatar className="size-24 sm:size-32 border-4 border-white/50 dark:border-neutral-800/50">
+                <div className="relative">
+                  <div className="relative p-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 shadow-2xl">
+                    <Avatar className="size-32 sm:size-40 md:size-48 border-4 border-white/50 dark:border-neutral-800/50 bg-gradient-to-br from-primary/5 via-white/50 to-primary/10 dark:from-primary/10 dark:via-neutral-800/50 dark:to-primary/20">
                     <AvatarImage 
                       alt={`${avatar.name} - Portfolio Avatar`} 
                       src="/assets/avatar.png"
@@ -102,10 +99,11 @@ export function Hero() {
                       {avatar.initials}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-neutral-900 flex items-center justify-center">
+                  </div>
+                  <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white dark:border-neutral-900 flex items-center justify-center">
                     <span className="w-2 h-2 bg-white rounded-full"></span>
                   </div>
-                </motion.div>
+                </div>
               </div>
 
               {/* Name and Status */}
