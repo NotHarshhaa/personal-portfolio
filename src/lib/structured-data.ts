@@ -18,12 +18,13 @@ export function getPersonSchema() {
     type: 'Person',
     data: {
       name: 'Harshhaa Vardhan Reddy',
-      jobTitle: 'DevOps Engineer',
-      url: 'https://notharshhaa.site',
+      jobTitle: 'Platform Engineer',
+      url: 'https://harshhaareddy.site',
       sameAs: [
         'https://github.com/NotHarshhaa',
         'https://linkedin.com/in/harshhaa-vardhan-reddy',
-        'https://t.me/notharshhaa'
+        'https://t.me/prodevopsguy',
+        'https://blog.harshhaareddy.site'
       ],
       email: 'harshhaa03@gmail.com',
       address: {
@@ -32,15 +33,17 @@ export function getPersonSchema() {
         addressCountry: 'IN'
       },
       knowsAbout: [
+        'Platform Engineering',
+        'AI Infrastructure',
+        'Agentic Systems',
         'DevOps',
-        'Cloud Computing',
+        'MLOps',
+        'LLMOps',
+        'Model Context Protocol',
+        'Kubernetes',
         'AWS',
         'Azure',
-        'Kubernetes',
-        'Terraform',
-        'Docker',
-        'CI/CD',
-        'Infrastructure as Code'
+        'Internal Developer Platforms'
       ]
     }
   })
@@ -51,8 +54,9 @@ export function getWebSiteSchema() {
     type: 'WebSite',
     data: {
       name: 'HARSHHAA Portfolio',
-      url: 'https://notharshhaa.site',
-      description: 'DevOps Engineer focused on automation, scalability, and cloud infrastructure',
+      url: 'https://harshhaareddy.site',
+      description:
+        'Platform Engineer building cloud platforms, AI infrastructure, and agentic systems.',
       publisher: {
         '@type': 'Person',
         name: 'Harshhaa Vardhan Reddy'
@@ -66,8 +70,8 @@ export function getOrganizationSchema() {
     type: 'Organization',
     data: {
       name: 'HARSHHAA Portfolio',
-      url: 'https://notharshhaa.site',
-      logo: 'https://notharshhaa.site/logo.svg',
+      url: 'https://harshhaareddy.site',
+      logo: 'https://harshhaareddy.site/logo.svg',
       sameAs: [
         'https://github.com/NotHarshhaa',
         'https://linkedin.com/in/harshhaa-vardhan-reddy'
@@ -75,4 +79,3 @@ export function getOrganizationSchema() {
     }
   })
 }
-

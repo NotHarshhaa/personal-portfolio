@@ -1,381 +1,253 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
-import { Card, CardContent } from './ui/card'
-import { Badge } from './ui/badge'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Frame, FrameBody, FrameHeader } from './frame'
 import { data } from '../constants'
-import clsx from 'clsx'
-import { motion } from 'framer-motion'
-import { GithubIcon, MailIcon, GlobeIcon, CloudIcon, CpuIcon, PenToolIcon, BotIcon, BrainIcon, TrophyIcon, UsersIcon, BookOpenIcon, StarIcon } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
-// Typing text effect
-type TypingTextProps = {
-  text: string
-  speed?: number
-  className?: string
-}
-
-const TypingText = ({ text, speed = 80, className = '' }: TypingTextProps) => {
-  const [displayedText, setDisplayedText] = useState('')
-  const [cycle, setCycle] = useState(0)
-
-  useEffect(() => {
-    let currentIndex = 0
-    const interval = setInterval(() => {
-      setDisplayedText(text.slice(0, currentIndex + 1))
-      currentIndex++
-      if (currentIndex === text.length) {
-        clearInterval(interval)
-        setTimeout(() => {
-          setDisplayedText('')
-          setCycle((prev) => prev + 1)
-        }, 5000)
-      }
-    }, speed)
-
-    return () => clearInterval(interval)
-  }, [text, speed, cycle])
-
-  return (
-    <h1
-      className={clsx(
-        'text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight leading-snug break-words',
-        className
-      )}
-    >
-      {displayedText}
-      <span className="animate-pulse">|</span>
-    </h1>
-  )
-}
-
-export default TypingText
-
-// Hero section
 export function Hero() {
-  const { avatar, about, links } = data
+  const {
+    avatar,
+    about,
+    links,
+    specialties,
+    techStack,
+    currentFocus,
+    expertise,
+    featuredProjects,
+    learningHub
+  } = data
 
-  const cleanParagraph = about.description
+  const aboutParagraphs = about.description
     .split('\n')
+    .map((line) => line.trim())
     .filter(Boolean)
-    .map((line) => line.replace(/^[-•]\s*/, ''))
-    .join(' ')
 
-  // Extract key technologies/skills from description
-  const skills = ['AWS', 'Azure', 'Terraform', 'Kubernetes', 'Docker', 'DevOps', 'Cloud Infrastructure']
+  const primaryLinks = links.filter((l) =>
+    ['GitHub', 'LinkedIn', 'Blog', 'Telegram', 'Resume'].includes(l.title)
+  )
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
-      className="relative w-full py-6 sm:py-12 px-2 sm:px-4 md:px-0 space-y-8 sm:space-y-12 overflow-hidden"
-    >
-      {/* Hero Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        {/* Profile Card */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="lg:col-span-1 space-y-6"
-        >
-          <Card className="border-0 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-500" />
-            <CardContent className="p-6 space-y-6">
-              {/* Avatar */}
-              <div className="flex justify-center">
-                <div className="relative">
-                  <div className="relative p-1 rounded-full bg-gradient-to-r from-primary via-purple-500 to-pink-500 shadow-2xl">
-                    <Avatar className="size-32 sm:size-40 md:size-48 border-4 border-white/50 dark:border-neutral-800/50 bg-gradient-to-br from-primary/5 via-white/50 to-primary/10 dark:from-primary/10 dark:via-neutral-800/50 dark:to-primary/20">
-                    <AvatarImage 
-                      alt={`${avatar.name} - Portfolio Avatar`} 
-                      src="/assets/avatar.png"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="font-mono font-bold text-2xl">
-                      {avatar.initials}
-                    </AvatarFallback>
-                  </Avatar>
-                  </div>
-                  <div className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white dark:border-neutral-900 flex items-center justify-center">
-                    <span className="w-2 h-2 bg-white rounded-full"></span>
-                  </div>
-                </div>
+      <section className="relative flex w-full flex-col gap-4 py-4 sm:gap-5 sm:py-6">
+      <Frame>
+          <FrameHeader label="Portfolio / Home">
+            <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
+              Platform
+            </span>
+          </FrameHeader>
+          <FrameBody className="space-y-8 py-10 sm:py-14 md:py-16">
+            <div className="flex items-center gap-4">
+              <Avatar className="size-14 rounded-none border border-border after:rounded-none sm:size-16">
+                <AvatarImage
+                  src="/assets/avatar.png"
+                  alt={avatar.name}
+                  className="rounded-none object-cover"
+                />
+                <AvatarFallback className="rounded-none bg-muted font-heading text-sm font-semibold tracking-wider">
+                  {avatar.initials}
+                </AvatarFallback>
+              </Avatar>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+                  Harshhaa Vardhan Reddy
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+                  {about.role}
+                </p>
               </div>
+            </div>
 
-              {/* Name and Status */}
-              <div className="text-center space-y-3">
-                <div className="h-10 sm:h-16 flex items-center justify-center">
-                  <TypingText
-                    text="Harshhaa Vardhan Reddy"
-                    className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100"
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <Badge className="bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800">
-                    Available for Work
-                  </Badge>
-                </div>
-                <div className="text-sm font-medium text-primary">
-                  {about.title}
-                </div>
-              </div>
+            <h1 className="max-w-4xl font-heading text-4xl leading-[1.05] font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
+              {about.headline}
+            </h1>
 
-              {/* Quick Stats */}
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="space-y-1">
-                  <div className="text-lg font-bold text-neutral-900 dark:text-neutral-100">4+</div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">Years</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg font-bold text-neutral-900 dark:text-neutral-100">50+</div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">Projects</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg font-bold text-neutral-900 dark:text-neutral-100">10+</div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">Clients</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+            <ul className="flex flex-wrap gap-x-3 gap-y-2">
+              {specialties.map((item) => (
+                <li
+                  key={item}
+                  className="border border-border px-2.5 py-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
 
-          {/* Achievements Card */}
-          <Card className="border-0 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-orange-500" />
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-yellow-500/10 flex items-center justify-center">
-                  <TrophyIcon className="size-5 text-yellow-500" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Achievements</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Community Impact</p>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                {/* GitHub Followers */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800">
-                  <GithubIcon className="size-4 text-neutral-700 dark:text-neutral-300" />
-                  <div className="flex-1">
-                    <div className="font-semibold text-neutral-900 dark:text-neutral-100">2.5K+ followers</div>
-                    <div className="text-xs text-neutral-600 dark:text-neutral-400">GitHub Community</div>
-                  </div>
-                </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button asChild>
+                <Link href="/projects">
+                  View work
+                  <ArrowUpRight className="size-3.5" />
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href="/contact">Contact</Link>
+              </Button>
+            </div>
+          </FrameBody>
+        </Frame>
 
-                {/* LinkedIn Followers */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800">
-                  <UsersIcon className="size-4 text-blue-600" />
-                  <div className="flex-1">
-                    <div className="font-semibold text-neutral-900 dark:text-neutral-100">3K+ followers</div>
-                    <div className="text-xs text-neutral-600 dark:text-neutral-400">LinkedIn Network</div>
-                  </div>
-                </div>
-
-                {/* Dev.to Followers */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800">
-                  <BookOpenIcon className="size-4 text-purple-600" />
-                  <div className="flex-1">
-                    <div className="font-semibold text-neutral-900 dark:text-neutral-100">13K+ followers</div>
-                    <div className="text-xs text-neutral-600 dark:text-neutral-400">Dev.to Community</div>
-                  </div>
-                </div>
-
-                {/* Dev.to Milestone */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800">
-                  <TrophyIcon className="size-4 text-purple-600" />
-                  <div className="flex-1">
-                    <div className="font-semibold text-neutral-900 dark:text-neutral-100">First DevOps Blogger</div>
-                    <div className="text-xs text-neutral-600 dark:text-neutral-400">1M+ reads in Dev Community</div>
-                  </div>
-                </div>
-
-                {/* GitHub Stars */}
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800">
-                  <StarIcon className="size-4 text-yellow-500" />
-                  <div className="flex-1">
-                    <div className="font-semibold text-neutral-900 dark:text-neutral-100">3.5K+ stars & 3.4K+ forks</div>
-                    <div className="text-xs text-neutral-600 dark:text-neutral-400">DevOps Projects GitHub</div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-        {/* Content Cards */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="lg:col-span-2 space-y-6"
-        >
-          {/* About Card */}
-          <Card className="border-0 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500" />
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                  <GlobeIcon className="size-5 text-blue-500" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">About Me</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Professional Overview</p>
-                </div>
-              </div>
-              <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-300">
-                {cleanParagraph}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Frame>
+          <FrameHeader label="About" />
+          <FrameBody className="space-y-4">
+            {aboutParagraphs.map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 24)}
+                className="text-sm leading-relaxed text-muted-foreground sm:text-base"
+              >
+                {paragraph}
               </p>
-            </CardContent>
-          </Card>
+            ))}
+          </FrameBody>
+        </Frame>
 
-          {/* Skills Card */}
-          <Card className="border-0 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500" />
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
-                  <GithubIcon className="size-5 text-purple-500" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Core Technologies</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Technical Expertise</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.65 + index * 0.05, duration: 0.3 }}
-                    whileHover={{ scale: 1.05 }}
+        <Frame>
+          <FrameHeader label="Elsewhere" />
+          <FrameBody className="py-5">
+            <ul className="flex flex-col gap-3">
+              {primaryLinks.map((link) => (
+                <li key={link.title}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm text-foreground transition-opacity hover:opacity-60"
                   >
-                    <Badge className="px-3 py-1.5 rounded-full bg-primary/10 text-primary font-medium text-xs border border-primary/20 hover:bg-primary/20 transition-colors">
-                      {skill}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Services Card */}
-          <Card className="border-0 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-500 to-orange-500" />
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center">
-                  <CpuIcon className="size-5 text-pink-500" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">What I Do</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Services & Expertise</p>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                {/* Cloud & DevOps Specialist */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <CloudIcon className="size-4 text-blue-500" />
-                    <span className="font-semibold text-neutral-900 dark:text-neutral-100">🌩️ Cloud & DevOps Specialist</span>
-                  </div>
-                  <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400 pl-6">
-                    <li>• Architecting scalable infrastructures</li>
-                    <li>• AWS, Azure, Kubernetes expert</li>
-                  </ul>
-                </div>
-
-                {/* Automation Enthusiast */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <BotIcon className="size-4 text-green-500" />
-                    <span className="font-semibold text-neutral-900 dark:text-neutral-100">🤖 Automation Enthusiast</span>
-                  </div>
-                  <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400 pl-6">
-                    <li>• CI/CD pipelines</li>
-                    <li>• Infrastructure as Code (IaC)</li>
-                  </ul>
-                </div>
-
-                {/* Content Creator */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <PenToolIcon className="size-4 text-purple-500" />
-                    <span className="font-semibold text-neutral-900 dark:text-neutral-100">📝 Content Creator</span>
-                  </div>
-                  <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400 pl-6">
-                    <li>• Technical blogs</li>
-                    <li>• DevOps tutorials</li>
-                    <li>• Open-source projects</li>
-                  </ul>
-                </div>
-
-                {/* MLOps Engineer */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <BrainIcon className="size-4 text-orange-500" />
-                    <span className="font-semibold text-neutral-900 dark:text-neutral-100">🧠 MLOps Engineer</span>
-                  </div>
-                  <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400 pl-6">
-                    <li>• ML pipeline automation</li>
-                    <li>• Model deployment & scaling</li>
-                    <li>• Kubernetes for ML workloads</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Connect Card */}
-          <Card className="border-0 rounded-2xl bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg hover:shadow-primary/10 transition-all duration-300 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500" />
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center">
-                  <MailIcon className="size-5 text-orange-500" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-neutral-900 dark:text-neutral-100">Let's Connect</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Get in Touch</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {links.map((link, index) => (
-                  <motion.div
-                    key={link.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.75 + index * 0.08, duration: 0.5 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="px-4 py-2 rounded-xl border-primary/20 bg-primary/5 hover:bg-primary/10 transition-all duration-300"
-                      asChild
-                    >
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        <link.icon className="size-4 text-primary" />
-                        <span className="text-sm font-medium text-primary">{link.title}</span>
-                      </a>
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                    {link.title}
+                    <ArrowUpRight className="size-3 opacity-50" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </FrameBody>
+        </Frame>
       </div>
-    </motion.section>
+
+      <Frame>
+        <FrameHeader label="Tech Stack" />
+        <FrameBody className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {techStack.map((group) => (
+            <div key={group.label} className="space-y-3">
+              <p className="text-[11px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+                {group.label}
+              </p>
+              <ul className="space-y-1.5">
+                {group.items.map((item) => (
+                  <li key={item} className="text-sm text-foreground/90">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </FrameBody>
+      </Frame>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Frame>
+          <FrameHeader label="Current Focus" />
+          <FrameBody>
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {currentFocus.map((item) => (
+                <li
+                  key={item}
+                  className="border-b border-border/70 py-2 text-sm text-muted-foreground last:border-b-0 sm:odd:pr-3 sm:even:pl-3"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </FrameBody>
+        </Frame>
+
+        <Frame>
+          <FrameHeader label="Areas of Expertise" />
+          <FrameBody>
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {expertise.map((item) => (
+                <li
+                  key={item}
+                  className="border-b border-border/70 py-2 text-sm text-muted-foreground last:border-b-0 sm:odd:pr-3 sm:even:pl-3"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </FrameBody>
+        </Frame>
+      </div>
+
+      <Frame>
+        <FrameHeader label="Featured Projects">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:text-foreground"
+          >
+            All projects
+            <ArrowUpRight className="size-3" />
+          </Link>
+        </FrameHeader>
+        <FrameBody className="grid gap-8 lg:grid-cols-2">
+          {featuredProjects.map((group) => (
+            <div key={group.category} className="space-y-4">
+              <p className="text-[11px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+                {group.category}
+              </p>
+              <ul className="divide-y divide-border border-y border-border">
+                {group.items.map((project) => (
+                  <li key={project.title}>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-start justify-between gap-4 py-3 transition-opacity hover:opacity-70"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium">{project.title}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                          {project.description}
+                        </p>
+                      </div>
+                      <ArrowUpRight className="mt-0.5 size-3.5 shrink-0 opacity-40" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </FrameBody>
+      </Frame>
+
+      <Frame>
+        <FrameHeader label="Learning Hub" />
+        <FrameBody>
+          <ul className="grid gap-0 sm:grid-cols-2 lg:grid-cols-3">
+            {learningHub.map((item) => (
+              <li
+                key={item.title}
+                className="border-border sm:odd:border-r lg:[&:nth-child(3n)]:border-r-0 lg:border-r"
+              >
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-full flex-col justify-between gap-2 border-b border-border px-0 py-4 transition-opacity hover:opacity-70 sm:px-4"
+                >
+                  <div>
+                    <p className="text-sm font-medium">{item.title}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {item.description}
+                    </p>
+                  </div>
+                  <ArrowUpRight className="size-3.5 opacity-40" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </FrameBody>
+      </Frame>
+    </section>
   )
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ViewTransitions } from 'next-view-transitions'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { Instrument_Sans } from 'next/font/google'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -16,6 +15,11 @@ import './globals.css'
 
 import { ClientLayout } from './client-layout'
 
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  variable: '--font-instrument-sans'
+})
+
 export const metadata: Metadata = siteMetadata
 
 export default function RootLayout({
@@ -25,28 +29,21 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang='en'
+      lang="en"
       className={cn(
-        'min-h-screen bg-background font-sans antialiased overflow-y-scroll',
-        GeistSans.variable,
-        GeistMono.variable
+        'min-h-screen font-sans antialiased overflow-y-scroll',
+        instrumentSans.variable
       )}
       suppressHydrationWarning
     >
-      <body className='w-full'>
+      <body className="w-full">
         <StructuredData />
         <ViewTransitions>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-          >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <TooltipProvider>
               <Header />
               <ClientLayout>
-                <main id="main-content">
-                  {children}
-                </main>
+                <main id="main-content">{children}</main>
                 <Footer />
               </ClientLayout>
             </TooltipProvider>

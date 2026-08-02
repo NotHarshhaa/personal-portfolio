@@ -9,11 +9,8 @@ const nextConfig = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: true
-  },
   experimental: {
-    optimizePackageImports: ['framer-motion', 'lucide-react']
+    optimizePackageImports: ['framer-motion'],
   },
   compress: true,
   poweredByHeader: false,

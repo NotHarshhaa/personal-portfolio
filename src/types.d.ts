@@ -4,6 +4,8 @@ export interface AvatarProps {
 }
 
 export interface AboutProps {
+  role: string
+  headline: string
   title: string
   description: string
 }
