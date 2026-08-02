@@ -2,30 +2,66 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Moon, Sun } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Monitor, Moon, Sun } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-export function ModeToggle() {
-  const { resolvedTheme, setTheme } = useTheme()
+const options = [
+  { value: 'light', label: 'Light', icon: Sun },
+  { value: 'system', label: 'System', icon: Monitor },
+  { value: 'dark', label: 'Dark', icon: Moon }
+] as const
+
+export function ModeToggle({ className }: { className?: string }) {
+  const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
-
-  const isDark = resolvedTheme === 'dark'
+  if (!mounted) {
+    return (
+      <div
+        className={cn(
+          'inline-flex h-9 w-[6.75rem] border border-transparent',
+          className
+        )}
+        aria-hidden
+      />
+    )
+  }
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label="Toggle theme"
+    <div
+      role="group"
+      aria-label="Theme"
+      className={cn(
+        'inline-flex h-9 items-stretch border border-border bg-background',
+        className
+      )}
     >
-      {isDark ? <Moon className="size-4" /> : <Sun className="size-4" />}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+      {options.map(({ value, label, icon: Icon }) => {
+        const active = theme === value
+        return (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setTheme(value)}
+            aria-label={`${label} theme`}
+            aria-pressed={active}
+            title={label}
+            className={cn(
+              'flex size-9 items-center justify-center transition-colors',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-inset',
+              active
+                ? 'bg-foreground text-background'
+                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+            )}
+          >
+            <Icon className="size-3.5" strokeWidth={2} />
+          </button>
+        )
+      })}
+    </div>
   )
 }
