@@ -3,6 +3,7 @@
 import { data } from '@/constants'
 import { ArrowUpRight } from 'lucide-react'
 import { Frame, FrameBody, FrameHeader } from './frame'
+import { HoverMark } from './hover-mark'
 
 export function Career() {
   const { career } = data
@@ -18,11 +19,14 @@ export function Career() {
         </FrameBody>
       </Frame>
 
-      <Frame className="overflow-hidden">
+      <Frame className="overflow-visible">
         <ul>
           {career.map((item, index) => (
-            <li
+            <HoverMark
+              as="li"
               key={item.company}
+              label={item.link ? 'Open link' : undefined}
+              disabled={!item.link}
               className={
                 index < career.length - 1 ? 'border-b border-border' : undefined
               }
@@ -34,7 +38,7 @@ export function Career() {
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-base font-medium transition-opacity hover:opacity-60"
+                      className="inline-flex items-center gap-1 text-base font-medium"
                     >
                       {item.company}
                       <ArrowUpRight className="size-3.5 opacity-40" />
@@ -70,7 +74,7 @@ export function Career() {
                   ))}
                 </div>
               </div>
-            </li>
+            </HoverMark>
           ))}
         </ul>
       </Frame>

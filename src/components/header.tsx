@@ -10,6 +10,7 @@ import { ChevronRight, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { navLinks } from '@/constants'
 import { useState, useCallback, useEffect } from 'react'
+import { HoverMark } from './hover-mark'
 
 function Corners() {
   return (
@@ -64,47 +65,49 @@ export function Header() {
       <KeyboardShortcuts onShowModal={handleShowShortcuts} />
       <header className="fixed top-0 right-0 left-0 z-50 bg-background/80 backdrop-blur-md">
         <div className="site-shell pt-3 sm:pt-4">
-          <div className="relative flex h-12 items-center justify-between border border-border bg-background/90 px-4 sm:h-14 sm:px-5">
+          <div className="relative flex h-12 items-center justify-between overflow-visible border border-border bg-background/90 px-4 sm:h-14 sm:px-5">
             <Corners />
             <Link
               href="/"
               aria-label="Home"
               onClick={closeMobileMenu}
-              className="text-sm font-semibold tracking-[0.18em] uppercase"
+              className="relative z-10 text-sm font-semibold tracking-[0.18em] uppercase"
             >
               Harshhaa
             </Link>
 
-            <nav className="hidden items-center gap-8 md:flex">
+            <nav className="hidden items-center gap-1 md:flex">
               {navLinks.map((link) =>
                 link.external ? (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium tracking-wide text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {link.title}
-                  </a>
+                  <HoverMark key={link.label} className="px-2.5 py-1.5">
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-medium tracking-wide text-muted-foreground transition-colors group-hover/mark:text-foreground"
+                    >
+                      {link.title}
+                    </a>
+                  </HoverMark>
                 ) : (
-                  <Link
-                    key={link.label}
-                    href={link.url}
-                    className={cn(
-                      'text-xs font-medium tracking-wide transition-colors',
-                      pathname === link.url
-                        ? 'text-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
-                    )}
-                  >
-                    {link.title}
-                  </Link>
+                  <HoverMark key={link.label} className="px-2.5 py-1.5">
+                    <Link
+                      href={link.url}
+                      className={cn(
+                        'text-xs font-medium tracking-wide transition-colors',
+                        pathname === link.url
+                          ? 'text-foreground'
+                          : 'text-muted-foreground group-hover/mark:text-foreground'
+                      )}
+                    >
+                      {link.title}
+                    </Link>
+                  </HoverMark>
                 )
               )}
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="relative z-10 flex items-center gap-2">
               <ModeToggle />
               <Button
                 variant="ghost"
@@ -125,7 +128,7 @@ export function Header() {
 
           {mobileMenuOpen && (
             <nav
-              className="relative -mt-px border border-t-0 border-border bg-background/95 md:hidden"
+              className="relative -mt-px overflow-visible border border-t-0 border-border bg-background/95 md:hidden"
               aria-label="Mobile"
             >
               <Corners />
@@ -137,16 +140,12 @@ export function Header() {
               <ul className="flex flex-col">
                 {navLinks.map((link, index) => {
                   const active = !link.external && pathname === link.url
-                  const itemClass = cn(
-                    'group flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm transition-colors',
-                    active
-                      ? 'bg-muted/50 text-foreground'
-                      : 'text-muted-foreground hover:bg-muted/30 hover:text-foreground'
-                  )
 
                   return (
-                    <li
+                    <HoverMark
+                      as="li"
                       key={link.label}
+                      label={link.external ? 'Open' : 'Go'}
                       className={
                         index < navLinks.length - 1
                           ? 'border-b border-border'
@@ -159,26 +158,31 @@ export function Header() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={closeMobileMenu}
-                          className={itemClass}
+                          className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm text-muted-foreground transition-colors group-hover/mark:text-foreground"
                         >
                           <span className="flex items-center gap-3">
-                            <span className="font-mono text-[10px] tabular-nums tracking-wider text-muted-foreground/60">
+                            <span className="font-mono text-[10px] tracking-wider text-muted-foreground/60 tabular-nums">
                               {String(index + 1).padStart(2, '0')}
                             </span>
                             {link.title}
                           </span>
-                          <ChevronRight className="size-3.5 shrink-0 opacity-40 transition-transform group-hover:translate-x-0.5" />
+                          <ChevronRight className="size-3.5 shrink-0 opacity-40 transition-transform group-hover/mark:translate-x-0.5" />
                         </a>
                       ) : (
                         <Link
                           href={link.url}
                           onClick={closeMobileMenu}
-                          className={itemClass}
+                          className={cn(
+                            'flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm transition-colors',
+                            active
+                              ? 'text-foreground'
+                              : 'text-muted-foreground group-hover/mark:text-foreground'
+                          )}
                         >
                           <span className="flex items-center gap-3">
                             <span
                               className={cn(
-                                'font-mono text-[10px] tabular-nums tracking-wider',
+                                'font-mono text-[10px] tracking-wider tabular-nums',
                                 active
                                   ? 'text-foreground'
                                   : 'text-muted-foreground/60'
@@ -190,13 +194,13 @@ export function Header() {
                           </span>
                           <ChevronRight
                             className={cn(
-                              'size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5',
+                              'size-3.5 shrink-0 transition-transform group-hover/mark:translate-x-0.5',
                               active ? 'opacity-70' : 'opacity-40'
                             )}
                           />
                         </Link>
                       )}
-                    </li>
+                    </HoverMark>
                   )
                 })}
               </ul>
