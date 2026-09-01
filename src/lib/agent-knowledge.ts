@@ -204,6 +204,32 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
     }
   }
 
+  // 9. Telemetry & Infrastructure Healthcheck
+  if (
+    q.includes('telemetry') ||
+    q.includes('health') ||
+    q.includes('status') ||
+    q.includes('uptime') ||
+    q.includes('operational') ||
+    q.includes('ping') ||
+    q.includes('latency')
+  ) {
+    return {
+      reply: `**Live Platform & Infrastructure Telemetry:**\n\n` +
+        `• **System Status**: All systems fully operational (100% healthy)\n` +
+        `• **Edge Routing**: Primary region BOM1 (Hyper-local CDN & Ingress)\n` +
+        `• **Runtime**: Next.js 16 with Turbopack Engine\n` +
+        `• **Security**: TLS 1.3 Strict HTTPS with auto-renewed certificates\n` +
+        `• **Services**: Edge Ingress, App Runtime, AI Portfolio Agent, and GitHub Telemetry Sync are all online.\n\n` +
+        `You can click the **[INSPECT]** button in the footer or the **\`● HEALTHY\`** beacon in the header to view real-time latency and cluster health.`,
+      suggestions: [
+        'What is Harshhaa\'s primary expertise?',
+        'Tell me about his AI Infrastructure work',
+        'What is his core tech stack?'
+      ]
+    }
+  }
+
   // Default fallback with helpful direction
   return {
     reply: `I understand you are asking about: *"${input}"*.\n\n` +

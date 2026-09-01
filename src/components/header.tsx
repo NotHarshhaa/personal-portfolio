@@ -13,6 +13,7 @@ import { navLinks } from '@/constants'
 import { useState, useCallback, useEffect } from 'react'
 import { HoverMark } from './hover-mark'
 import { CornerBadge } from './frame'
+import { TelemetryWidget } from './telemetry-widget'
 
 function Corners() {
   return (
@@ -125,6 +126,7 @@ export function Header() {
             </nav>
 
             <div className="relative z-10 flex items-center gap-2">
+              <TelemetryWidget variant="header" />
               <ModeToggle />
               <Button
                 variant="ghost"

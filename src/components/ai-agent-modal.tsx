@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { Bot, X, RotateCcw, Send, Sparkles } from 'lucide-react'
 import { Corners, CornerBadge, Frame } from './frame'
 import { Button } from './ui/button'
@@ -258,17 +259,17 @@ export function AIAgentModal() {
       )}
 
       {/* Floating Blueprint Chat Drawer */}
-      {isOpen && (
+      {isOpen && typeof document !== 'undefined' && createPortal(
         <>
           {/* Backdrop on mobile and tablet */}
           <div
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm sm:bg-background/40 sm:backdrop-blur-[2px]"
+            className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-sm sm:bg-background/40 sm:backdrop-blur-[2px]"
           />
 
           <div
             suppressHydrationWarning
-            className="fixed inset-x-2 bottom-2 sm:inset-x-auto sm:right-6 sm:bottom-6 z-50 w-auto sm:w-[420px] md:w-[460px] h-[calc(100dvh-1rem)] sm:h-[560px] max-h-[92dvh] sm:max-h-[85vh] flex flex-col"
+            className="fixed inset-x-2 bottom-2 sm:inset-x-auto sm:right-6 sm:bottom-6 z-[100] w-auto sm:w-[420px] md:w-[460px] h-[calc(100dvh-1rem)] sm:h-[560px] max-h-[92dvh] sm:max-h-[85vh] flex flex-col"
           >
             <Frame className="flex h-full flex-col overflow-hidden border border-border bg-background/95 shadow-2xl backdrop-blur-xl">
               {/* Header Bar */}
@@ -394,7 +395,8 @@ export function AIAgentModal() {
               </div>
             </Frame>
           </div>
-        </>
+        </>,
+        document.body
       )}
     </>
   )
