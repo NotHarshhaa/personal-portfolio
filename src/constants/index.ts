@@ -39,7 +39,7 @@ export const navLinks = [
   {
     title: 'Blog',
     label: 'blog',
-    url: 'https://blog.harshhaareddy.site',
+    url: 'https://blog.harshhaareddy.com',
     external: true
   },
   { title: 'Projects', label: 'projects', url: '/projects' },

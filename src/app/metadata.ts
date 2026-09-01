@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false
   },
-  metadataBase: new URL('https://harshhaareddy.site'),
+  metadataBase: new URL('https://harshhaareddy.com'),
   alternates: {
     canonical: '/'
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: 'Portfolio | HARSHHAA',
     description:
       'Platform Engineer building cloud platforms, AI infrastructure, and agentic systems.',
-    url: 'https://harshhaareddy.site',
+    url: 'https://harshhaareddy.com',
     siteName: 'HARSHHAA Portfolio',
     images: [
       {

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/_next/'],
     },
-    sitemap: 'https://notharshhaa.site/sitemap.xml',
+    sitemap: 'https://harshhaareddy.com/sitemap.xml',
   }
 }

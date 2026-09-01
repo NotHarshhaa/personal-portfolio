@@ -342,12 +342,12 @@ export const LINKS = [
   },
   {
     title: 'Blog',
-    url: 'https://blog.harshhaareddy.site',
+    url: 'https://blog.harshhaareddy.com',
     icon: LinkIcon
   },
   {
     title: 'Resume',
-    url: 'https://cv.notharshhaa.site',
+    url: 'https://cv.harshhaareddy.com',
     icon: FileTextIcon
   },
   {
@@ -357,7 +357,7 @@ export const LINKS = [
   },
   {
     title: 'Other Links',
-    url: 'https://link.notharshhaa.site',
+    url: 'https://link.harshhaareddy.com',
     icon: LinkIcon
   }
 ]

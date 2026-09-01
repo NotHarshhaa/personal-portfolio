@@ -8,7 +8,7 @@ A modern, performant, and beautifully designed personal portfolio showcasing my 
 
 ## 🔗 Live Website  
 
-👉 **[Visit my portfolio](https://notharshhaa.site)**
+👉 **[Visit my portfolio](https://harshhaareddy.com)**
 
 ---
 

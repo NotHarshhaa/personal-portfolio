@@ -16,10 +16,10 @@ export function Head({ metadata }: { metadata: Metadata }) {
         property='og:description'
         content={metadata.description?.toString()}
       />
-      <meta property='og:url' content='https://notharshhaa.site' />
+      <meta property='og:url' content='https://harshhaareddy.com' />
       <meta
         property='og:image'
-        content='https://notharshhaa.site/opengraph-image.png'
+        content='https://harshhaareddy.com/opengraph-image.png'
       />
       <meta property='og:image:width' content='1200' />
       <meta property='og:image:height' content='630' />
@@ -35,7 +35,7 @@ export function Head({ metadata }: { metadata: Metadata }) {
       />
       <meta
         name='twitter:image'
-        content='https://notharshhaa.site/opengraph-image.png'
+        content='https://harshhaareddy.com/opengraph-image.png'
       />
       <meta property='twitter:image:width' content='1200' />
       <meta property='twitter:image:height' content='630' />

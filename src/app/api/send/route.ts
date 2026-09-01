@@ -89,7 +89,7 @@ export async function POST(request: Request) {
     // Send email
     const fullName = lastName ? `${firstName} ${lastName}` : firstName
     const { error } = await resend.emails.send({
-      from: 'Harshhaa Portfolio <noreply@notharshhaa.site>',
+      from: 'Harshhaa Portfolio <noreply@harshhaareddy.com>',
       to: 'harshhaa03@gmail.com',
       subject: `New message from ${fullName}`,
       react: ContactEmailTemplate({

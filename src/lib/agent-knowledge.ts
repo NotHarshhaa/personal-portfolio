@@ -199,7 +199,7 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
         `• **LinkedIn**: [linkedin.com/in/harshhaa-vardhan-reddy](https://linkedin.com/in/harshhaa-vardhan-reddy)\n` +
         `• **GitHub**: [github.com/NotHarshhaa](https://github.com/NotHarshhaa)\n` +
         `• **Telegram**: [@prodevopsguy](https://t.me/prodevopsguy)\n` +
-        `• **Blog**: [blog.harshhaareddy.site](https://blog.harshhaareddy.site)\n\n` +
+        `• **Blog**: [blog.harshhaareddy.com](https://blog.harshhaareddy.com)\n\n` +
         `You can also send a direct message through the [Contact Form](/contact).`,
       suggestions: [
         'What is his primary expertise?',

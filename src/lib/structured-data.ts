@@ -19,12 +19,12 @@ export function getPersonSchema() {
     data: {
       name: 'Harshhaa Vardhan Reddy',
       jobTitle: 'Platform Engineer',
-      url: 'https://harshhaareddy.site',
+      url: 'https://harshhaareddy.com',
       sameAs: [
         'https://github.com/NotHarshhaa',
         'https://linkedin.com/in/harshhaa-vardhan-reddy',
         'https://t.me/prodevopsguy',
-        'https://blog.harshhaareddy.site'
+        'https://blog.harshhaareddy.com'
       ],
       email: 'harshhaa03@gmail.com',
       address: {
@@ -54,7 +54,7 @@ export function getWebSiteSchema() {
     type: 'WebSite',
     data: {
       name: 'HARSHHAA Portfolio',
-      url: 'https://harshhaareddy.site',
+      url: 'https://harshhaareddy.com',
       description:
         'Platform Engineer building cloud platforms, AI infrastructure, and agentic systems.',
       publisher: {
@@ -70,8 +70,8 @@ export function getOrganizationSchema() {
     type: 'Organization',
     data: {
       name: 'HARSHHAA Portfolio',
-      url: 'https://harshhaareddy.site',
-      logo: 'https://harshhaareddy.site/logo.svg',
+      url: 'https://harshhaareddy.com',
+      logo: 'https://harshhaareddy.com/logo.svg',
       sameAs: [
         'https://github.com/NotHarshhaa',
         'https://linkedin.com/in/harshhaa-vardhan-reddy'

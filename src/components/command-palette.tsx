@@ -341,11 +341,11 @@ export function CommandPalette() {
       {
         id: 'ext-blog',
         title: 'Engineering Blog',
-        description: 'blog.harshhaareddy.site',
+        description: 'blog.harshhaareddy.com',
         category: 'External',
         icon: Globe,
         action: () => {
-          window.open('https://blog.harshhaareddy.site', '_blank', 'noopener,noreferrer')
+          window.open('https://blog.harshhaareddy.com', '_blank', 'noopener,noreferrer')
         }
       },
       {
