@@ -23,7 +23,7 @@ export function ScrollToTop() {
   if (!isVisible) return null
 
   return (
-    <div className="fixed right-8 bottom-8 z-50">
+    <div className="fixed right-4 bottom-16 sm:right-6 sm:bottom-20 z-40">
       <Button
         onClick={scrollToTop}
         size="icon"
