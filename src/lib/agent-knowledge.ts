@@ -87,6 +87,23 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
     }
   }
 
+  // 3.5 System Architecture Blueprints
+  if (q.includes('architecture') || q.includes('diagram') || q.includes('blueprint')) {
+    return {
+      reply: `**Interactive System Architectures & Blueprints:**\n\n` +
+        `Harshhaa has architected three production systems featured on the portfolio:\n\n` +
+        `1. **Agentic AI & MCP Platform**: Multi-agent orchestration with Model Context Protocol (MCP) tool execution, vLLM inference, and Qdrant vector retrieval.\n` +
+        `2. **Kubernetes & GitOps IDP**: Automated delivery pipeline with GitHub Actions, ArgoCD controllers, Ingress routing, and HPA autoscaling.\n` +
+        `3. **Cloud Native IaC & DevSecOps**: Modular AWS infrastructure provisioned via Terraform with Vault secrets and OIDC IAM.\n\n` +
+        `Check out the interactive blueprint canvas with live traffic simulation on the [Home Page](/).`,
+      suggestions: [
+        'Tell me about his AI Infrastructure work',
+        'What is his core tech stack?',
+        'View his projects'
+      ]
+    }
+  }
+
   // 4. Tech Stack / Skills / Technologies
   if (
     q.includes('stack') ||

@@ -4,6 +4,7 @@ import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Frame, FrameBody, FrameHeader, CornerHeading, CornerBadge, Corners } from './frame'
+import { ArchitectureDiagrams } from './architecture-diagrams'
 import { data } from '../constants'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -185,6 +186,8 @@ export function Hero() {
           </FrameBody>
         </Frame>
       </div>
+
+      <ArchitectureDiagrams />
 
       <Frame>
         <FrameHeader label="Featured Projects">

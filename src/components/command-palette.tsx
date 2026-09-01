@@ -21,7 +21,8 @@ import {
   Check,
   CornerDownLeft,
   X,
-  Sparkles
+  Sparkles,
+  Layers
 } from 'lucide-react'
 import { Corners, CornerBadge, Frame } from './frame'
 
@@ -261,6 +262,17 @@ export function CommandPalette() {
       },
 
       // Platform Actions
+      {
+        id: 'act-architecture',
+        title: 'System Architecture Diagrams',
+        description: 'Explore interactive blueprints for AI, GitOps & Cloud',
+        category: 'Platform Actions',
+        icon: Layers,
+        action: () => {
+          setIsOpen(false)
+          router.push('/#architectures')
+        }
+      },
       {
         id: 'act-agent',
         title: 'Ask Harshhaa\'s Agent',
