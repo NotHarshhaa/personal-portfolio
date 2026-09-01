@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Frame, FrameBody, FrameHeader } from '@/components/frame'
+import { Frame, FrameBody, FrameHeader, CornerHeading } from '@/components/frame'
 
 export default function NotFound() {
   return (
@@ -10,9 +10,11 @@ export default function NotFound() {
       <Frame>
         <FrameHeader label="Error / 404" />
         <FrameBody className="py-12 sm:py-16">
-          <h1 className="font-heading mb-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Page not found
-          </h1>
+          <CornerHeading size="lg" className="mb-4 inline-block px-3 py-2 sm:px-4 sm:py-3">
+            <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-5xl">
+              Page not found
+            </h1>
+          </CornerHeading>
           <p className="mb-8 max-w-md text-muted-foreground">
             The page you&apos;re looking for doesn&apos;t exist or has been
             moved.

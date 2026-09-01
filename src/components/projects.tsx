@@ -5,7 +5,7 @@ import { Button } from './ui/button'
 import { ProjectCard } from './project-card'
 import { ProjectPagination } from './project-pagination'
 import { data } from '@/constants'
-import { Frame, FrameBody, FrameHeader } from './frame'
+import { Frame, FrameBody, FrameHeader, CornerHeading } from './frame'
 
 export function Projects() {
   const { projects } = data
@@ -17,10 +17,12 @@ export function Projects() {
     <section className="flex w-full flex-col gap-4 py-4 sm:py-6">
       <Frame>
         <FrameHeader label="Projects / Crafts" />
-        <FrameBody className="py-10 sm:py-12">
-          <h1 className="max-w-2xl font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-            Selected work and open-source crafts.
-          </h1>
+        <FrameBody className="py-8 sm:py-10">
+          <CornerHeading size="lg" className="w-fit max-w-3xl px-3 py-2 sm:px-4 sm:py-3">
+            <h1 className="font-heading text-2xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
+              Selected work and open-source crafts.
+            </h1>
+          </CornerHeading>
         </FrameBody>
       </Frame>
 

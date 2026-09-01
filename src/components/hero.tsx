@@ -3,7 +3,7 @@
 import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { Frame, FrameBody, FrameHeader } from './frame'
+import { Frame, FrameBody, FrameHeader, CornerHeading, CornerBadge, Corners } from './frame'
 import { data } from '../constants'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -39,16 +39,19 @@ export function Hero() {
           </FrameHeader>
           <FrameBody className="space-y-8 py-10 sm:py-14 md:py-16">
             <div className="flex items-center gap-4">
-              <Avatar className="size-14 rounded-none border border-border after:rounded-none sm:size-16">
-                <AvatarImage
-                  src="/assets/avatar.png"
-                  alt={avatar.name}
-                  className="rounded-none object-cover"
-                />
-                <AvatarFallback className="rounded-none bg-muted font-heading text-sm font-semibold tracking-wider">
-                  {avatar.initials}
-                </AvatarFallback>
-              </Avatar>
+              <div className="relative inline-flex p-1">
+                <Corners size="default" offset="none" weight="thin" light />
+                <Avatar className="size-14 rounded-none border border-border after:rounded-none sm:size-16">
+                  <AvatarImage
+                    src="/assets/avatar.png"
+                    alt={avatar.name}
+                    className="rounded-none object-cover"
+                  />
+                  <AvatarFallback className="rounded-none bg-muted font-heading text-sm font-semibold tracking-wider">
+                    {avatar.initials}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
               <div className="min-w-0">
                 <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
                   Harshhaa Vardhan Reddy
@@ -59,9 +62,11 @@ export function Hero() {
               </div>
             </div>
 
-            <h1 className="max-w-4xl font-heading text-4xl leading-[1.05] font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
-              {about.headline}
-            </h1>
+            <CornerHeading size="lg" className="w-fit max-w-4xl px-3 py-2 sm:px-4 sm:py-3">
+              <h1 className="font-heading text-3xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
+                {about.headline}
+              </h1>
+            </CornerHeading>
 
             <ul className="flex flex-wrap gap-x-3 gap-y-2">
               {specialties.map((item) => (
@@ -130,9 +135,11 @@ export function Hero() {
         <FrameBody className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {techStack.map((group) => (
             <div key={group.label} className="space-y-3">
-              <p className="text-[11px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                {group.label}
-              </p>
+              <div>
+                <CornerBadge className="text-[10px]">
+                  {group.label}
+                </CornerBadge>
+              </div>
               <ul className="space-y-1.5">
                 {group.items.map((item) => (
                   <li key={item} className="text-sm text-foreground/90">
@@ -192,9 +199,11 @@ export function Hero() {
         <FrameBody className="grid gap-8 lg:grid-cols-2">
           {featuredProjects.map((group) => (
             <div key={group.category} className="space-y-4">
-              <p className="text-[11px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                {group.category}
-              </p>
+              <div>
+                <CornerBadge className="text-[10px]">
+                  {group.category}
+                </CornerBadge>
+              </div>
               <ul className="divide-y divide-border border-y border-border">
                 {group.items.map((project) => (
                   <li key={project.title}>

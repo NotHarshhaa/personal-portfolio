@@ -3,7 +3,7 @@
 import { ContactForm } from '@/components/contact-form'
 import { data } from '@/constants'
 import { ArrowUpRight } from 'lucide-react'
-import { Frame, FrameBody, FrameHeader } from './frame'
+import { Frame, FrameBody, FrameHeader, CornerHeading } from './frame'
 
 export function Contact() {
   const { links } = data
@@ -15,10 +15,12 @@ export function Contact() {
     <section className="flex w-full flex-col gap-4 py-4 sm:py-6">
       <Frame>
         <FrameHeader label="Contact" />
-        <FrameBody className="py-10 sm:py-12">
-          <h1 className="max-w-2xl font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-            Let&apos;s build platforms and agentic systems.
-          </h1>
+        <FrameBody className="py-8 sm:py-10">
+          <CornerHeading size="lg" className="w-fit max-w-3xl px-3 py-2 sm:px-4 sm:py-3">
+            <h1 className="font-heading text-2xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
+              Let&apos;s build platforms and agentic systems.
+            </h1>
+          </CornerHeading>
           <p className="mt-4 max-w-xl text-base text-muted-foreground">
             Open to collaborations on cloud platforms, AI infrastructure, IDPs,
             and agentic AI systems.

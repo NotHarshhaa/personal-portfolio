@@ -2,7 +2,7 @@
 
 import { data } from '@/constants'
 import { ArrowUpRight } from 'lucide-react'
-import { Frame, FrameBody, FrameHeader } from './frame'
+import { Frame, FrameBody, FrameHeader, CornerHeading } from './frame'
 import { HoverMark } from './hover-mark'
 
 export function Career() {
@@ -12,10 +12,12 @@ export function Career() {
     <section className="flex w-full flex-col gap-4 py-4 sm:py-6">
       <Frame>
         <FrameHeader label="Career / Experience" />
-        <FrameBody className="py-10 sm:py-12">
-          <h1 className="max-w-2xl font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
-            Experience across platform engineering, cloud, and AI infrastructure.
-          </h1>
+        <FrameBody className="py-8 sm:py-10">
+          <CornerHeading size="lg" className="w-fit max-w-3xl px-3 py-2 sm:px-4 sm:py-3">
+            <h1 className="font-heading text-2xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
+              Experience across platform engineering, cloud, and AI infrastructure.
+            </h1>
+          </CornerHeading>
         </FrameBody>
       </Frame>
 
@@ -55,7 +57,13 @@ export function Career() {
                   {item.jobs.map((job, i) => (
                     <div key={i}>
                       <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                        <h2 className="text-base font-medium">{job.title}</h2>
+                        <CornerHeading
+                          as="h2"
+                          size="sm"
+                          className="w-fit px-2 py-0.5 text-base font-medium"
+                        >
+                          {job.title}
+                        </CornerHeading>
                         <p className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
                           {job.start} — {job.end}
                         </p>

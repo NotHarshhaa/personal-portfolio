@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
@@ -11,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { navLinks } from '@/constants'
 import { useState, useCallback, useEffect } from 'react'
 import { HoverMark } from './hover-mark'
+import { CornerBadge } from './frame'
 
 function Corners() {
   return (
@@ -58,6 +60,9 @@ export function Header() {
 
   useEffect(() => {
     setMobileMenuOpen(false)
+    if (typeof document !== 'undefined' && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
   }, [pathname])
 
   return (
@@ -71,9 +76,19 @@ export function Header() {
               href="/"
               aria-label="Home"
               onClick={closeMobileMenu}
-              className="relative z-10 text-sm font-semibold tracking-[0.18em] uppercase"
+              className="relative z-10 flex items-center gap-2 text-sm font-semibold tracking-[0.18em] uppercase transition-opacity hover:opacity-90"
             >
-              Harshhaa
+              <Image
+                src="/logo.svg"
+                alt="Logo"
+                width={24}
+                height={24}
+                priority
+                className="size-6 sm:size-7 object-contain"
+              />
+              <CornerBadge size="sm" className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs font-semibold tracking-[0.18em]">
+                Harshhaa
+              </CornerBadge>
             </Link>
 
             <nav className="hidden items-center gap-1 md:flex">
@@ -84,6 +99,7 @@ export function Header() {
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => (e.currentTarget as HTMLElement)?.blur()}
                       className="text-xs font-medium tracking-wide text-muted-foreground transition-colors group-hover/mark:text-foreground"
                     >
                       {link.title}
@@ -93,6 +109,7 @@ export function Header() {
                   <HoverMark key={link.label} className="px-2.5 py-1.5">
                     <Link
                       href={link.url}
+                      onClick={(e) => (e.currentTarget as HTMLElement)?.blur()}
                       className={cn(
                         'text-xs font-medium tracking-wide transition-colors',
                         pathname === link.url
