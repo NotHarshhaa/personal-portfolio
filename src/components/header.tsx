@@ -7,7 +7,7 @@ import { Button } from './ui/button'
 import { ModeToggle } from './mode-toggle'
 import { KeyboardShortcutsModal } from './keyboard-shortcuts-modal'
 import { KeyboardShortcuts } from './keyboard-shortcuts'
-import { ChevronRight, Menu, X } from 'lucide-react'
+import { ChevronRight, Menu, X, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { navLinks } from '@/constants'
 import { useState, useCallback, useEffect } from 'react'
@@ -126,7 +126,19 @@ export function Header() {
             </nav>
 
             <div className="relative z-10 flex items-center gap-2">
-              <TelemetryWidget variant="header" />
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+                title="Command Palette (⌘K / Ctrl+K)"
+                aria-label="Open Command Palette"
+                className="hidden md:flex items-center gap-1.5 px-2 py-1 text-[11px] font-mono text-muted-foreground border border-border/70 hover:border-foreground/40 hover:text-foreground transition-colors active:bg-muted/40"
+              >
+                <Search className="size-3 text-muted-foreground/70" />
+                <kbd className="text-[10px] font-semibold tracking-wider">⌘K</kbd>
+              </button>
+              <div className="hidden md:flex items-center">
+                <TelemetryWidget variant="header" />
+              </div>
               <ModeToggle />
               <Button
                 variant="ghost"
@@ -223,6 +235,40 @@ export function Header() {
                   )
                 })}
               </ul>
+
+              <div className="border-t border-border bg-muted/10 p-3">
+                <div className="flex flex-col gap-2">
+                  <div className="px-1 text-[10px] font-semibold tracking-[0.18em] text-muted-foreground uppercase">
+                    Platform Tools
+                  </div>
+
+                  {/* Mobile Command Palette Button */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu()
+                      window.dispatchEvent(new CustomEvent('open-command-palette'))
+                    }}
+                    className="flex w-full items-center justify-between border border-border bg-background px-3 py-2.5 text-left text-xs font-mono transition-colors hover:bg-muted/40 active:bg-muted/60"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Search className="size-3.5 text-foreground/70" />
+                      <span className="font-semibold text-foreground">Command Palette & CLI</span>
+                    </div>
+                    <kbd className="border border-border/80 bg-muted px-1.5 py-0.5 text-[10px] font-semibold">
+                      ⌘K
+                    </kbd>
+                  </button>
+
+                  {/* Mobile Telemetry Status */}
+                  <div className="flex items-center justify-between border border-border bg-background px-3 py-2 text-xs font-mono">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Status
+                    </span>
+                    <TelemetryWidget variant="footer" />
+                  </div>
+                </div>
+              </div>
             </nav>
           )}
         </div>

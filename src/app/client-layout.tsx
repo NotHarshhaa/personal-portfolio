@@ -7,6 +7,7 @@ import type { ReactNode } from 'react'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { SkipToContent } from '@/components/skip-to-content'
 import { AIAgentModal } from '@/components/ai-agent-modal'
+import { CommandPalette } from '@/components/command-palette'
 
 export function ClientLayout({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -35,6 +36,7 @@ export function ClientLayout({ children }: { children: ReactNode }) {
       </AnimatePresence>
       <ScrollToTop />
       <AIAgentModal />
+      <CommandPalette />
     </>
   )
 }
