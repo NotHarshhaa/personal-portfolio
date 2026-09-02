@@ -25,6 +25,7 @@ import {
   Layers
 } from 'lucide-react'
 import { Corners, CornerBadge, Frame } from './frame'
+import { isMobileOrTablet } from '@/lib/utils'
 
 interface CommandItem {
   id: string
@@ -82,11 +83,14 @@ export function CommandPalette() {
     }
   }, [isOpen])
 
-  // Lock body scroll on mobile when open
+  // Lock body scroll on mobile when open, and auto-focus only on desktop (not mobile/tablet)
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-      setTimeout(() => inputRef.current?.focus(), 50)
+      if (!isMobileOrTablet()) {
+        const timer = setTimeout(() => inputRef.current?.focus(), 50)
+        return () => clearTimeout(timer)
+      }
     } else {
       document.body.style.overflow = ''
       setQuery('')
@@ -109,6 +113,9 @@ export function CommandPalette() {
 
   const executeCliCommand = useCallback(
     (cmdRaw: string) => {
+      if (isMobileOrTablet()) {
+        inputRef.current?.blur()
+      }
       const cmd = cmdRaw.trim().toLowerCase()
       const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 

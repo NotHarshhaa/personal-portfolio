@@ -10,6 +10,7 @@ import {
   INITIAL_SUGGESTIONS,
   getLocalAgentResponse
 } from '@/lib/agent-knowledge'
+import { isMobileOrTablet } from '@/lib/utils'
 import { Link } from 'next-view-transitions'
 
 export function AIAgentModal() {
@@ -39,12 +40,20 @@ export function AIAgentModal() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [])
 
+  // Scroll to bottom when messages update or modal opens
   useEffect(() => {
     if (isOpen) {
       scrollToBottom()
-      setTimeout(() => inputRef.current?.focus(), 100)
     }
   }, [isOpen, messages, scrollToBottom])
+
+  // Only auto-focus input when opening on desktop (never on mobile or tablet)
+  useEffect(() => {
+    if (isOpen && !isMobileOrTablet()) {
+      const timer = setTimeout(() => inputRef.current?.focus(), 100)
+      return () => clearTimeout(timer)
+    }
+  }, [isOpen])
 
   // Lock background body scroll when open on mobile
   useEffect(() => {
@@ -72,6 +81,11 @@ export function AIAgentModal() {
   const handleSend = async (queryText?: string) => {
     const textToSend = queryText || input
     if (!textToSend.trim() || isLoading) return
+
+    // Dismiss keyboard on mobile/tablet or when clicking existing suggestions
+    if (queryText || isMobileOrTablet()) {
+      inputRef.current?.blur()
+    }
 
     const userMessage: AgentMessage = {
       id: Date.now().toString(),
@@ -332,7 +346,10 @@ export function AIAgentModal() {
                             {msg.suggestions.map((suggestion, sIdx) => (
                               <button
                                 key={sIdx}
-                                onClick={() => handleSend(suggestion)}
+                                onClick={() => {
+                                  inputRef.current?.blur()
+                                  handleSend(suggestion)
+                                }}
                                 disabled={isLoading}
                                 className="group relative inline-flex items-center px-2 py-1 text-[11px] font-medium tracking-wide text-muted-foreground transition-colors hover:text-foreground active:text-foreground disabled:opacity-50"
                               >
