@@ -133,17 +133,17 @@ export function Hero() {
 
       <Frame>
         <FrameHeader label="Tech Stack" />
-        <FrameBody className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <FrameBody className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {techStack.map((group) => (
             <div key={group.label} className="space-y-3">
               <div>
-                <CornerBadge className="text-[10px]">
+                <CornerBadge className="text-[9px] sm:text-[10px]">
                   {group.label}
                 </CornerBadge>
               </div>
               <ul className="space-y-1.5">
                 {group.items.map((item) => (
-                  <li key={item} className="text-sm text-foreground/90">
+                  <li key={item} className="text-xs sm:text-sm text-foreground/90">
                     {item}
                   </li>
                 ))}
@@ -153,39 +153,61 @@ export function Hero() {
         </FrameBody>
       </Frame>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Frame>
-          <FrameHeader label="Current Focus" />
-          <FrameBody>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      <Frame>
+        {/* Divided Header Bar */}
+        <div className="grid grid-cols-2 border-b border-border">
+          <div className="flex items-center justify-between border-r border-border px-3 py-2.5 sm:px-6 sm:py-3">
+            <CornerBadge className="text-[9px] sm:text-[10px] md:text-[11px] truncate">
+              Current Focus
+            </CornerBadge>
+            <span className="hidden sm:inline-flex text-[10px] font-mono text-muted-foreground/70 tabular-nums">
+              {currentFocus.length} items
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3">
+            <CornerBadge className="text-[9px] sm:text-[10px] md:text-[11px] truncate">
+              Areas of Expertise
+            </CornerBadge>
+            <span className="hidden sm:inline-flex text-[10px] font-mono text-muted-foreground/70 tabular-nums">
+              {expertise.length} items
+            </span>
+          </div>
+        </div>
+
+        {/* Divided Body: Side by Side on Mobile, Tablet & Desktop */}
+        <div className="grid grid-cols-2 divide-x divide-border">
+          {/* Current Focus Column */}
+          <div className="p-3 sm:p-5 md:p-6">
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
               {currentFocus.map((item) => (
                 <li
                   key={item}
-                  className="border-b border-border/70 py-2 text-sm text-muted-foreground last:border-b-0 sm:odd:pr-3 sm:even:pl-3"
+                  className="border-b border-border/50 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-start gap-1.5 leading-snug last:border-b-0 lg:odd:pr-3 lg:even:pl-3"
                 >
-                  {item}
+                  <span className="text-foreground/40 select-none text-[10px] leading-tight pt-0.5">•</span>
+                  <span className="flex-1">{item}</span>
                 </li>
               ))}
             </ul>
-          </FrameBody>
-        </Frame>
+          </div>
 
-        <Frame>
-          <FrameHeader label="Areas of Expertise" />
-          <FrameBody>
-            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {/* Areas of Expertise Column */}
+          <div className="p-3 sm:p-5 md:p-6">
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
               {expertise.map((item) => (
                 <li
                   key={item}
-                  className="border-b border-border/70 py-2 text-sm text-muted-foreground last:border-b-0 sm:odd:pr-3 sm:even:pl-3"
+                  className="border-b border-border/50 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-start gap-1.5 leading-snug last:border-b-0 lg:odd:pr-3 lg:even:pl-3"
                 >
-                  {item}
+                  <span className="text-foreground/40 select-none text-[10px] leading-tight pt-0.5">•</span>
+                  <span className="flex-1">{item}</span>
                 </li>
               ))}
             </ul>
-          </FrameBody>
-        </Frame>
-      </div>
+          </div>
+        </div>
+      </Frame>
 
       <ArchitectureDiagrams />
 
