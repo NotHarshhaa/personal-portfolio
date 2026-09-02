@@ -37,17 +37,17 @@ export function Corners({
   const pos =
     offset === 'border'
       ? {
-          tl: '-top-px -left-px',
-          tr: '-top-px -right-px',
-          bl: '-bottom-px -left-px',
-          br: '-right-px -bottom-px'
-        }
+        tl: '-top-px -left-px',
+        tr: '-top-px -right-px',
+        bl: '-bottom-px -left-px',
+        br: '-right-px -bottom-px'
+      }
       : {
-          tl: 'top-0 left-0',
-          tr: 'top-0 right-0',
-          bl: 'bottom-0 left-0',
-          br: 'right-0 bottom-0'
-        }
+        tl: 'top-0 left-0',
+        tr: 'top-0 right-0',
+        bl: 'bottom-0 left-0',
+        br: 'right-0 bottom-0'
+      }
 
   return (
     <>

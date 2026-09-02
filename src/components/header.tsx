@@ -69,9 +69,9 @@ export function Header() {
   return (
     <>
       <KeyboardShortcuts onShowModal={handleShowShortcuts} />
-      <header className="fixed top-0 right-0 left-0 z-50 bg-background/80 backdrop-blur-md">
-        <div className="site-shell pt-3 sm:pt-4">
-          <div className="relative flex h-12 items-center justify-between overflow-visible border border-border bg-background/90 px-4 sm:h-14 sm:px-5">
+      <header className="fixed top-0 right-0 left-0 z-50 pointer-events-none">
+        <div className="site-shell pt-3 sm:pt-4 pointer-events-auto">
+          <div className="relative flex h-12 items-center justify-between overflow-visible border border-border bg-background/75 backdrop-blur-xs px-4 sm:h-14 sm:px-5">
             <Corners />
             <Link
               href="/"

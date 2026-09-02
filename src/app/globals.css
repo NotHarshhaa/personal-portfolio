@@ -125,22 +125,26 @@
 
   body {
     @apply text-foreground antialiased;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-color: var(--background);
     background-image:
-      linear-gradient(
-        to right,
+      linear-gradient(to right,
         color-mix(in oklch, var(--foreground) 12%, transparent) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
+        transparent 1px),
+      linear-gradient(to bottom,
         color-mix(in oklch, var(--foreground) 12%, transparent) 1px,
-        transparent 1px
-      );
+        transparent 1px);
     background-size: 48px 48px;
-    background-attachment: fixed;
     background-position: center top;
-    min-height: 100vh;
+    transform: translate3d(0, 0, 0);
   }
 
   ::selection {

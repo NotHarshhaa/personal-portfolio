@@ -257,7 +257,7 @@ export function AIAgentModal() {
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Ask Harshhaa's Agent"
-            className="group relative flex items-center gap-2 border border-border bg-background/95 px-2.5 py-2 sm:gap-2.5 sm:px-3.5 sm:py-2.5 shadow-xl backdrop-blur-md transition-all hover:border-foreground/40 hover:bg-background"
+            className="group relative flex items-center gap-2 border border-border bg-background/95 px-2.5 py-2 sm:gap-2.5 sm:px-3.5 sm:py-2.5 shadow-xl backdrop-blur-xs transition-all hover:border-foreground/40 hover:bg-background transform-gpu"
           >
             <Corners size="sm" offset="border" weight="thin" light />
             <span className="relative flex size-2 shrink-0">
