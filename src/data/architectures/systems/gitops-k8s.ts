@@ -2,40 +2,60 @@ import type { ArchitectureSystem } from '../types'
 
 export const GITOPS_K8S_SYSTEM: ArchitectureSystem = {
     id: 'gitops-k8s',
-    title: 'GitOps & Kubernetes Platform (IDP)',
-    badge: 'PLATFORM / GITOPS',
-    subtitle: 'Internal Developer Platform (IDP) with Automated ArgoCD Sync and Zero-Trust Mesh',
+    title: 'Enterprise GitOps IDP',
+    badge: 'IDP / GITOPS',
+    subtitle: 'Backstage Developer Portal, ArgoCD ApplicationSets, AWS EKS, and HashiCorp Vault',
     description:
-      'Declarative cloud-native delivery pipeline: code commits to automated image scans, GitOps synchronization, and zero-downtime canary rollouts.',
+      'Self-service Internal Developer Platform (IDP) enabling engineering teams to provision ephemeral environments, deploy microservices via ArgoCD ApplicationSets, and manage secrets with HashiCorp Vault on AWS EKS.',
     nodes: [
       {
-        id: 'developer',
-        label: 'Developer / Git Push',
-        category: 'Source',
-        protocol: 'SSH / Git',
-        tech: ['Git', 'GitHub', 'Feature Branch'],
-        description: 'Engineers commit code and infrastructure manifests via pull requests.',
+        id: 'backstage',
+        label: 'Backstage Developer Portal',
+        category: 'IDP Portal',
+        protocol: 'HTTPS / REST',
+        tech: ['Spotify Backstage', 'Software Templates', 'Service Catalog'],
+        description: 'Self-service IDP UI enabling engineers to scaffold golden path microservices and trigger automated environments.',
         specs: {
-          layer: 'Source Control',
-          scaling: 'Distributed',
-          security: 'Signed Commits (GPG), Branch Protection',
-          observability: 'PR lead time, Commit velocity'
+          layer: 'Developer Portal (IDP)',
+          scaling: 'Multi-AZ Auto-Scaled UI',
+          security: 'SSO / Okta Authentication, RBAC',
+          observability: 'Service health scores, Onboarding time tracking'
         },
         codeSnippet: {
-          filename: 'git-commit-hook.sh',
-          language: 'bash',
-          code: `#!/usr/bin/env bash
-# Pre-commit verification & GPG signing
-set -euo pipefail
-
-echo "==> Validating Kubernetes manifests with kubeconform..."
-kubeconform -strict -summary -kubernetes-version 1.30.0 manifests/
-
-echo "==> Running security linter with Checkov..."
-checkov -d manifests/ --framework kubernetes --quiet
-
-echo "==> Ensuring GPG commit signature..."
-git config commit.gpgsign true`
+          filename: 'template.yaml',
+          language: 'yaml',
+          code: `apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: microservice-golden-path
+  title: Production Microservice Golden Path
+  description: Scaffolds a production-ready Go/Python service with ArgoCD & Terraform
+spec:
+  owner: platform-engineering
+  type: service
+  parameters:
+    - title: Service Configuration
+      properties:
+        serviceName:
+          title: Name
+          type: string
+        cloudProvider:
+          title: Target Cloud
+          type: string
+          enum: ["AWS EKS", "Azure AKS"]
+  steps:
+    - id: template
+      name: Generate Skeleton
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: \${{ parameters.serviceName }}
+    - id: publish
+      name: Publish Repository
+      action: publish:github
+      input:
+        repoUrl: github.com?repo=\${{ parameters.serviceName }}&owner=org`
         },
         x: 10,
         y: 50
@@ -279,7 +299,7 @@ spec:
       }
     ],
     edges: [
-      { from: 'developer', to: 'ci-pipeline', protocol: 'git push', label: 'Commit' },
+      { from: 'backstage', to: 'ci-pipeline', protocol: 'git push / webhook', label: 'Scaffold' },
       { from: 'ci-pipeline', to: 'argocd', protocol: 'Manifest update', label: 'Git Sync' },
       { from: 'argocd', to: 'ingress', protocol: 'K8s API', label: 'Reconcile' },
       { from: 'argocd', to: 'workloads', protocol: 'K8s API', label: 'Apply' },
@@ -288,16 +308,16 @@ spec:
     traceSteps: [
       {
         step: 1,
-        title: 'Developer Commit',
-        activeNodeId: 'developer',
+        title: 'Backstage Software Scaffolding',
+        activeNodeId: 'backstage',
         toNodeId: 'ci-pipeline',
-        action: 'SSH Push with GPG Signatures',
-        narrative: 'Engineer pushes signed Git commit to release branch with automated pre-commit lint validation.'
+        action: 'Golden Path Template Execution',
+        narrative: 'Developer initiates a new microservice via Backstage self-service catalog, automatically generating Git repo and ArgoCD Application manifests.'
       },
       {
         step: 2,
         title: 'Continuous Integration Build',
-        fromNodeId: 'developer',
+        fromNodeId: 'backstage',
         activeNodeId: 'ci-pipeline',
         toNodeId: 'argocd',
         action: 'Multi-Arch Build & Vulnerability Scan',

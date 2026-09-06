@@ -35,6 +35,7 @@ export const data = {
 
 export const navLinks = [
   { title: 'About', label: 'about', url: '/' },
+  { title: 'Architecture', label: 'architecture', url: '/architecture' },
   { title: 'Career', label: 'career', url: '/career' },
   {
     title: 'Blog',

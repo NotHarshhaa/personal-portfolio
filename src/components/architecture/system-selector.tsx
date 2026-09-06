@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Sparkles } from 'lucide-react'
+import { Link } from 'next-view-transitions'
+import { Sparkles, ArrowUpRight } from 'lucide-react'
 import { Corners } from '../frame'
 import type { ArchitectureSystem } from '@/data/architectures'
 
@@ -34,6 +35,16 @@ export function SystemSelector({
     <>
       {/* Frame Header Action Controls */}
       <div className="flex items-center gap-2">
+        {/* Studio Link */}
+        <Link
+          href="/architecture"
+          className="hidden md:flex items-center gap-1 border border-border/80 bg-background px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+          title="Open Full Systems Architecture Lab"
+        >
+          <span>Studio Lab</span>
+          <ArrowUpRight className="size-3" />
+        </Link>
+
         {/* Trace Walkthrough Toggle */}
         <button
           onClick={onToggleTraceMode}
@@ -44,7 +55,7 @@ export function SystemSelector({
           }`}
         >
           <Sparkles className="size-3 text-emerald-400" />
-          <span>Trace Request</span>
+          <span>Trace</span>
         </button>
 
         {/* Continuous Pulse Toggle */}

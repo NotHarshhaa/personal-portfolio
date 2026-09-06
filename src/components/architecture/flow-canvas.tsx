@@ -88,6 +88,7 @@ export function FlowCanvas({
       <div className={`w-full overflow-x-auto scrollbar-thin ${isModal ? 'h-[calc(100%-2.5rem)] flex items-center' : ''}`}>
         <div className="min-w-[780px] p-4 sm:p-6 select-none w-full">
           <svg
+            id="architecture-svg-canvas"
             viewBox="0 0 1000 480"
             className="w-full h-auto overflow-visible"
             style={{ maxHeight: isModal ? '540px' : '460px' }}

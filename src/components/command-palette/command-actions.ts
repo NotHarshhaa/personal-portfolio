@@ -49,6 +49,18 @@ export function buildCommands({
       }
     },
     {
+      id: 'nav-architecture',
+      title: 'Architecture Lab',
+      description: 'Interactive systems design studio, live packet flows & manifests',
+      category: 'Navigation',
+      icon: Layers,
+      shortcut: 'G A',
+      action: () => {
+        setIsOpen(false)
+        router.push('/architecture')
+      }
+    },
+    {
       id: 'nav-projects',
       title: 'Projects',
       description: 'Explore open source platforms, tools & guides',
