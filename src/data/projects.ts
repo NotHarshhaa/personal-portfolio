@@ -84,137 +84,127 @@ export const TAGS = {
 
 export const FEATURED_PROJECTS = [
   {
-    category: 'DevOps & Infrastructure',
+    category: 'Platform Engineering & IDP',
     items: [
       {
-        title: 'DevOps Real-Time Projects',
-        description: 'Beginner → Advanced real-world DevOps projects',
-        url: 'https://github.com/NotHarshhaa/DevOps-Projects'
-      },
-      {
-        title: 'AWS Real-Time Projects',
-        description: 'Production-grade AWS deployments',
-        url: 'https://github.com/NotHarshhaa/AWS-Projects'
-      },
-      {
-        title: 'Into the DevOps',
-        description: 'Complete interview preparation repository',
-        url: 'https://github.com/NotHarshhaa/into-the-devops'
-      },
-      {
-        title: 'Kubernetes Learning Path',
-        description: 'Kubernetes roadmap & CKA preparation',
-        url: 'https://github.com/NotHarshhaa/kubernetes-learning-path'
-      },
-      {
-        title: 'DevOps Tool Installer',
-        description: 'Automated DevOps tooling setup',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'DevOps Cheatsheet',
-        description: 'Quick reference guide',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'Azure DevOps Guide',
-        description: 'Azure DevOps learning resource',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'CI/CD Pipeline for AWS EKS',
-        description: 'GitHub Actions + Kubernetes deployment',
-        url: 'https://github.com/NotHarshhaa'
-      }
-    ]
-  },
-  {
-    category: 'AI Infrastructure & MLOps',
-    items: [
-      {
-        title: 'AI Platform Engineering Handbook',
-        description: 'Production-grade AI platform engineering',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'MLOps Project Generator',
-        description: 'CLI & UI for MLOps repositories',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'DevOps Project Generator',
-        description: 'Production-ready DevOps scaffolding',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'AI Infrastructure Templates',
-        description: 'AI deployment architectures',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'LLMOps Examples',
-        description: 'End-to-end LLM deployment workflows',
-        url: 'https://github.com/NotHarshhaa'
-      }
-    ]
-  },
-  {
-    category: 'AI Agents & Agentic Systems',
-    items: [
-      {
-        title: 'DevOps Incident Response Agent',
-        description: 'AI-powered incident troubleshooting',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'Mainframe MCP Server',
-        description: 'Connect AI assistants with IBM z/OS',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'DevOps MCP Server',
-        description: 'MCP server exposing DevOps tools',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'AI Agent Templates',
-        description: 'Starter templates for production AI agents',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'Multi-Agent Workflows',
-        description: 'Agent orchestration examples',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'AI Automation Examples',
-        description: 'Enterprise automation workflows',
-        url: 'https://github.com/NotHarshhaa'
-      }
-    ]
-  },
-  {
-    category: 'Platform Engineering',
-    items: [
-      {
-        title: 'DevOps Tools Collection',
-        description: 'Curated DevOps ecosystem',
-        url: 'https://github.com/NotHarshhaa'
-      },
-      {
-        title: 'DevOps Monitoring in a Box',
-        description: 'Prometheus + Grafana + Loki',
+        title: 'Internal Developer Platform (IDP)',
+        description: 'Self-service platform with Backstage, ArgoCD, and Kubernetes',
         url: 'https://github.com/NotHarshhaa'
       },
       {
         title: 'Kubernetes Master Reference',
-        description: 'Production Kubernetes guide',
+        description: 'Production EKS/AKS cluster patterns and GitOps architecture',
+        url: 'https://github.com/NotHarshhaa/Kubernetes'
+      },
+      {
+        title: 'DevOps Monitoring in a Box',
+        description: 'Zero-trust observability with Prometheus, Grafana, and Loki',
         url: 'https://github.com/NotHarshhaa'
       },
       {
-        title: 'Internal Developer Platform',
-        description: 'Self-service platform resources',
+        title: 'DevOps Tools Collection',
+        description: 'Curated developer experience tooling and golden paths',
+        url: 'https://github.com/NotHarshhaa/devops-tools'
+      }
+    ]
+  },
+  {
+    category: 'DevOps & GitOps Automation',
+    items: [
+      {
+        title: 'DevOps Real-Time Projects Hub',
+        description: '40+ production CI/CD, Terraform, and Kubernetes deployments',
+        url: 'https://github.com/NotHarshhaa/DevOps-Projects'
+      },
+      {
+        title: 'AWS Real-Time Deployments',
+        description: 'Terraform IaC with multi-tier VPC, EKS, and ALB architectures',
+        url: 'https://github.com/NotHarshhaa/AWS-Projects'
+      },
+      {
+        title: 'CI/CD Pipeline for AWS EKS',
+        description: 'Automated GitHub Actions + Helm + ArgoCD release pipeline',
+        url: 'https://github.com/NotHarshhaa/CI-CD_EKS-GitHub_Actions'
+      },
+      {
+        title: 'Into the DevOps',
+        description: 'Production architecture blueprints and interview master guide',
+        url: 'https://github.com/NotHarshhaa/into-the-devops'
+      }
+    ]
+  },
+  {
+    category: 'AI Infrastructure & LLMOps',
+    items: [
+      {
+        title: 'AI Platform Engineering Handbook',
+        description: 'GPU orchestration, Kubernetes inference, and vLLM serving',
         url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'LLMOps Production Pipeline',
+        description: 'End-to-end model serving with vLLM, Ollama, and MLflow',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'Vector Search & RAG Infrastructure',
+        description: 'Low-latency retrieval with Qdrant, pgvector, and Milvus',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'MLOps Project Generator',
+        description: 'Scaffolding for reproducible ML and model registry workflows',
+        url: 'https://github.com/NotHarshhaa'
+      }
+    ]
+  },
+  {
+    category: 'GenAI, AI Agents & MCP',
+    items: [
+      {
+        title: 'DevOps Model Context Protocol (MCP) Server',
+        description: 'Exposing Kubernetes & cloud API tool calling to LLM agents',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'DevOps Incident Response Agent',
+        description: 'Autonomous AI agent troubleshooting cluster alerts via MCP',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'Mainframe MCP Server',
+        description: 'Bridging AI assistants with IBM z/OS enterprise workflows',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'Multi-Agent Orchestration Engine',
+        description: 'Agent2Agent (A2A) state machines powered by LangGraph',
+        url: 'https://github.com/NotHarshhaa'
+      }
+    ]
+  },
+  {
+    category: 'AI Product Development',
+    items: [
+      {
+        title: 'Full-Stack Agentic AI Applications',
+        description: 'Interactive AI web apps with Next.js AI SDK, FastAPI, and MCP',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'Interactive Portfolio AI Assistant',
+        description: 'In-browser agent with semantic intent resolution & system telemetry',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'DevOps Project Generator CLI',
+        description: 'Automated scaffolding generator for production platforms',
+        url: 'https://github.com/NotHarshhaa'
+      },
+      {
+        title: 'Ultimate DevOps & AI Documentation Portal',
+        description: 'Knowledge portal serving 250,000+ engineers globally',
+        url: 'https://docs.prodevopsguytech.com'
       }
     ]
   }

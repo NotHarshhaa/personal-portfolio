@@ -1,18 +1,26 @@
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Portfolio | HARSHHAA',
+  title: 'Harshhaa | Platform Engineer • DevOps • AI Infrastructure & AI Product Development',
   description:
-    'Platform Engineer building cloud platforms, AI infrastructure, and agentic systems. DevOps, MLOps, LLMOps, MCP, and Internal Developer Platforms.',
+    'Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products. Platform Engineering, DevOps, LLMOps, Kubernetes, Terraform, and GitOps.',
   keywords: [
     'Platform Engineer',
-    'AI Infrastructure',
-    'Agentic Systems',
     'DevOps',
-    'MLOps',
-    'LLMOps',
+    'AI Infrastructure',
+    'GenAI',
+    'AI Agents',
+    'Model Context Protocol',
     'MCP',
+    'LLMOps',
+    'AI Product Development',
     'Kubernetes',
+    'Internal Developer Platform',
+    'IDP',
+    'ArgoCD',
+    'Terraform',
+    'vLLM',
+    'LangGraph',
     'AWS',
     'Azure',
     'Portfolio'
@@ -30,9 +38,9 @@ export const metadata: Metadata = {
     canonical: '/'
   },
   openGraph: {
-    title: 'Portfolio | HARSHHAA',
+    title: 'Harshhaa | Platform Engineer • DevOps • AI Infrastructure & AI Product Development',
     description:
-      'Platform Engineer building cloud platforms, AI infrastructure, and agentic systems.',
+      'Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products.',
     url: 'https://harshhaareddy.com',
     siteName: 'HARSHHAA Portfolio',
     images: [
@@ -48,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Portfolio | HARSHHAA',
+    title: 'Harshhaa | Platform Engineer • DevOps • AI Infrastructure & AI Product Development',
     description:
-      'Platform Engineer building cloud platforms, AI infrastructure, and agentic systems.',
+      'Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products.',
     images: ['/opengraph-image.png']
   },
   robots: {

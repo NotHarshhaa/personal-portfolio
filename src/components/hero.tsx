@@ -5,6 +5,7 @@ import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Frame, FrameBody, FrameHeader, CornerHeading, CornerBadge, Corners } from './frame'
 import { ArchitectureDiagrams } from './architecture-diagrams'
+import { SkillsCategorized } from './skills-categorized'
 import { data } from '../constants'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -131,27 +132,7 @@ export function Hero() {
         </Frame>
       </div>
 
-      <Frame>
-        <FrameHeader label="Tech Stack" />
-        <FrameBody className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-          {techStack.map((group) => (
-            <div key={group.label} className="space-y-3">
-              <div>
-                <CornerBadge className="text-[9px] sm:text-[10px]">
-                  {group.label}
-                </CornerBadge>
-              </div>
-              <ul className="space-y-1.5">
-                {group.items.map((item) => (
-                  <li key={item} className="text-xs sm:text-sm text-foreground/90">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </FrameBody>
-      </Frame>
+      <SkillsCategorized />
 
       <Frame>
         {/* Divided Header Bar */}

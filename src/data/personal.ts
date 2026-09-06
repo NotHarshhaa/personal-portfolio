@@ -9,14 +9,20 @@ export const AVATAR = {
 }
 
 export const ABOUT = {
-  role: 'Platform Engineer • AI Infrastructure • Agentic Systems',
-  headline: 'Platforms, AI infrastructure, and agents that help teams ship faster.',
-  title: `Platform Engineer building cloud platforms, AI infrastructure, and agentic systems. Based in Hyderabad, India.`,
-  description: `I build scalable cloud platforms, AI infrastructure, Internal Developer Platforms (IDPs), and Agentic AI systems that help engineering teams build, deploy, and operate applications faster.
+  role: 'Platform Engineer • DevOps • AI Infrastructure & AI Product Development',
+  headline: 'Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products.',
+  title: 'Platform Engineer • DevOps • AI Infrastructure & AI Product Development. Based in Hyderabad, India.',
+  description: `Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products.
 
-My interests span modern Platform Engineering, Cloud Native technologies, DevOps Automation, MLOps, LLMOps, Generative AI, AI Agents, Model Context Protocol (MCP), AI Automation, and Developer Experience.
+Platform & DevOps Foundation: 5+ years of engineering hands-on internal developer platforms (IDPs), declarative infrastructure with Terraform, Kubernetes container orchestration, and automated GitOps CI/CD pipelines across AWS and Azure.
 
-I enjoy building open-source tools, automation frameworks, production-ready AI platforms, and educational resources that simplify complex engineering problems.`
+AI Infrastructure & LLMOps: Building scalable inference infrastructure, GPU-accelerated Kubernetes nodes, model deployment with vLLM and Ollama, vector search retrieval (Qdrant, pgvector), and MLflow experiment tracking.
+
+GenAI, AI Agents & MCP: Architecting autonomous agent workflows with LangGraph and LangChain, developing custom Model Context Protocol (MCP) servers to interface LLMs with cloud APIs and DevOps tooling, and multi-agent coordination (A2A).
+
+AI Product Development: Leading the end-to-end design, implementation, and deployment of user-facing AI products, intelligent platform automation bots, and self-service developer portals.
+
+Open-Source Impact: Prolific builder with 40+ production DevOps & AI project blueprints, educational docs, and open-source tooling empowering 250,000+ engineers globally.`
 }
 
 export const LINKS = [

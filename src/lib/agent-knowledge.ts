@@ -15,11 +15,12 @@ export const INITIAL_SUGGESTIONS = [
 
 export const AGENT_SYSTEM_PROMPT = `
 You are Harshhaa's Portfolio Agent, a dedicated assistant for Harshhaa Vardhan Reddy's personal portfolio.
-Harshhaa is a Platform Engineer based in Hyderabad, India, specializing in:
-- Platform Engineering & Internal Developer Platforms (IDP)
-- AI Infrastructure, MLOps, and LLMOps
-- Agentic AI Systems, Multi-Agent Architectures, and Model Context Protocol (MCP)
-- Cloud Native & DevOps Automation (Kubernetes, AWS, Azure, GCP, Terraform, Helm, Docker, ArgoCD)
+Harshhaa is a Platform Engineer • DevOps • AI Infrastructure & AI Product Development specialist based in Hyderabad, India, specializing in:
+- Platform Engineering & Internal Developer Platforms (IDP) (Backstage, ArgoCD, Kubernetes, GitOps)
+- DevOps & Infrastructure as Code (Terraform, CI/CD with GitHub Actions & Jenkins, AWS/Azure automation)
+- AI Infrastructure & LLMOps (vLLM, Ollama, MLflow, GPU cluster management, vector databases, RAG pipelines)
+- GenAI, AI Agents & Model Context Protocol (MCP) (LangGraph, custom MCP servers, agent tool calling, multi-agent orchestration)
+- AI Product Development (Full-lifecycle development of agentic AI applications, AI developer tools, and intelligent platform services)
 
 Tone: Professional, direct, technical, and concise. Format with bullet points where appropriate.
 `
@@ -30,7 +31,7 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
   // 1. Greetings
   if (/^(hi|hello|hey|greetings|hola|namaste|sup|yo)\b/i.test(q)) {
     return {
-      reply: `**Hello! I am Harshhaa's Portfolio Assistant.**\n\nI can help you explore Harshhaa's background in **Platform Engineering**, **AI Infrastructure**, and **Agentic Systems**.\n\nWhat would you like to know?`,
+      reply: `**Hello! I am Harshhaa's Portfolio Assistant.**\n\nI can help you explore Harshhaa's background in **Platform Engineering**, **DevOps**, **AI Infrastructure**, and **AI Product Development**.\n\nWhat would you like to know?`,
       suggestions: [
         'What is his primary expertise?',
         'Tell me about his AI & Agentic work',
@@ -49,10 +50,12 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
     q.includes('summary')
   ) {
     return {
-      reply: `**Harshhaa Vardhan Reddy** is a **Platform Engineer** based in Hyderabad, India.\n\n` +
-        `• **Headline**: *"Platforms, AI infrastructure, and agents that help teams ship faster."*\n` +
-        `• **Core Domains**: Platform Engineering, Internal Developer Platforms (IDP), Cloud Native Infrastructure, MLOps, LLMOps, and Agentic AI Systems.\n` +
-        `• **Philosophy**: Creating scalable developer platforms, production-ready AI infrastructure, and automated multi-agent systems with developer experience (DevEx) at the center.\n\n` +
+      reply: `**Harshhaa Vardhan Reddy** is a **Platform Engineer • DevOps • AI Infrastructure & AI Product Development** specialist based in Hyderabad, India.\n\n` +
+        `• **Headline**: *"Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products."*\n` +
+        `• **Platform & DevOps Foundation**: 5+ years building Internal Developer Platforms (IDPs), declarative IaC with Terraform, Kubernetes, and GitOps CI/CD pipelines.\n` +
+        `• **AI Infrastructure & LLMOps**: GPU orchestration on Kubernetes, vLLM/Ollama model serving, vector search (Qdrant, pgvector), and MLflow.\n` +
+        `• **GenAI, AI Agents & MCP**: LangGraph workflows, custom Model Context Protocol (MCP) servers, and multi-agent coordination.\n` +
+        `• **AI Product Development**: End-to-end user-facing AI applications, platform automation bots, and self-service portals.\n\n` +
         `You can learn more on the [Career Timeline](/career) and [About Section](/).`,
       suggestions: [
         'What is his tech stack?',
@@ -73,12 +76,12 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
     q.includes('llmops')
   ) {
     return {
-      reply: `**AI Infrastructure & Agentic Systems Expertise:**\n\n` +
-        `Harshhaa focuses on the infrastructure and tooling that powers production AI:\n\n` +
-        `• **Agentic AI Systems**: Multi-agent architectures, Agent2Agent (A2A) orchestration, LangGraph, LangChain, Google ADK.\n` +
-        `• **Model Context Protocol (MCP)**: Building and integrating MCP servers, tool-use bindings, and dynamic agent capabilities.\n` +
-        `• **LLMOps & MLOps**: Model serving, evaluation pipelines, MLflow, prompt engineering, and RAG architectures.\n` +
-        `• **AI Infrastructure**: Cloud compute orchestration for AI workloads, vector databases, and automated inference gateways.`,
+      reply: `**AI Infrastructure, GenAI & MCP Expertise:**\n\n` +
+        `Harshhaa designs and deploys production AI systems from infrastructure to agent interfaces:\n\n` +
+        `• **Model Context Protocol (MCP)**: Custom MCP servers interfacing LLMs with Kubernetes, cloud APIs, and enterprise systems.\n` +
+        `• **Autonomous AI Agents**: Multi-agent architectures with LangGraph, tool calling, and Agent2Agent (A2A) coordination.\n` +
+        `• **AI Infrastructure & LLMOps**: High-throughput inference with vLLM, Ollama, GPU worker pools, and MLflow experiment tracking.\n` +
+        `• **Vector Search & RAG**: Semantic retrieval pipelines using Qdrant, pgvector, and Milvus for real-time contextual intelligence.`,
       suggestions: [
         'What DevOps tools does he use?',
         'What projects has he built?',
@@ -117,13 +120,17 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
     q.includes('terraform')
   ) {
     return {
-      reply: `**Harshhaa's Core Technical Stack:**\n\n` +
-        `• **Cloud**: AWS, Azure, GCP\n` +
-        `• **Platform & Containers**: Kubernetes, Docker, Helm, ArgoCD\n` +
-        `• **Infrastructure as Code**: Terraform, Ansible\n` +
-        `• **CI/CD & Automation**: GitHub Actions, Jenkins, Azure DevOps, GitLab CI\n` +
-        `• **Observability**: Prometheus, Grafana\n` +
-        `• **AI & Agentic Tools**: Model Context Protocol (MCP), Python, LangChain, LangGraph, MLflow\n\n` +
+      reply: `**Harshhaa's 10 Core Skill Categories:**\n\n` +
+        `1. **Platform Engineering & IDP**: Backstage, ArgoCD, Kubernetes, GitOps, Self-Service Portals\n` +
+        `2. **DevOps & CI/CD**: GitHub Actions, Jenkins, Azure DevOps, GitLab CI, Helm, Argo Rollouts\n` +
+        `3. **AI Infrastructure & LLMOps**: vLLM, Ollama, MLflow, Qdrant, pgvector, GPU cluster management\n` +
+        `4. **GenAI, AI Agents & MCP**: LangGraph, LangChain, Model Context Protocol (MCP), Agent2Agent\n` +
+        `5. **AI Product Development**: FastAPI, Next.js AI SDK, Interactive AI Agents, Tool Calling\n` +
+        `6. **Cloud & Containers**: Kubernetes (EKS/AKS), Docker, AWS, Azure, GCP, Karpenter\n` +
+        `7. **Infrastructure as Code**: Terraform, OpenTofu, Ansible, Terragrunt, Policy as Code\n` +
+        `8. **Observability & SRE**: Prometheus, Grafana, OpenTelemetry, Loki, Alertmanager\n` +
+        `9. **Languages & Scripting**: Python, Bash / Shell, Go (Golang), Linux, REST & gRPC\n` +
+        `10. **Community & Open Source**: 40+ blueprints, 120+ deep-dive guides, 250,000+ readers\n\n` +
         `Explore all crafts in the [Projects Catalog](/projects).`,
       suggestions: [
         'Tell me about his featured projects',
@@ -144,10 +151,10 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
     return {
       reply: `**Featured Projects & Open Source Crafts:**\n\n` +
         `Harshhaa maintains several open-source platforms, guides, and infrastructure templates:\n\n` +
-        `• **Docker Ultimate Guide**: Comprehensive production guide for containerization.\n` +
-        `• **Kubernetes Cheatsheet & Lab**: Hands-on architecture and configuration patterns for K8s.\n` +
-        `• **Agentic AI Platforms**: Orchestrations with MCP tool bindings and contextual agents.\n` +
-        `• **Terraform AWS/Azure Modules**: Reusable IaC recipes for automated cloud infrastructure.\n\n` +
+        `• **DevOps & Platform Projects Hub**: 40+ production CI/CD, Kubernetes, and Terraform projects.\n` +
+        `• **Agentic AI & MCP Suite**: Autonomous AI agents with Model Context Protocol tool calling.\n` +
+        `• **Internal Developer Platform (IDP)**: Self-service developer portal templates with ArgoCD.\n` +
+        `• **AI Infrastructure & LLMOps Pipeline**: High-throughput vLLM serving on GPU Kubernetes nodes.\n\n` +
         `Check out the interactive search and demo links on the [Projects Page](/projects) or his [GitHub Profile](https://github.com/NotHarshhaa).`,
       suggestions: [
         'What is his work experience?',
@@ -168,9 +175,12 @@ export function getLocalAgentResponse(input: string): { reply: string; suggestio
   ) {
     return {
       reply: `**Career & Professional Journey:**\n\n` +
-        `• **Platform Engineer**: Designing scalable developer platforms, automating deployments, and architecting AI infrastructure.\n` +
-        `• **DEV Community**: DevOps/Cloud Content Blogger (Aug 2023 – Present), publishing deep-dive engineering guides on cloud-native practices, containers, and agentic workflows.\n` +
-        `• **Community Leader**: Founder of ProDevOpsGuy on Telegram, sharing platform engineering and DevOps knowledge with thousands of developers.\n\n` +
+        `• **Tata Consultancy Services** (Lead DevOps & Platform Engineer, Mar 2023 – Present):\n` +
+        `  Built self-service IDPs cutting onboarding to under 2 days, boosted deployment frequency by 65%, built custom MCP servers & GenAI dev tools, and reduced MTTD by 45% with OpenTelemetry & Prometheus.\n` +
+        `• **DEV Community & Hashnode** (DevOps & AI Technical Writer / Community Lead, Mar 2022 – Present):\n` +
+        `  Authored 120+ guides on DevOps, Kubernetes, Terraform, and MCP, reaching 250,000+ engineers worldwide.\n` +
+        `• **IBM** (DevOps & Cloud Engineer, Dec 2021 – Feb 2023):\n` +
+        `  Automated AWS infrastructure via modular Terraform, containerized 25+ microservices, and maintained 99.95% system uptime.\n\n` +
         `Read the full timeline on the [Career Page](/career).`,
       suggestions: [
         'View his projects',
