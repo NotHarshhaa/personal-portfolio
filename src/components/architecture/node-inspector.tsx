@@ -225,31 +225,31 @@ export function NodeInspector({
       {inspectorTab === 'code' && (
         <div className="space-y-2">
           {activeNode.codeSnippet ? (
-            <div className="border border-border bg-black/40 text-foreground font-mono text-xs">
+            <div className="border border-border/80 bg-zinc-950 text-zinc-100 font-mono text-xs overflow-hidden shadow-sm">
               {/* Code Header Bar */}
-              <div className="flex items-center justify-between border-b border-border/70 bg-muted/20 px-3 py-1.5">
+              <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/90 px-3.5 py-2">
                 <div className="flex items-center gap-2">
-                  <FileCode className="size-3.5 text-foreground/70" />
-                  <span className="font-semibold text-foreground text-[11px]">
+                  <FileCode className="size-3.5 text-emerald-400" />
+                  <span className="font-semibold text-zinc-200 text-xs">
                     {activeNode.codeSnippet.filename}
                   </span>
-                  <span className="text-[10px] text-muted-foreground uppercase">
-                    [{activeNode.codeSnippet.language}]
+                  <span className="text-[10px] text-zinc-400 uppercase tracking-wider bg-zinc-800 px-1.5 py-0.5 border border-zinc-700/60 font-mono">
+                    {activeNode.codeSnippet.language}
                   </span>
                 </div>
 
                 <button
                   onClick={onCopyCode}
-                  className="flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-1.5 text-xs text-zinc-300 hover:text-white bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700/70 px-2.5 py-1 transition-colors font-mono"
                 >
                   {copiedCode ? (
                     <>
-                      <Check className="size-3 text-emerald-500" />
-                      <span className="text-emerald-500">Copied</span>
+                      <Check className="size-3.5 text-emerald-400" />
+                      <span className="text-emerald-400 font-medium">Copied!</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="size-3" />
+                      <Copy className="size-3.5 text-zinc-400" />
                       <span>Copy snippet</span>
                     </>
                   )}
@@ -257,9 +257,11 @@ export function NodeInspector({
               </div>
 
               {/* Code Body */}
-              <pre className="p-3 sm:p-4 overflow-x-auto text-[11px] sm:text-xs leading-relaxed text-emerald-300/90 max-h-72">
-                <code>{activeNode.codeSnippet.code}</code>
-              </pre>
+              <div className="bg-zinc-950 p-3.5 sm:p-4 overflow-x-auto max-h-80">
+                <pre className="text-xs leading-relaxed font-mono text-emerald-400 selection:bg-emerald-500/30 selection:text-emerald-100">
+                  <code>{activeNode.codeSnippet.code}</code>
+                </pre>
+              </div>
             </div>
           ) : (
             <p className="text-xs font-mono text-muted-foreground py-4 text-center">
@@ -272,29 +274,34 @@ export function NodeInspector({
       {/* Tab 3: Mermaid Diagram Graph */}
       {inspectorTab === 'mermaid' && (
         <div className="space-y-2">
-          <div className="border border-border bg-black/40 text-foreground font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-border/70 bg-muted/20 px-3 py-1.5">
-              <span className="font-semibold text-[11px]">Mermaid.js Flowchart (graph LR)</span>
+          <div className="border border-border/80 bg-zinc-950 text-zinc-100 font-mono text-xs overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-900/90 px-3.5 py-2">
+              <div className="flex items-center gap-2">
+                <Share2 className="size-3.5 text-sky-400" />
+                <span className="font-semibold text-zinc-200 text-xs">Mermaid.js Flowchart (graph LR)</span>
+              </div>
               <button
                 onClick={onCopyMermaid}
-                className="flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center gap-1.5 text-xs text-zinc-300 hover:text-white bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700/70 px-2.5 py-1 transition-colors font-mono"
               >
                 {copiedMermaid ? (
                   <>
-                    <Check className="size-3 text-emerald-500" />
-                    <span className="text-emerald-500">Copied</span>
+                    <Check className="size-3.5 text-emerald-400" />
+                    <span className="text-emerald-400 font-medium">Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="size-3" />
+                    <Copy className="size-3.5 text-zinc-400" />
                     <span>Copy Graph</span>
                   </>
                 )}
               </button>
             </div>
-            <pre className="p-3 sm:p-4 overflow-x-auto text-[11px] sm:text-xs leading-relaxed text-sky-300 max-h-72">
-              <code>{generateMermaidDiagram(activeArch)}</code>
-            </pre>
+            <div className="bg-zinc-950 p-3.5 sm:p-4 overflow-x-auto max-h-80">
+              <pre className="text-xs leading-relaxed font-mono text-sky-300 selection:bg-sky-500/30 selection:text-sky-100">
+                <code>{generateMermaidDiagram(activeArch)}</code>
+              </pre>
+            </div>
           </div>
         </div>
       )}

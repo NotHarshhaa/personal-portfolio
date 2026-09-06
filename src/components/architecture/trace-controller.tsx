@@ -26,13 +26,13 @@ export function TraceController({
   if (!activeStep) return null
 
   return (
-    <div className="border-b border-emerald-500/30 bg-emerald-950/20 px-3 py-2 text-xs font-mono text-emerald-400 flex items-center justify-between gap-2">
+    <div className="border-b border-emerald-500/30 bg-emerald-500/10 dark:bg-emerald-950/40 px-3 py-2 text-xs font-mono text-emerald-800 dark:text-emerald-300 flex items-center justify-between gap-2">
       <div className="flex items-center gap-2 min-w-0">
-        <span className="inline-flex size-1.5 rounded-full bg-emerald-400 animate-ping" />
-        <span className="font-semibold uppercase tracking-wider shrink-0 text-[11px]">
+        <span className="inline-flex size-1.5 rounded-full bg-emerald-500 animate-ping" />
+        <span className="font-semibold uppercase tracking-wider shrink-0 text-[11px] text-emerald-900 dark:text-emerald-200">
           Step {activeStep.step}/{totalSteps}: {activeStep.title}
         </span>
-        <span className="hidden sm:inline text-muted-foreground/80 truncate">
+        <span className="hidden sm:inline text-muted-foreground truncate">
           — {activeStep.action} ({activeStep.narrative})
         </span>
       </div>
