@@ -27,7 +27,11 @@ export async function GET() {
         headers: {
           'Accept': 'application/vnd.github.v3+json',
           'User-Agent': 'Portfolio-Website',
-          'Authorization': `Bearer ${process.env.GITHUB_TOKEN || ''}`
+          // Only send auth when a token exists; a malformed "Bearer " header
+          // makes GitHub reject the request instead of falling back to anonymous
+          ...(process.env.GITHUB_TOKEN
+            ? { 'Authorization': `Bearer ${process.env.GITHUB_TOKEN}` }
+            : {})
         },
         next: {
           revalidate: 300 // Revalidate every 5 minutes

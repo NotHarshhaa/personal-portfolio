@@ -13,6 +13,14 @@ const RATE_LIMIT_MAX_REQUESTS = 5 // 5 requests per minute
 
 function checkRateLimit(ip: string): boolean {
   const now = Date.now()
+
+  // Bound memory: drop expired entries once the map grows large
+  if (rateLimitMap.size > 500) {
+    for (const [key, rec] of rateLimitMap) {
+      if (now > rec.resetTime) rateLimitMap.delete(key)
+    }
+  }
+
   const record = rateLimitMap.get(ip)
 
   if (!record || now > record.resetTime) {

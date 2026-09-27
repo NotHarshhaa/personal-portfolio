@@ -37,6 +37,53 @@ interface TelemetryWidgetProps {
   variant?: 'footer' | 'header'
 }
 
+// Shared singleton poller: the header, footer, and mobile menu each mount a
+// widget, but all of them subscribe to one interval instead of polling
+// /api/health independently 2-3x per page load.
+type HealthListener = (telemetry: TelemetryData | null, latency: number | null) => void
+
+const healthListeners = new Set<HealthListener>()
+let healthInterval: ReturnType<typeof setInterval> | null = null
+let latestTelemetry: TelemetryData | null = null
+let latestLatency: number | null = null
+
+async function pollHealth(): Promise<void> {
+  const start = performance.now()
+  try {
+    const res = await fetch('/api/health', { cache: 'no-store' })
+    const ping = Math.round(performance.now() - start)
+    if (res.ok) {
+      latestLatency = ping
+      latestTelemetry = await res.json()
+    } else {
+      latestLatency = null
+    }
+  } catch {
+    latestLatency = null
+  }
+  for (const listener of healthListeners) {
+    listener(latestTelemetry, latestLatency)
+  }
+}
+
+function subscribeToHealth(listener: HealthListener): () => void {
+  healthListeners.add(listener)
+  // Serve the cached snapshot immediately, then start polling if this is the
+  // first subscriber on the page
+  listener(latestTelemetry, latestLatency)
+  if (!healthInterval) {
+    pollHealth()
+    healthInterval = setInterval(pollHealth, 30000)
+  }
+  return () => {
+    healthListeners.delete(listener)
+    if (healthListeners.size === 0 && healthInterval) {
+      clearInterval(healthInterval)
+      healthInterval = null
+    }
+  }
+}
+
 export function TelemetryWidget({ variant = 'footer' }: TelemetryWidgetProps) {
   const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -44,33 +91,18 @@ export function TelemetryWidget({ variant = 'footer' }: TelemetryWidgetProps) {
   const [telemetry, setTelemetry] = useState<TelemetryData | null>(null)
   const [isRefreshing, setIsRefreshing] = useState(false)
 
-  const fetchHealth = useCallback(async () => {
-    const start = performance.now()
+  const refreshHealth = useCallback(() => {
     setIsRefreshing(true)
-    try {
-      const res = await fetch('/api/health', { cache: 'no-store' })
-      const end = performance.now()
-      const ping = Math.round(end - start)
-      setLatency(ping)
-      if (res.ok) {
-        const data = await res.json()
-        setTelemetry(data)
-      }
-    } catch {
-      setLatency(null)
-    } finally {
-      setIsRefreshing(false)
-    }
+    pollHealth().finally(() => setIsRefreshing(false))
   }, [])
 
   useEffect(() => {
     setMounted(true)
-    fetchHealth()
-
-    // Periodically update latency every 30s
-    const interval = setInterval(fetchHealth, 30000)
-    return () => clearInterval(interval)
-  }, [fetchHealth])
+    return subscribeToHealth((telemetry, latency) => {
+      setTelemetry(telemetry)
+      setLatency(latency)
+    })
+  }, [])
 
   // Escape key handler
   useEffect(() => {
@@ -195,7 +227,7 @@ export function TelemetryWidget({ variant = 'footer' }: TelemetryWidgetProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={fetchHealth}
+                    onClick={refreshHealth}
                     disabled={isRefreshing}
                     title="Refresh telemetry"
                     className="size-8 text-muted-foreground hover:text-foreground"

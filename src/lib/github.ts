@@ -60,11 +60,8 @@ export async function fetchGitHubRepos(): Promise<GitHubRepo[]> {
 
   try {
     // Fetch from our API route instead of direct GitHub API
-    const response = await fetch('/api/github', {
-      next: {
-        revalidate: 300 // Revalidate every 5 minutes
-      }
-    })
+    // (browser-side fetch: no `next.revalidate` — caching is handled by the route)
+    const response = await fetch('/api/github')
 
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`)

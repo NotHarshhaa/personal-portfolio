@@ -118,6 +118,15 @@ export function ArchitectureStudio() {
 
   // Handle system selection
   const handleSelectArch = (archId: string) => {
+    // Stop any in-flight traffic simulation so it can't keep
+    // selecting node ids from the previous system's topology
+    if (trafficTimerRef.current) {
+      clearInterval(trafficTimerRef.current)
+      trafficTimerRef.current = null
+    }
+    setIsTrafficSimulating(false)
+    setTelemetryLogs([])
+
     setSelectedArchId(archId)
     const targetArch = ARCHITECTURES.find((a) => a.id === archId) || ARCHITECTURES[0]!
     setSelectedNodeId(targetArch.nodes[0]?.id || '')
@@ -128,9 +137,10 @@ export function ArchitectureStudio() {
 
   // Trigger simulated traffic burst
   const handleTriggerTrafficSimulation = useCallback(() => {
-    setIsTrafficSimulating(true)
     const edges = activeArch.edges
     if (!edges.length) return
+
+    setIsTrafficSimulating(true)
 
     let step = 0
     if (trafficTimerRef.current) clearInterval(trafficTimerRef.current)

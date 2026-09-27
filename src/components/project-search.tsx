@@ -73,6 +73,7 @@ export function ProjectSearch({
       <div className="relative border-b border-border">
         <Search className="absolute top-1/2 left-0 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
+          id="project-search"
           type="text"
           placeholder="Search projects…"
           value={searchQuery}

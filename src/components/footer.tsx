@@ -13,7 +13,9 @@ export function Footer() {
       <Frame>
         <FrameBody className="flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:py-5">
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-            <p className="text-xs text-muted-foreground">© {year} Harshhaa</p>
+            <p className="text-xs text-muted-foreground" suppressHydrationWarning>
+              © {year} Harshhaa
+            </p>
             <span className="hidden sm:inline-block text-border">•</span>
             <TelemetryWidget />
           </div>

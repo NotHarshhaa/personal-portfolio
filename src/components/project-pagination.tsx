@@ -30,7 +30,8 @@ export function ProjectPagination({
           <PaginationPrevious
             className={cn(isFirst && 'pointer-events-none opacity-50')}
             isActive={!isFirst}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault()
               if (!isFirst) updatePage(page - 1)
             }}
             href={!isFirst ? `?page=${page - 1}` : '#'}
@@ -57,7 +58,8 @@ export function ProjectPagination({
           <PaginationNext
             className={cn(isLast && 'pointer-events-none opacity-50')}
             isActive={!isLast}
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault()
               if (!isLast) updatePage(page + 1)
             }}
             href={!isLast ? `?page=${page + 1}` : '#'}

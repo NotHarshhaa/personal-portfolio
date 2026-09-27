@@ -15,7 +15,6 @@ export function Hero() {
     about,
     links,
     specialties,
-    techStack,
     currentFocus,
     expertise,
     featuredProjects,

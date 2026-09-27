@@ -43,10 +43,7 @@ export function KeyboardShortcuts({ onShowModal }: KeyboardShortcutsProps) {
         description: 'Focus search (on projects page)',
         action: () => {
           if (pathname === '/projects') {
-            const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement
-            if (searchInput) {
-              searchInput.focus()
-            }
+            document.getElementById('project-search')?.focus()
           }
         }
       },
@@ -85,7 +82,7 @@ export function KeyboardShortcuts({ onShowModal }: KeyboardShortcutsProps) {
       }
 
       // Handle multi-key shortcuts (g + h, g + p, etc.)
-      if (e.key === 'g' && keysRef.current.length === 0) {
+      if (e.key.toLowerCase() === 'g' && keysRef.current.length === 0) {
         keysRef.current.push('g')
         return
       }

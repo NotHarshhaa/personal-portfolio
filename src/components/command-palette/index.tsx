@@ -23,7 +23,6 @@ export function CommandPalette() {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const inputRef = useRef<HTMLInputElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -67,16 +66,6 @@ export function CommandPalette() {
       document.body.style.overflow = ''
     }
   }, [isOpen])
-
-  const copyEmail = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText('harshhaa03@gmail.com')
-      setCopiedEmail(true)
-      setTimeout(() => setCopiedEmail(false), 2000)
-    } catch {
-      // fallback
-    }
-  }, [])
 
   const executeCliCommand = useCallback(
     (cmdRaw: string) => {
@@ -182,6 +171,31 @@ export function CommandPalette() {
     [router, setTheme, theme]
   )
 
+  const copyEmail = useCallback(async () => {
+    const email = 'harshhaa03@gmail.com'
+    try {
+      await navigator.clipboard.writeText(email)
+    } catch {
+      // Fallback for non-secure contexts / missing clipboard API
+      try {
+        const textarea = document.createElement('textarea')
+        textarea.value = email
+        textarea.style.position = 'fixed'
+        textarea.style.opacity = '0'
+        document.body.appendChild(textarea)
+        textarea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textarea)
+      } catch {
+        // Clipboard unavailable — surface the address via the contact CLI output
+        executeCliCommand('contact')
+        return
+      }
+    }
+    setCopiedEmail(true)
+    setTimeout(() => setCopiedEmail(false), 2000)
+  }, [executeCliCommand])
+
   const commands = useMemo(
     () =>
       buildCommands({
@@ -222,11 +236,14 @@ export function CommandPalette() {
     } else if (e.key === 'Enter') {
       e.preventDefault()
       const trimmed = query.trim().toLowerCase()
-      const isCliKeyword = ['help', 'cat', 'skills', 'status', 'ping', 'projects', 'contact', 'clear', 'theme'].some(
-        (kw) => trimmed.startsWith(kw)
-      )
+      const CLI_KEYWORDS = ['help', 'cat', 'skills', 'status', 'ping', 'projects', 'contact', 'clear', 'theme', 'cat about.txt', 'about']
+      const isExactCliCommand = CLI_KEYWORDS.includes(trimmed)
 
-      if (isCliKeyword) {
+      // Run the CLI only when the query exactly names a CLI command, or when
+      // nothing matched (the empty state invites "Enter to run as CLI").
+      // Otherwise the arrow-key selection wins, so typing "contact page" and
+      // pressing Enter runs the highlighted Contact command instead of the CLI.
+      if (isExactCliCommand || filteredCommands.length === 0) {
         executeCliCommand(query)
       } else if (filteredCommands[selectedIndex]) {
         filteredCommands[selectedIndex].action()
@@ -309,7 +326,6 @@ export function CommandPalette() {
 
               {/* Command Results List */}
               <CommandList
-                ref={listRef}
                 query={query}
                 filteredCommands={filteredCommands}
                 selectedIndex={selectedIndex}
