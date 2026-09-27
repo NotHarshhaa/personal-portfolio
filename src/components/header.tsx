@@ -66,12 +66,41 @@ export function Header() {
     }
   }, [pathname])
 
+  // Elevation once the page scrolls: keeps the bar readable over content
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    let raf = 0
+
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 8)
+        raf = 0
+      })
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <>
       <KeyboardShortcuts onShowModal={handleShowShortcuts} />
       <header className="fixed top-0 right-0 left-0 z-50 pointer-events-none">
         <div className="site-shell pt-3 sm:pt-4 pointer-events-auto">
-          <div className="relative flex h-12 items-center justify-between overflow-visible border border-border bg-background/75 backdrop-blur-xs px-4 sm:h-14 sm:px-5">
+          <div
+            className={cn(
+              'relative flex h-12 items-center justify-between overflow-visible border border-border px-4 backdrop-blur-md transition-[background-color,box-shadow] duration-300 sm:h-14 sm:px-5',
+              scrolled
+                ? 'bg-background/90 shadow-[0_12px_32px_-20px_oklch(0_0_0/0.4)]'
+                : 'bg-background/75'
+            )}
+          >
             <Corners />
             <Link
               href="/"
@@ -112,12 +141,15 @@ export function Header() {
                       href={link.url}
                       onClick={(e) => (e.currentTarget as HTMLElement)?.blur()}
                       className={cn(
-                        'text-xs font-medium tracking-wide transition-colors',
+                        'inline-flex items-center gap-1.5 text-xs font-medium tracking-wide transition-colors',
                         pathname === link.url
                           ? 'text-foreground'
                           : 'text-muted-foreground group-hover/mark:text-foreground'
                       )}
                     >
+                      {pathname === link.url && (
+                        <span aria-hidden className="size-1 bg-signal" />
+                      )}
                       {link.title}
                     </Link>
                   </HoverMark>
@@ -221,6 +253,9 @@ export function Header() {
                             >
                               {String(index + 1).padStart(2, '0')}
                             </span>
+                            {active && (
+                              <span aria-hidden className="size-1 bg-signal" />
+                            )}
                             {link.title}
                           </span>
                           <ChevronRight

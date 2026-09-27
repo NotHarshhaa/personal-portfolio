@@ -48,7 +48,7 @@ export function ProjectCard({
                         className="inline-flex items-center gap-1.5 text-base font-medium"
                       >
                         {project.title}
-                        <ArrowUpRight className="size-3.5 opacity-40" />
+                        <ArrowUpRight className="size-3.5 opacity-40 transition-all duration-200 group-hover/mark:translate-x-0.5 group-hover/mark:-translate-y-0.5 group-hover/mark:text-signal group-hover/mark:opacity-100" />
                       </a>
                     ) : (
                       <h3 className="text-base font-medium">{project.title}</h3>
@@ -66,11 +66,11 @@ export function ProjectCard({
                     {project.description}
                   </p>
 
-                  <ul className="flex flex-wrap gap-x-3 gap-y-1">
+                  <ul className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag) => (
                       <li
                         key={tag.name}
-                        className="text-xs text-muted-foreground/80"
+                        className="border border-border/70 px-1.5 py-0.5 font-mono text-[10px] tracking-wide text-muted-foreground/90 uppercase"
                       >
                         {tag.name}
                       </li>

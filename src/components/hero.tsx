@@ -73,7 +73,7 @@ export function Hero() {
               {specialties.map((item) => (
                 <li
                   key={item}
-                  className="border border-border px-2.5 py-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase"
+                  className="border border-border px-2.5 py-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:border-foreground/50 hover:text-foreground"
                 >
                   {item}
                 </li>
@@ -82,13 +82,16 @@ export function Hero() {
 
             <div className="flex flex-wrap items-center gap-3">
               <Button asChild>
-                <Link href="/projects">
+                <Link href="/projects" className="group/cta">
                   View work
-                  <ArrowUpRight className="size-3.5" />
+                  <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href="/contact">Contact</Link>
+                <Link href="/contact" className="group/cta-alt">
+                  Contact
+                  <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta-alt:translate-x-0.5 group-hover/cta-alt:-translate-y-0.5" />
+                </Link>
               </Button>
             </div>
           </FrameBody>
@@ -119,10 +122,10 @@ export function Hero() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-foreground transition-opacity hover:opacity-60"
+                    className="group/link inline-flex items-center gap-1.5 text-sm text-foreground transition-colors hover:text-signal"
                   >
                     {link.title}
-                    <ArrowUpRight className="size-3 opacity-50" />
+                    <ArrowUpRight className="size-3 opacity-50 transition-all duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-hover/link:opacity-100" />
                   </a>
                 </li>
               ))}
@@ -216,15 +219,17 @@ export function Hero() {
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-start justify-between gap-4 py-3 transition-opacity hover:opacity-70"
+                      className="group flex items-start justify-between gap-4 py-3"
                     >
                       <div className="min-w-0">
-                        <p className="text-sm font-medium">{project.title}</p>
+                        <p className="text-sm font-medium transition-colors group-hover:text-signal">
+                          {project.title}
+                        </p>
                         <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                           {project.description}
                         </p>
                       </div>
-                      <ArrowUpRight className="mt-0.5 size-3.5 shrink-0 opacity-40" />
+                      <ArrowUpRight className="mt-0.5 size-3.5 shrink-0 opacity-40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal group-hover:opacity-100" />
                     </a>
                   </li>
                 ))}
@@ -247,15 +252,17 @@ export function Hero() {
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-full flex-col justify-between gap-2 border-b border-border px-0 py-4 transition-opacity hover:opacity-70 sm:px-4"
+                  className="group/cell flex h-full flex-col justify-between gap-2 border-b border-border px-0 py-4 sm:px-4"
                 >
                   <div>
-                    <p className="text-sm font-medium">{item.title}</p>
+                    <p className="text-sm font-medium transition-colors group-hover/cell:text-signal">
+                      {item.title}
+                    </p>
                     <p className="mt-1 text-xs text-muted-foreground">
                       {item.description}
                     </p>
                   </div>
-                  <ArrowUpRight className="size-3.5 opacity-40" />
+                  <ArrowUpRight className="size-3.5 opacity-40 transition-all duration-200 group-hover/cell:translate-x-0.5 group-hover/cell:-translate-y-0.5 group-hover/cell:text-signal group-hover/cell:opacity-100" />
                 </a>
               </li>
             ))}
