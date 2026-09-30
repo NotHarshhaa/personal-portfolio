@@ -14,6 +14,8 @@ import {
 } from './frame'
 import { FlipWords } from './flip-words'
 import { GitHubActivity } from './github-activity'
+import { ViewsBadge } from './views-badge'
+import { PipelineBanner } from './pipeline-banner'
 import { ArchitectureDiagrams } from './architecture-diagrams'
 import { SkillsCategorized } from './skills-categorized'
 import { data } from '../constants'
@@ -47,16 +49,25 @@ export function Hero() {
       <div className="flex flex-col">
         <div className="border-border bg-background relative flex h-24 w-full shrink-0 items-center justify-center border sm:h-28">
           <SectionTicks />
-          <p className="font-mono text-sm tracking-[0.08em] sm:text-lg">
-            Build | Ship | Automate
-          </p>
+          {/* Blueprint edge labels */}
+          <span
+            aria-hidden
+            className="font-mono absolute bottom-1.5 left-3 hidden text-[10px] tracking-[0.14em] text-muted-foreground/40 sm:inline"
+          >
+            // harshhaa.pipeline
+          </span>
+          <span
+            aria-hidden
+            className="font-mono absolute right-3 bottom-1.5 hidden text-[10px] tracking-[0.14em] text-muted-foreground/40 sm:inline"
+          >
+            status: operational
+          </span>
+          <PipelineBanner />
         </div>
 
         <Frame className="border-t-0">
           <FrameHeader label="Portfolio / Home">
-            <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
-              Platform
-            </span>
+            <ViewsBadge />
           </FrameHeader>
           <FrameBody className="space-y-8 py-10 sm:py-14 md:py-16">
             <div className="flex w-full flex-col items-start gap-4 sm:flex-row sm:items-end sm:gap-6">
