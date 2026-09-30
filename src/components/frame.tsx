@@ -7,31 +7,29 @@ export type CornerWeight = 'thin' | 'normal'
 export function Corners({
   className,
   size = 'default',
-  offset = 'border',
-  weight = 'normal',
-  light = false
+  offset = 'border'
 }: {
   className?: string
   size?: CornerSize
   offset?: 'border' | 'none'
+  /** Kept for API compatibility; brackets are always 1px like the reference */
   weight?: CornerWeight
+  /** Kept for API compatibility; brackets always use muted-foreground/50 */
   light?: boolean
 }) {
   const sizeClasses = {
     sm: 'size-2',
-    default: 'size-2.5 sm:size-3',
-    lg: 'size-3 sm:size-3.5'
+    default: 'size-2 sm:size-2.5',
+    lg: 'size-2.5 sm:size-3'
   }[size]
 
-  const colorClass = light
-    ? 'border-foreground/30'
-    : 'border-foreground/45'
+  const colorClass = 'border-muted-foreground/50'
 
   const borderStyles = {
-    tl: weight === 'thin' ? 'border-t border-l' : 'border-t-2 border-l-2',
-    tr: weight === 'thin' ? 'border-t border-r' : 'border-t-2 border-r-2',
-    bl: weight === 'thin' ? 'border-b border-l' : 'border-b-2 border-l-2',
-    br: weight === 'thin' ? 'border-b border-r' : 'border-b-2 border-r-2'
+    tl: 'border-t border-l',
+    tr: 'border-t border-r',
+    bl: 'border-b border-l',
+    br: 'border-b border-r'
   }
 
   const pos =
@@ -105,7 +103,7 @@ type FrameProps = HTMLAttributes<HTMLDivElement> & {
   corners?: boolean
 }
 
-/** Blueprint-style content box with optional corner ticks */
+/** Blueprint-style content box with reference-style corner ticks */
 export function Frame({
   children,
   className,
@@ -115,12 +113,12 @@ export function Frame({
   return (
     <div
       className={cn(
-        'relative border border-border bg-background/90',
+        'border-border relative border bg-background',
         className
       )}
       {...props}
     >
-      {corners && <Corners offset="border" />}
+      {corners && <SectionTicks />}
       {children}
     </div>
   )
@@ -181,6 +179,43 @@ export function CornerBadge({
 type FrameHeaderProps = HTMLAttributes<HTMLDivElement> & {
   children?: ReactNode
   label?: string
+}
+
+/** Small corner ticks sitting on the outer edges of a bordered section.
+ *  Exact copy of the reference portfolio's SectionBorders component. */
+export function SectionTicks({ className }: { className?: string }) {
+  return (
+    <>
+      <div
+        aria-hidden
+        className={cn(
+          'border-muted-foreground/50 absolute -top-px -left-px z-5 h-2 w-2 border-l',
+          className
+        )}
+      />
+      <div
+        aria-hidden
+        className={cn(
+          'border-muted-foreground/50 absolute -top-px -right-px z-5 h-2 w-2 border-r',
+          className
+        )}
+      />
+      <div
+        aria-hidden
+        className={cn(
+          'border-muted-foreground/50 absolute -bottom-px -left-px z-5 h-2 w-2 border-b border-l',
+          className
+        )}
+      />
+      <div
+        aria-hidden
+        className={cn(
+          'border-muted-foreground/50 absolute -right-px -bottom-px z-5 h-2 w-2 border-r border-b',
+          className
+        )}
+      />
+    </>
+  )
 }
 
 /** Labeled top bar inside a frame (like Langfuse section titles) */

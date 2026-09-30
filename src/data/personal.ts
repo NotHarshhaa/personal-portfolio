@@ -10,6 +10,12 @@ export const AVATAR = {
 
 export const ABOUT = {
   role: 'Platform Engineer • DevOps • AI Infrastructure & AI Product Development',
+  roles: [
+    'Platform Engineer',
+    'DevOps Engineer',
+    'AI Infrastructure Engineer',
+    'AI Product Developer'
+  ],
   headline: 'Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products.',
   title: 'Platform Engineer • DevOps • AI Infrastructure & AI Product Development. Based in Hyderabad, India.',
   description: `Building scalable developer platforms, production AI infrastructure, autonomous AI agents, MCP ecosystems, and AI products.

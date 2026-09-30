@@ -3,7 +3,16 @@
 import { Link } from 'next-view-transitions'
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import { Frame, FrameBody, FrameHeader, CornerHeading, CornerBadge, Corners } from './frame'
+import {
+  Frame,
+  FrameBody,
+  FrameHeader,
+  CornerHeading,
+  CornerBadge,
+  Corners,
+  SectionTicks
+} from './frame'
+import { FlipWords } from './flip-words'
 import { ArchitectureDiagrams } from './architecture-diagrams'
 import { SkillsCategorized } from './skills-categorized'
 import { data } from '../constants'
@@ -32,7 +41,17 @@ export function Hero() {
 
   return (
       <section className="relative flex w-full flex-col gap-4 py-4 sm:gap-5 sm:py-6">
-      <Frame>
+      {/* Dotted-grid banner strip with bracket ticks, flush-connected to the
+          hero frame below like the reference's stacked sections */}
+      <div className="flex flex-col">
+        <div className="border-border bg-background relative flex h-24 w-full shrink-0 items-center justify-center border sm:h-28">
+          <SectionTicks />
+          <p className="font-mono text-sm tracking-[0.08em] sm:text-lg">
+            Build | Ship | Automate
+          </p>
+        </div>
+
+        <Frame className="border-t-0">
           <FrameHeader label="Portfolio / Home">
             <span className="font-mono text-[11px] text-muted-foreground tabular-nums">
               Platform
@@ -57,9 +76,9 @@ export function Hero() {
                 <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
                   Harshhaa Vardhan Reddy
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-                  {about.role}
-                </p>
+                <h2 className="mt-1.5 flex flex-wrap items-baseline gap-x-2 font-heading text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
+                  <FlipWords words={about.roles ?? [about.role]} />
+                </h2>
               </div>
             </div>
 
@@ -96,6 +115,7 @@ export function Hero() {
             </div>
           </FrameBody>
         </Frame>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Frame>
