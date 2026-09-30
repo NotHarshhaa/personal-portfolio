@@ -218,7 +218,8 @@ export function SectionTicks({ className }: { className?: string }) {
   )
 }
 
-/** Labeled top bar inside a frame (like Langfuse section titles) */
+/** Labeled top bar inside a frame: large reference-style section title
+ *  ("About Me." style) framed by thin corner brackets */
 export function FrameHeader({
   children,
   label,
@@ -228,12 +229,18 @@ export function FrameHeader({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-4 border-b border-border px-4 py-3 sm:px-6',
+        'flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-border px-4 py-3 sm:px-6',
         className
       )}
       {...props}
     >
-      {label && <CornerBadge>{label}</CornerBadge>}
+      {label && (
+        <CornerHeading as="h2" size="sm" className="px-1.5 py-0.5">
+          <span className="font-heading text-xl font-medium tracking-tight sm:text-2xl md:text-3xl">
+            {label.endsWith('.') ? label : `${label}.`}
+          </span>
+        </CornerHeading>
+      )}
       {children}
     </div>
   )

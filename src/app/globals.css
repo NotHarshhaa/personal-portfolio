@@ -133,8 +133,28 @@
 
   body {
     @apply text-foreground antialiased;
-    background-color: var(--background);
     min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--background);
+    background-image:
+      linear-gradient(to right,
+        color-mix(in oklch, var(--foreground) 12%, transparent) 1px,
+        transparent 1px),
+      linear-gradient(to bottom,
+        color-mix(in oklch, var(--foreground) 12%, transparent) 1px,
+        transparent 1px);
+    background-size: 48px 48px;
+    background-position: center top;
+    transform: translate3d(0, 0, 0);
+    /* Grid reads strongest at the top, fading into plain paper below */
+    mask-image: radial-gradient(120% 90% at 50% 0%, black 35%, transparent 78%);
   }
 
   ::selection {

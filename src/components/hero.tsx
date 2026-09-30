@@ -13,6 +13,7 @@ import {
   SectionTicks
 } from './frame'
 import { FlipWords } from './flip-words'
+import { GitHubActivity } from './github-activity'
 import { ArchitectureDiagrams } from './architecture-diagrams'
 import { SkillsCategorized } from './skills-categorized'
 import { data } from '../constants'
@@ -58,34 +59,34 @@ export function Hero() {
             </span>
           </FrameHeader>
           <FrameBody className="space-y-8 py-10 sm:py-14 md:py-16">
-            <div className="flex items-center gap-4">
-              <div className="relative inline-flex p-1">
+            <div className="flex w-full flex-col items-start gap-4 sm:flex-row sm:items-end sm:gap-6">
+              <div className="relative inline-flex shrink-0 p-1.5">
                 <Corners size="default" offset="none" weight="thin" light />
-                <Avatar className="size-14 rounded-none border border-border after:rounded-none sm:size-16">
+                <Avatar className="size-32 rounded-sm border border-border sm:size-40 md:size-48 lg:size-52">
                   <AvatarImage
                     src="/assets/avatar.png"
                     alt={avatar.name}
-                    className="rounded-none object-cover"
+                    className="rounded-sm object-cover"
                   />
-                  <AvatarFallback className="rounded-none bg-muted font-heading text-sm font-semibold tracking-wider">
+                  <AvatarFallback className="rounded-sm bg-muted font-heading text-3xl font-semibold tracking-wider">
                     {avatar.initials}
                   </AvatarFallback>
                 </Avatar>
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
-                  Harshhaa Vardhan Reddy
-                </p>
-                <h2 className="mt-1.5 flex flex-wrap items-baseline gap-x-2 font-heading text-xl font-semibold tracking-tight sm:text-2xl md:text-3xl">
+                <h1 className="font-heading text-xl tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
+                  Hey, I&apos;m Harshhaa
+                </h1>
+                <div className="mt-1 flex flex-wrap items-baseline gap-x-2 font-heading text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
                   <FlipWords words={about.roles ?? [about.role]} />
-                </h2>
+                </div>
               </div>
             </div>
 
             <CornerHeading size="lg" className="w-fit max-w-4xl px-3 py-2 sm:px-4 sm:py-3">
-              <h1 className="font-heading text-3xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
+              <h2 className="font-heading text-xl leading-[1.15] font-semibold tracking-tight text-balance sm:text-2xl md:text-3xl">
                 {about.headline}
-              </h1>
+              </h2>
             </CornerHeading>
 
             <ul className="flex flex-wrap gap-x-3 gap-y-2">
@@ -153,6 +154,8 @@ export function Hero() {
           </FrameBody>
         </Frame>
       </div>
+
+      <GitHubActivity />
 
       <SkillsCategorized />
 
