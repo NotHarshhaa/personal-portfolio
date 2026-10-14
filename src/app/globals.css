@@ -157,8 +157,10 @@
     mask-image: radial-gradient(120% 90% at 50% 0%, black 35%, transparent 78%);
   }
 
+  /* Translucent signal tint keeps the selection visible on any surface,
+     including dark buttons and dark mode, without hiding the text color */
   ::selection {
-    @apply bg-foreground text-background;
+    background-color: color-mix(in oklch, var(--signal) 35%, transparent);
   }
 
   /* Signal focus: visible offset ring in the accent hue */
