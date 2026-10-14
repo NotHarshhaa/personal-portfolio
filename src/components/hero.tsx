@@ -1,6 +1,7 @@
 'use client'
 
 import { Link } from 'next-view-transitions'
+import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
@@ -18,8 +19,24 @@ import { ViewsBadge } from './views-badge'
 import { PipelineBanner } from './pipeline-banner'
 import { ArchitectureDiagrams } from './architecture-diagrams'
 import { SkillsCategorized } from './skills-categorized'
+import { Magnet } from './ui/magnet'
 import { data } from '../constants'
-import { ArrowUpRight } from 'lucide-react'
+import {
+  ArrowUpRight,
+  BookOpen,
+  FileDown,
+  Github,
+  Linkedin,
+  Send
+} from 'lucide-react'
+
+const elsewhereIcons: Record<string, typeof Github> = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  Blog: BookOpen,
+  Telegram: Send,
+  Resume: FileDown
+}
 
 export function Hero() {
   const {
@@ -54,7 +71,7 @@ export function Hero() {
             aria-hidden
             className="font-mono absolute bottom-1.5 left-3 hidden text-[10px] tracking-[0.14em] text-muted-foreground/40 sm:inline"
           >
-            // harshhaa.pipeline
+            {'// harshhaa.pipeline'}
           </span>
           <span
             aria-hidden
@@ -112,18 +129,22 @@ export function Hero() {
             </ul>
 
             <div className="flex flex-wrap items-center gap-3">
-              <Button asChild>
-                <Link href="/projects" className="group/cta">
-                  View work
-                  <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/contact" className="group/cta-alt">
-                  Contact
-                  <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta-alt:translate-x-0.5 group-hover/cta-alt:-translate-y-0.5" />
-                </Link>
-              </Button>
+              <Magnet padding={40} magnetStrength={3}>
+                <Button asChild>
+                  <Link href="/projects" className="group/cta">
+                    View work
+                    <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+                  </Link>
+                </Button>
+              </Magnet>
+              <Magnet padding={40} magnetStrength={3}>
+                <Button variant="outline" asChild>
+                  <Link href="/contact" className="group/cta-alt">
+                    Contact
+                    <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta-alt:translate-x-0.5 group-hover/cta-alt:-translate-y-0.5" />
+                  </Link>
+                </Button>
+              </Magnet>
             </div>
           </FrameBody>
         </Frame>
@@ -146,21 +167,39 @@ export function Hero() {
 
         <Frame>
           <FrameHeader label="Elsewhere" />
-          <FrameBody className="py-5">
-            <ul className="flex flex-col gap-3">
-              {primaryLinks.map((link) => (
-                <li key={link.title}>
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/link inline-flex items-center gap-1.5 text-sm text-foreground transition-colors hover:text-signal"
+          <FrameBody className="py-0 sm:py-0">
+            <ul className="grid grid-cols-1 xs:grid-cols-2">
+              {primaryLinks.map((link, i) => {
+                const Icon = elsewhereIcons[link.title]
+                return (
+                  <li
+                    key={link.title}
+                    className={cn(
+                      'border-border',
+                      i % 2 === 0 && 'xs:border-r',
+                      i < primaryLinks.length - (primaryLinks.length % 2 === 0 ? 2 : 1) && 'border-b',
+                      primaryLinks.length % 2 !== 0 && i === primaryLinks.length - 1 && 'xs:col-span-2'
+                    )}
                   >
-                    {link.title}
-                    <ArrowUpRight className="size-3 opacity-50 transition-all duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-hover/link:opacity-100" />
-                  </a>
-                </li>
-              ))}
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/link flex items-center justify-between gap-2 px-1 py-3.5 transition-colors hover:bg-muted/50 sm:px-4"
+                    >
+                      <span className="flex items-center gap-2.5">
+                        {Icon && (
+                          <Icon className="size-4 text-muted-foreground transition-colors group-hover/link:text-foreground" />
+                        )}
+                        <span className="text-sm font-medium transition-colors group-hover/link:text-signal">
+                          {link.title}
+                        </span>
+                      </span>
+                      <ArrowUpRight className="size-3.5 text-muted-foreground transition-transform duration-200 ease-in-out group-hover/link:rotate-45 group-hover/link:text-foreground" />
+                    </a>
+                  </li>
+                )
+              })}
             </ul>
           </FrameBody>
         </Frame>

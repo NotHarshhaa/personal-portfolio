@@ -2,8 +2,28 @@
 
 import { ContactForm } from '@/components/contact-form'
 import { data } from '@/constants'
-import { ArrowUpRight } from 'lucide-react'
+import {
+  ArrowUpRight,
+  Clock as ClockIcon,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Send
+} from 'lucide-react'
 import { Frame, FrameBody, FrameHeader, CornerHeading } from './frame'
+import { Clock } from './ui/clock'
+import { CopyButton } from './ui/copy-button'
+import { IconBox } from './ui/icon-box'
+
+const contactIcons: Record<string, typeof Mail> = {
+  Email: Mail,
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  Telegram: Send
+}
+
+const EMAIL = 'harshhaa03@gmail.com'
 
 export function Contact() {
   const { links } = data
@@ -33,24 +53,49 @@ export function Contact() {
           <FrameHeader label="Direct" />
           <FrameBody>
             <ul className="space-y-3">
-              {contactLinks.map((link) => (
-                <li key={link.title}>
-                  <a
-                    href={link.url}
-                    target={link.title === 'Email' ? undefined : '_blank'}
-                    rel={
-                      link.title === 'Email'
-                        ? undefined
-                        : 'noopener noreferrer'
-                    }
-                    className="inline-flex items-center gap-1.5 text-sm transition-opacity hover:opacity-60"
-                  >
-                    {link.title}
-                    <ArrowUpRight className="size-3 opacity-40" />
-                  </a>
-                </li>
-              ))}
+              {contactLinks.map((link) => {
+                const Icon = contactIcons[link.title]
+                const isEmail = link.title === 'Email'
+                return (
+                  <li key={link.title} className="group flex items-center gap-3">
+                    <IconBox>
+                      {Icon && <Icon className="size-3.5" />}
+                    </IconBox>
+                    <a
+                      href={link.url}
+                      target={isEmail ? undefined : '_blank'}
+                      rel={isEmail ? undefined : 'noopener noreferrer'}
+                      className="text-sm transition-colors hover:text-signal"
+                    >
+                      {isEmail ? EMAIL : link.title}
+                    </a>
+                    {isEmail && <CopyButton text={EMAIL} />}
+                    {!isEmail && (
+                      <ArrowUpRight className="size-3 shrink-0 opacity-40 transition-opacity group-hover:opacity-100" />
+                    )}
+                  </li>
+                )
+              })}
             </ul>
+
+            <div className="border-border mt-5 space-y-3 border-t pt-5">
+              <div className="flex items-center gap-3">
+                <IconBox>
+                  <MapPin className="size-3.5" />
+                </IconBox>
+                <span className="text-sm">Hyderabad, India</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <IconBox>
+                  <ClockIcon className="size-3.5" />
+                </IconBox>
+                <Clock
+                  timeZone="Asia/Kolkata"
+                  className="text-sm tabular-nums"
+                />
+                <span className="text-xs text-muted-foreground">IST</span>
+              </div>
+            </div>
           </FrameBody>
         </Frame>
 
