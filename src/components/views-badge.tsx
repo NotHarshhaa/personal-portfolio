@@ -106,7 +106,7 @@ export function ViewsBadge({ className }: { className?: string }) {
       <Corners size="sm" offset="none" weight="thin" light />
       <Eye className="size-4" />
       {views === null ? (
-        <span className="tabular-nums opacity-30">0000</span>
+        <span className="tabular-nums opacity-30">—</span>
       ) : (
         <AnimatedNumber value={views} />
       )}

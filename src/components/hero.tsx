@@ -1,72 +1,48 @@
 'use client'
 
 import { Link } from 'next-view-transitions'
-import { cn } from '@/lib/utils'
+import { ArrowUpRight, FileDown } from 'lucide-react'
 import { Button } from './ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import {
   Frame,
   FrameBody,
   FrameHeader,
-  CornerHeading,
   CornerBadge,
-  Corners,
   SectionTicks
 } from './frame'
 import { FlipWords } from './flip-words'
-import { GitHubActivity } from './github-activity'
 import { ViewsBadge } from './views-badge'
 import { PipelineBanner } from './pipeline-banner'
-import { ArchitectureDiagrams } from './architecture-diagrams'
-import { SkillsCategorized } from './skills-categorized'
 import { Magnet } from './ui/magnet'
+import { Reveal } from './ui/reveal'
 import { data } from '../constants'
-import {
-  ArrowUpRight,
-  BookOpen,
-  FileDown,
-  Github,
-  Linkedin,
-  Send
-} from 'lucide-react'
+import { IMPACT_STATS, LINK_DESCRIPTIONS } from '../data/personal'
+import { IdentityCard } from './home/identity-card'
 
-const elsewhereIcons: Record<string, typeof Github> = {
-  GitHub: Github,
-  LinkedIn: Linkedin,
-  Blog: BookOpen,
-  Telegram: Send,
-  Resume: FileDown
-}
+const SOCIALS = ['GitHub', 'LinkedIn', 'Blog']
 
 export function Hero() {
-  const {
-    avatar,
-    about,
-    links,
-    specialties,
-    currentFocus,
-    expertise,
-    featuredProjects,
-    learningHub
-  } = data
+  const { avatar, about, links, specialties } = data
 
-  const aboutParagraphs = about.description
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean)
-
-  const primaryLinks = links.filter((l) =>
-    ['GitHub', 'LinkedIn', 'Blog', 'Telegram', 'Resume'].includes(l.title)
-  )
+  const socials = links.filter((link) => SOCIALS.includes(link.title))
+  const resume = links.find((link) => link.title === 'Resume')
 
   return (
-      <section className="relative flex w-full flex-col gap-4 py-4 sm:gap-5 sm:py-6">
-      {/* Dotted-grid banner strip with bracket ticks, flush-connected to the
-          hero frame below like the reference's stacked sections */}
+    <section className="relative flex w-full flex-col gap-4 py-4 sm:gap-5 sm:py-6">
+      {/* Blueprint banner strip, flush-connected to the hero frame below */}
       <div className="flex flex-col">
-        <div className="border-border bg-background relative flex h-24 w-full shrink-0 items-center justify-center border sm:h-28">
+        <div className="bg-dot-grid border-border bg-background relative flex h-24 w-full shrink-0 items-center justify-center overflow-hidden border sm:h-28">
           <SectionTicks />
-          {/* Blueprint edge labels */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/70"
+          />
+          <span className="absolute top-2 left-3 hidden font-mono text-[9px] tracking-[0.16em] text-muted-foreground/35 uppercase sm:inline">
+            sys / portfolio
+          </span>
+          <span className="absolute top-2 right-3 hidden font-mono text-[9px] tracking-[0.16em] text-muted-foreground/35 uppercase sm:inline">
+            rev 2026.10
+          </span>
           <span
             aria-hidden
             className="font-mono absolute bottom-1.5 left-3 hidden text-[10px] tracking-[0.14em] text-muted-foreground/40 sm:inline"
@@ -86,262 +62,140 @@ export function Hero() {
           <FrameHeader label="Portfolio / Home">
             <ViewsBadge />
           </FrameHeader>
-          <FrameBody className="space-y-8 py-10 sm:py-14 md:py-16">
-            <div className="flex w-full flex-col items-start gap-4 sm:flex-row sm:items-end sm:gap-6">
-              <div className="relative inline-flex shrink-0 p-1.5">
-                <Corners size="default" offset="none" weight="thin" light />
-                <Avatar className="size-32 rounded-sm border border-border sm:size-40 md:size-48 lg:size-52">
-                  <AvatarImage
-                    src="/assets/avatar.png"
-                    alt={avatar.name}
-                    className="rounded-sm object-cover"
-                  />
-                  <AvatarFallback className="rounded-sm bg-muted font-heading text-3xl font-semibold tracking-wider">
-                    {avatar.initials}
-                  </AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="min-w-0">
-                <h1 className="font-heading text-xl tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
-                  Hey, I&apos;m Harshhaa
+
+          <FrameBody className="p-0">
+            <div className="grid lg:grid-cols-[1.45fr_0.55fr]">
+              <Reveal className="p-5 sm:p-8 lg:p-10 xl:p-12">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span className="inline-flex items-center gap-1.5 border border-emerald-500/30 bg-emerald-500/5 px-2 py-1 font-mono text-[9px] tracking-[0.16em] text-emerald-700 uppercase dark:text-emerald-400">
+                    <span className="relative flex size-1.5">
+                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
+                    </span>
+                    available for work
+                  </span>
+                  <span className="font-mono text-[9px] tracking-[0.16em] text-muted-foreground/60 uppercase">
+                    Hyderabad, IN · UTC+5:30
+                  </span>
+                </div>
+
+                <h1 className="font-heading mt-5 text-[clamp(2.75rem,7vw,5.25rem)] leading-[0.92] font-semibold tracking-[-0.045em]">
+                  Hey, I&apos;m
+                  <br />
+                  <span className="text-signal">Harshhaa</span>
+                  <span className="text-muted-foreground/30">.</span>
                 </h1>
-                <div className="mt-1 flex flex-wrap items-baseline gap-x-2 font-heading text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-                  <FlipWords words={about.roles ?? [about.role]} />
+
+                <div className="mt-5 flex items-baseline gap-2">
+                  <span className="font-mono text-sm text-muted-foreground/40">
+                    /
+                  </span>
+                  <div className="font-heading text-xl font-medium tracking-tight text-muted-foreground sm:text-2xl">
+                    <FlipWords words={about.roles ?? [about.role]} />
+                  </div>
+                </div>
+
+                <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {about.headline}
+                </p>
+
+                <ul className="mt-5 flex flex-wrap gap-1.5">
+                  {specialties.map((item) => (
+                    <li
+                      key={item}
+                      className="border border-border/80 px-2 py-1 font-mono text-[9px] tracking-[0.1em] text-muted-foreground uppercase transition-colors hover:border-foreground/40 hover:text-foreground"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <Magnet padding={40} magnetStrength={3}>
+                    <Button asChild>
+                      <Link href="/projects" className="group/cta">
+                        Explore the work
+                        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
+                      </Link>
+                    </Button>
+                  </Magnet>
+                  <Magnet padding={40} magnetStrength={3}>
+                    <Button variant="outline" asChild>
+                      <Link href="/contact" className="group/cta-alt">
+                        Start a conversation
+                        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta-alt:translate-x-0.5 group-hover/cta-alt:-translate-y-0.5" />
+                      </Link>
+                    </Button>
+                  </Magnet>
+
+                  <div className="ml-1 flex items-center gap-1.5">
+                    {socials.map((link) => {
+                      const Icon = link.icon
+                      return (
+                        <a
+                          key={link.title}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={link.title}
+                          title={`${link.title} — ${LINK_DESCRIPTIONS[link.title] ?? ''}`}
+                          className="flex size-9 items-center justify-center border border-border text-muted-foreground transition-colors hover:border-foreground/40 hover:bg-muted/30 hover:text-foreground"
+                        >
+                          <Icon className="size-4" />
+                        </a>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                <div className="mt-8 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-4">
+                  {IMPACT_STATS.map((stat) => (
+                    <div
+                      key={stat.label}
+                      className="group bg-background px-3 py-3 transition-colors hover:bg-muted/20"
+                    >
+                      <p className="font-heading text-xl font-semibold tracking-tight tabular-nums sm:text-2xl">
+                        {stat.value}
+                      </p>
+                      <p className="mt-0.5 font-mono text-[8px] leading-snug tracking-[0.1em] text-muted-foreground uppercase">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+
+              <div className="relative border-t border-border p-5 sm:p-7 lg:border-t-0 lg:border-l lg:p-6 xl:p-8">
+                <div className="sticky top-24 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <CornerBadge className="text-[10px]">
+                      Operator Profile
+                    </CornerBadge>
+                    <span className="font-mono text-[9px] tracking-[0.14em] text-muted-foreground/50 uppercase">
+                      live
+                    </span>
+                  </div>
+                  <IdentityCard avatar={avatar} role="Platform & AI Engineer" />
+                  {resume && (
+                    <a
+                      href={resume.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between border border-border px-3 py-2.5 font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:border-foreground/40 hover:text-foreground"
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <FileDown className="size-3.5" />
+                        Download resume
+                      </span>
+                      <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
-
-            <CornerHeading size="lg" className="w-fit max-w-4xl px-3 py-2 sm:px-4 sm:py-3">
-              <h2 className="font-heading text-xl leading-[1.15] font-semibold tracking-tight text-balance sm:text-2xl md:text-3xl">
-                {about.headline}
-              </h2>
-            </CornerHeading>
-
-            <ul className="flex flex-wrap gap-x-3 gap-y-2">
-              {specialties.map((item) => (
-                <li
-                  key={item}
-                  className="border border-border px-2.5 py-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase transition-colors hover:border-foreground/50 hover:text-foreground"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <Magnet padding={40} magnetStrength={3}>
-                <Button asChild>
-                  <Link href="/projects" className="group/cta">
-                    View work
-                    <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
-                  </Link>
-                </Button>
-              </Magnet>
-              <Magnet padding={40} magnetStrength={3}>
-                <Button variant="outline" asChild>
-                  <Link href="/contact" className="group/cta-alt">
-                    Contact
-                    <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta-alt:translate-x-0.5 group-hover/cta-alt:-translate-y-0.5" />
-                  </Link>
-                </Button>
-              </Magnet>
-            </div>
           </FrameBody>
         </Frame>
       </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <Frame>
-          <FrameHeader label="About" />
-          <FrameBody className="space-y-4">
-            {aboutParagraphs.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 24)}
-                className="text-sm leading-relaxed text-muted-foreground sm:text-base"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </FrameBody>
-        </Frame>
-
-        <Frame>
-          <FrameHeader label="Elsewhere" />
-          <FrameBody className="py-0 sm:py-0">
-            <ul className="grid grid-cols-1 xs:grid-cols-2">
-              {primaryLinks.map((link, i) => {
-                const Icon = elsewhereIcons[link.title]
-                return (
-                  <li
-                    key={link.title}
-                    className={cn(
-                      'border-border',
-                      i % 2 === 0 && 'xs:border-r',
-                      i < primaryLinks.length - (primaryLinks.length % 2 === 0 ? 2 : 1) && 'border-b',
-                      primaryLinks.length % 2 !== 0 && i === primaryLinks.length - 1 && 'xs:col-span-2'
-                    )}
-                  >
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/link flex items-center justify-between gap-2 px-1 py-3.5 transition-colors hover:bg-muted/50 sm:px-4"
-                    >
-                      <span className="flex items-center gap-2.5">
-                        {Icon && (
-                          <Icon className="size-4 text-muted-foreground transition-colors group-hover/link:text-foreground" />
-                        )}
-                        <span className="text-sm font-medium transition-colors group-hover/link:text-signal">
-                          {link.title}
-                        </span>
-                      </span>
-                      <ArrowUpRight className="size-3.5 text-muted-foreground transition-transform duration-200 ease-in-out group-hover/link:rotate-45 group-hover/link:text-foreground" />
-                    </a>
-                  </li>
-                )
-              })}
-            </ul>
-          </FrameBody>
-        </Frame>
-      </div>
-
-      <GitHubActivity />
-
-      <SkillsCategorized />
-
-      <Frame>
-        {/* Divided Header Bar */}
-        <div className="grid grid-cols-2 border-b border-border">
-          <div className="flex items-center justify-between border-r border-border px-3 py-2.5 sm:px-6 sm:py-3">
-            <CornerBadge className="text-[9px] sm:text-[10px] md:text-[11px] truncate">
-              Current Focus
-            </CornerBadge>
-            <span className="hidden sm:inline-flex text-[10px] font-mono text-muted-foreground/70 tabular-nums">
-              {currentFocus.length} items
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between px-3 py-2.5 sm:px-6 sm:py-3">
-            <CornerBadge className="text-[9px] sm:text-[10px] md:text-[11px] truncate">
-              Areas of Expertise
-            </CornerBadge>
-            <span className="hidden sm:inline-flex text-[10px] font-mono text-muted-foreground/70 tabular-nums">
-              {expertise.length} items
-            </span>
-          </div>
-        </div>
-
-        {/* Divided Body: Side by Side on Mobile, Tablet & Desktop */}
-        <div className="grid grid-cols-2 divide-x divide-border">
-          {/* Current Focus Column */}
-          <div className="p-3 sm:p-5 md:p-6">
-            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
-              {currentFocus.map((item) => (
-                <li
-                  key={item}
-                  className="border-b border-border/50 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-start gap-1.5 leading-snug last:border-b-0 lg:odd:pr-3 lg:even:pl-3"
-                >
-                  <span className="text-foreground/40 select-none text-[10px] leading-tight pt-0.5">•</span>
-                  <span className="flex-1">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Areas of Expertise Column */}
-          <div className="p-3 sm:p-5 md:p-6">
-            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-4">
-              {expertise.map((item) => (
-                <li
-                  key={item}
-                  className="border-b border-border/50 py-1.5 sm:py-2 text-[11px] sm:text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors flex items-start gap-1.5 leading-snug last:border-b-0 lg:odd:pr-3 lg:even:pl-3"
-                >
-                  <span className="text-foreground/40 select-none text-[10px] leading-tight pt-0.5">•</span>
-                  <span className="flex-1">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Frame>
-
-      <ArchitectureDiagrams />
-
-      <Frame>
-        <FrameHeader label="Featured Projects">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-1 text-[11px] font-semibold tracking-[0.14em] text-muted-foreground uppercase transition-colors hover:text-foreground"
-          >
-            All projects
-            <ArrowUpRight className="size-3" />
-          </Link>
-        </FrameHeader>
-        <FrameBody className="grid gap-8 lg:grid-cols-2">
-          {featuredProjects.map((group) => (
-            <div key={group.category} className="space-y-4">
-              <div>
-                <CornerBadge className="text-[10px]">
-                  {group.category}
-                </CornerBadge>
-              </div>
-              <ul className="divide-y divide-border border-y border-border">
-                {group.items.map((project) => (
-                  <li key={project.title}>
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-start justify-between gap-4 py-3"
-                    >
-                      <div className="min-w-0">
-                        <p className="text-sm font-medium transition-colors group-hover:text-signal">
-                          {project.title}
-                        </p>
-                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                          {project.description}
-                        </p>
-                      </div>
-                      <ArrowUpRight className="mt-0.5 size-3.5 shrink-0 opacity-40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal group-hover:opacity-100" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </FrameBody>
-      </Frame>
-
-      <Frame>
-        <FrameHeader label="Learning Hub" />
-        <FrameBody>
-          <ul className="grid gap-0 sm:grid-cols-2 lg:grid-cols-3">
-            {learningHub.map((item) => (
-              <li
-                key={item.title}
-                className="border-border sm:odd:border-r lg:[&:nth-child(3n)]:border-r-0 lg:border-r"
-              >
-                <a
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group/cell flex h-full flex-col justify-between gap-2 border-b border-border px-0 py-4 sm:px-4"
-                >
-                  <div>
-                    <p className="text-sm font-medium transition-colors group-hover/cell:text-signal">
-                      {item.title}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {item.description}
-                    </p>
-                  </div>
-                  <ArrowUpRight className="size-3.5 opacity-40 transition-all duration-200 group-hover/cell:translate-x-0.5 group-hover/cell:-translate-y-0.5 group-hover/cell:text-signal group-hover/cell:opacity-100" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </FrameBody>
-      </Frame>
     </section>
   )
 }

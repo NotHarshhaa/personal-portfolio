@@ -3,7 +3,33 @@
 import React, { useState, useMemo } from 'react'
 import { Frame, FrameHeader, CornerBadge } from './frame'
 import { CATEGORIZED_SKILLS, type SkillCategory } from '@/data/skills'
-import { Search, Layers, X } from 'lucide-react'
+import {
+  Activity,
+  Bot,
+  Cloud,
+  Cpu,
+  FileCode2,
+  GitBranch,
+  Layers,
+  Search,
+  Sparkles,
+  Terminal,
+  Users,
+  X
+} from 'lucide-react'
+
+const CATEGORY_ICONS: Record<string, typeof Layers> = {
+  'Platform Engineering & IDP': Layers,
+  'DevOps & CI/CD': GitBranch,
+  'AI Infrastructure & LLMOps': Cpu,
+  'GenAI, AI Agents & MCP': Bot,
+  'AI Product Development': Sparkles,
+  'Cloud & Containers': Cloud,
+  'Infrastructure as Code': FileCode2,
+  'Observability & SRE': Activity,
+  'Languages & Scripting': Terminal,
+  'Community & Open Source': Users
+}
 
 export function SkillsCategorized() {
   const [activeCategory, setActiveCategory] = useState<string>('all')
@@ -33,6 +59,9 @@ export function SkillsCategorized() {
     return CATEGORIZED_SKILLS.reduce((acc, cat) => acc + cat.items.length, 0)
   }, [])
 
+  const smFillers = (2 - (filteredCategories.length % 2)) % 2
+  const lgFillers = (3 - (filteredCategories.length % 3)) % 3
+
   return (
     <Frame className="overflow-visible">
       <FrameHeader label="Technical Skills Taxonomy">
@@ -53,6 +82,7 @@ export function SkillsCategorized() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search skills (e.g. MCP, Kubernetes, vLLM, Terraform)..."
+              aria-label="Search skills"
               className="h-8 w-full border border-border bg-background pl-8 pr-8 text-xs text-foreground placeholder:text-muted-foreground/60 focus:border-foreground/40 focus:outline-none focus:ring-0 font-mono"
             />
             {searchQuery && (
@@ -66,19 +96,25 @@ export function SkillsCategorized() {
             )}
           </div>
 
-          {/* Quick reset */}
-          {(activeCategory !== 'all' || searchQuery) && (
-            <button
-              type="button"
-              onClick={() => {
-                setActiveCategory('all')
-                setSearchQuery('')
-              }}
-              className="text-[11px] font-mono text-muted-foreground hover:text-foreground underline underline-offset-2 self-start sm:self-auto"
-            >
-              Reset filters
-            </button>
-          )}
+          {/* Quick reset + result count */}
+          <div className="flex items-center gap-3 self-start sm:self-auto">
+            <span className="font-mono text-[10px] tracking-wide text-muted-foreground/60 tabular-nums">
+              {filteredCategories.reduce((acc, cat) => acc + cat.items.length, 0)}{' '}
+              matches
+            </span>
+            {(activeCategory !== 'all' || searchQuery) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveCategory('all')
+                  setSearchQuery('')
+                }}
+                className="font-mono text-[11px] text-muted-foreground underline underline-offset-2 hover:text-foreground"
+              >
+                Reset filters
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Category Pill Filters */}
@@ -125,15 +161,23 @@ export function SkillsCategorized() {
         </div>
       ) : (
         <div className="grid grid-cols-1 divide-y divide-border sm:grid-cols-2 sm:divide-y-0 sm:gap-px sm:bg-border lg:grid-cols-3">
-          {filteredCategories.map((group) => (
+          {filteredCategories.map((group) => {
+            const CategoryIcon = CATEGORY_ICONS[group.category] ?? Layers
+
+            return (
             <div
               key={group.category}
               className="flex flex-col bg-background p-4 sm:p-5 transition-colors hover:bg-muted/10"
             >
               <div className="mb-3 flex items-start justify-between gap-2">
-                <CornerBadge className="text-[10px] sm:text-[11px] font-mono leading-tight">
-                  {group.category}
-                </CornerBadge>
+                <div className="flex min-w-0 items-start gap-2">
+                  <span className="flex size-7 shrink-0 items-center justify-center border border-border bg-muted/20">
+                    <CategoryIcon className="size-3.5 text-muted-foreground" />
+                  </span>
+                  <CornerBadge className="text-[10px] sm:text-[11px] font-mono leading-tight">
+                    {group.category}
+                  </CornerBadge>
+                </div>
                 <span className="font-mono text-[10px] text-muted-foreground/70 tabular-nums">
                   {group.items.length} items
                 </span>
@@ -160,6 +204,22 @@ export function SkillsCategorized() {
                 })}
               </ul>
             </div>
+            )
+          })}
+
+          {Array.from({ length: smFillers }).map((_, index) => (
+            <div
+              key={`sm-filler-${index}`}
+              aria-hidden
+              className="hidden bg-background sm:block lg:hidden"
+            />
+          ))}
+          {Array.from({ length: lgFillers }).map((_, index) => (
+            <div
+              key={`lg-filler-${index}`}
+              aria-hidden
+              className="hidden bg-background lg:block"
+            />
           ))}
         </div>
       )}

@@ -219,3 +219,81 @@
     stroke-dashoffset: -40;
   }
 }
+
+/* ── Home page motion utilities ─────────────────────────────────────────── */
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-viewport {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 4%,
+    black 96%,
+    transparent
+  );
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 46s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-viewport:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(520%);
+    opacity: 0;
+  }
+}
+
+.animate-scanline {
+  animation: scanline 4.5s ease-in-out infinite;
+}
+
+.bg-dot-grid {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--foreground) 16%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 14px 14px;
+}
+
+.bg-hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    color-mix(in oklch, var(--foreground) 7%, transparent) 3px,
+    color-mix(in oklch, var(--foreground) 7%, transparent) 4px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {  .marquee-track,
+  .animate-scanline {
+    animation: none !important;
+  }
+
+  .marquee-viewport {
+    overflow-x: auto;
+    mask-image: none;
+  }
+}
