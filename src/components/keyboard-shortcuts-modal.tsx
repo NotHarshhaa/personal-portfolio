@@ -8,7 +8,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from './ui/card'
 
 interface Shortcut {
@@ -22,7 +22,8 @@ const shortcuts: Shortcut[] = [
   { keys: ['g', 'c'], description: 'Go to Career' },
   { keys: ['g', 't'], description: 'Go to Contact' },
   { keys: ['/'], description: 'Focus search (on projects page)' },
-  { keys: ['?'], description: 'Show keyboard shortcuts' }
+  { keys: ['Ctrl', 'I'], description: 'Toggle AI agent' },
+  { keys: ['?'], description: 'Show keyboard shortcuts' },
 ]
 
 interface KeyboardShortcutsModalProps {
@@ -32,7 +33,7 @@ interface KeyboardShortcutsModalProps {
 
 export function KeyboardShortcutsModal({
   isOpen,
-  onOpenChange
+  onOpenChange,
 }: KeyboardShortcutsModalProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
