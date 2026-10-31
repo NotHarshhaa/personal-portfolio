@@ -214,6 +214,27 @@
   @apply relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-10;
 }
 
+/* Auto-widen on larger displays: the browser matches whichever breakpoint
+   fits the current screen and updates live on resize — no JS needed. */
+@media (min-width: 1536px) {
+  .site-shell {
+    max-width: 88rem; /* 1408px — 1080p @ 125% scaling / 13-14" laptops */
+  }
+}
+
+@media (min-width: 1920px) {
+  .site-shell {
+    max-width: 96rem; /* 1536px — full-HD+ desktops */
+  }
+}
+
+@media (min-width: 2560px) {
+  .site-shell {
+    max-width: 102rem; /* 1632px — 1440p / 4K monitors */
+    padding-inline: 3rem;
+  }
+}
+
 @keyframes dash {
   to {
     stroke-dashoffset: -40;
