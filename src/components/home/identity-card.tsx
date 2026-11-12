@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Clock } from '@/components/ui/clock'
 import { Corners } from '@/components/frame'
+import { BorderBeam } from '@/components/ui/border-beam'
 import { BadgeCheck, MapPin } from 'lucide-react'
 import type { AvatarProps } from '@/types'
 
@@ -15,7 +16,8 @@ type IdentityCardProps = {
  */
 export function IdentityCard({ avatar, role }: IdentityCardProps) {
   return (
-    <div className="relative w-full border border-border bg-background">
+    <div className="group relative w-full border border-border bg-background">
+      <BorderBeam />
       <div className="flex items-center justify-between border-b border-border px-3 py-2 font-mono text-[10px] tracking-[0.16em] text-muted-foreground uppercase">
         <span>identity.card</span>
         <span className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">

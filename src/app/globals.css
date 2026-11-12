@@ -308,8 +308,26 @@
   );
 }
 
-@media (prefers-reduced-motion: reduce) {  .marquee-track,
-  .animate-scanline {
+/* ── Border beam animation ─────────────────────────────────────────────────── */
+
+@keyframes border-beam-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-border-beam-spin {
+  animation: border-beam-spin var(--beam-duration, 4s) linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .animate-scanline,
+  .animate-border-beam-spin {
     animation: none !important;
   }
 

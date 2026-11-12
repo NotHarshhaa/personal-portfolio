@@ -1,8 +1,10 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Link } from 'next-view-transitions'
 import { ArrowUpRight, FileDown } from 'lucide-react'
 import { Button } from './ui/button'
+import { cn } from '@/lib/utils'
 import {
   Frame,
   FrameBody,
@@ -13,7 +15,6 @@ import {
 import { FlipWords } from './flip-words'
 import { ViewsBadge } from './views-badge'
 import { PipelineBanner } from './pipeline-banner'
-import { Magnet } from './ui/magnet'
 import { Reveal } from './ui/reveal'
 import { data } from '../constants'
 import { IMPACT_STATS, LINK_DESCRIPTIONS } from '../data/personal'
@@ -21,11 +22,36 @@ import { IdentityCard } from './home/identity-card'
 
 const SOCIALS = ['GitHub', 'LinkedIn', 'Blog']
 
+const STAT_BORDER_CLASSES = [
+  'border-r border-b border-border sm:border-b-0',
+  'border-b border-border sm:border-r sm:border-b-0',
+  'border-r border-border',
+  '',
+]
+
 export function Hero() {
   const { avatar, about, links, specialties } = data
 
   const socials = links.filter((link) => SOCIALS.includes(link.title))
   const resume = links.find((link) => link.title === 'Resume')
+
+  const [githubFollowers, setGithubFollowers] = useState<number>(3579)
+
+  useEffect(() => {
+    fetch('/api/github')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((payload) => {
+        if (typeof payload?.user?.followers === 'number') {
+          setGithubFollowers(payload.user.followers)
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  const formattedFollowers =
+    githubFollowers >= 1000
+      ? `${(githubFollowers / 1000).toFixed(1)}k`
+      : githubFollowers.toLocaleString()
 
   return (
     <section className="relative flex w-full flex-col gap-4 py-4 sm:gap-5 sm:py-6">
@@ -111,26 +137,44 @@ export function Hero() {
                 </ul>
 
                 <div className="mt-7 flex flex-wrap items-center gap-3">
-                  <Magnet padding={40} magnetStrength={3}>
-                    <Button asChild>
-                      <Link href="/projects" className="group/cta">
-                        Explore the work
-                        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
-                      </Link>
-                    </Button>
-                  </Magnet>
-                  <Magnet padding={40} magnetStrength={3}>
-                    <Button variant="outline" asChild>
-                      <Link href="/contact" className="group/cta-alt">
-                        Start a conversation
-                        <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover/cta-alt:translate-x-0.5 group-hover/cta-alt:-translate-y-0.5" />
-                      </Link>
-                    </Button>
-                  </Magnet>
+                  <Button asChild>
+                    <Link href="/projects">
+                      Explore the work
+                      <ArrowUpRight className="size-3.5" />
+                    </Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href="/contact">
+                      Start a conversation
+                      <ArrowUpRight className="size-3.5" />
+                    </Link>
+                  </Button>
 
                   <div className="ml-1 flex items-center gap-1.5">
                     {socials.map((link) => {
                       const Icon = link.icon
+                      if (link.title === 'GitHub') {
+                        return (
+                          <a
+                            key={link.title}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`GitHub profile NotHarshhaa with ${githubFollowers.toLocaleString()} followers`}
+                            title={`GitHub @NotHarshhaa — ${githubFollowers.toLocaleString()} followers`}
+                            className="flex h-9 items-center gap-1.5 border border-border px-2.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-foreground/40 hover:bg-muted/30 hover:text-foreground"
+                          >
+                            <Icon className="size-4 text-foreground" />
+                            <span className="font-semibold text-foreground tabular-nums">
+                              {formattedFollowers}
+                            </span>
+                            <span className="hidden text-[9px] tracking-wide text-muted-foreground uppercase sm:inline">
+                              followers
+                            </span>
+                          </a>
+                        )
+                      }
+
                       return (
                         <a
                           key={link.title}
@@ -148,20 +192,29 @@ export function Hero() {
                   </div>
                 </div>
 
-                <div className="mt-8 grid grid-cols-2 gap-px border border-border bg-border sm:grid-cols-4">
-                  {IMPACT_STATS.map((stat) => (
-                    <div
-                      key={stat.label}
-                      className="group bg-background px-3 py-3 transition-colors hover:bg-muted/20"
-                    >
-                      <p className="font-heading text-xl font-semibold tracking-tight tabular-nums sm:text-2xl">
-                        {stat.value}
-                      </p>
-                      <p className="mt-0.5 font-mono text-[8px] leading-snug tracking-[0.1em] text-muted-foreground uppercase">
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
+                <div className="mt-8 grid grid-cols-2 border border-border sm:grid-cols-4">
+                  {IMPACT_STATS.map((stat, index) => {
+                    const displayValue =
+                      stat.label === 'GitHub followers'
+                        ? `${formattedFollowers}+`
+                        : stat.value
+                    return (
+                      <div
+                        key={stat.label}
+                        className={cn(
+                          'group bg-background px-3 py-3 transition-colors hover:bg-muted/20',
+                          STAT_BORDER_CLASSES[index]
+                        )}
+                      >
+                        <p className="font-heading text-xl font-semibold tracking-tight tabular-nums sm:text-2xl">
+                          {displayValue}
+                        </p>
+                        <p className="mt-0.5 font-mono text-[8px] leading-snug tracking-[0.1em] text-muted-foreground uppercase">
+                          {stat.label}
+                        </p>
+                      </div>
+                    )
+                  })}
                 </div>
               </Reveal>
 

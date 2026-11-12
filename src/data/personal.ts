@@ -115,8 +115,8 @@ export const PILLARS = [
 export const IMPACT_STATS = [
   { value: '5+', label: 'Years in platform & DevOps' },
   { value: '40+', label: 'Production blueprints' },
+  { value: '3.5K+', label: 'GitHub followers' },
   { value: '250K+', label: 'Engineers reached' },
-  { value: '10', label: 'Engineering domains' },
 ] as const
 
 /** Short descriptions for the social links shown on the home page. */
